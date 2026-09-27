@@ -46,11 +46,11 @@
       --tw-ring-shadow: 0 0 #0000 !important;
       --tw-shadow: 0 0 #0000 !important;
     }
-    /* Eco-Forest Sprouting Animation ("Poing" pop-up straight upward from soil) */
+    /* Eco-Forest Sprouting Animation ("Poing" pop-up straight upward from root) */
     .eco-tree-stem {
-      transform-box: fill-box;
-      transform-origin: 50% 100%;
-      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+      transform-origin: 0px 0px;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      will-change: transform, opacity;
     }
     .eco-tree-stem.sprouted {
       transform: scale(1);
@@ -60,6 +60,10 @@
       transform: scale(0);
       opacity: 0;
       pointer-events: none;
+    }
+    .eco-tree-stem:hover {
+      filter: brightness(1.15) drop-shadow(0 2px 4px rgba(4,120,87,0.35));
+      cursor: pointer;
     }
   </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -472,44 +476,119 @@
   </button>
   
   <div class="w-full lg:w-[380px] shrink-0 h-full flex flex-col overflow-hidden bg-white">
-<!-- Panel Header & Calibration Mode Switch -->
-<div class="px-5 py-3.5 bg-white border-b border-slate-200 flex items-center justify-between">
-<div>
-<h2 class="font-title text-[15px] font-bold text-slate-900 leading-tight">Kalibrasi Panel Surya</h2>
-<p class="text-[11px] text-slate-500 mt-0.5">Parameter CAD &amp; Simulasi Finansial</p>
-</div>
-</div>
-<!-- Global Metrics Summary (Refined Ribbon Card) -->
-<div class="px-4 py-2.5 bg-slate-50/70 border-b border-slate-200">
-<div class="grid grid-cols-4 divide-x divide-slate-200 bg-white rounded-xl border border-slate-200 shadow-sm py-2 px-0.5">
-  <div class="flex flex-col items-center text-center px-1">
-    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kapasitas</span>
-    <div class="flex items-baseline justify-center gap-0.5">
-      <span class="text-[13px] font-extrabold text-slate-900 tracking-tight" id="metric-capacity">12.6</span>
-      <span class="text-[10px] font-bold text-amber-600">kWp</span>
+<!-- Top Living Eco-Forest Diorama & Capacity Metrics Ribbon -->
+<div class="p-3 pb-2.5 bg-slate-50/70 border-b border-slate-200 shrink-0">
+  <!-- Interactive Sprouting Eco-Forest Landscape (Polished Layered Diorama) -->
+  <div class="relative w-full h-28 rounded-xl bg-gradient-to-b from-sky-100/70 via-emerald-50/50 to-emerald-100/80 border border-emerald-200/90 overflow-hidden shadow-inner flex flex-col justify-between p-2">
+    <!-- Sky HUD Header -->
+    <div class="relative z-10 flex items-center justify-between">
+      <div></div>
+      <!-- Right side: Clean Green Pill without blinking ping & Coverage Badge -->
+      <div class="flex items-center gap-1.5">
+        <span id="ecoCoverageBadge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/95 text-emerald-800 border border-emerald-200 shadow-2xs">100% Beban Listrik Bersih</span>
+        <div class="flex items-center gap-1 bg-emerald-700/95 text-white px-2 py-0.5 rounded-full text-[9px] font-bold shadow-2xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+          <span id="ecoTreeArea">~0.71 Ha Lestari</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG Nature Landscape with 3-Layered Rolling Hills & Tree Canopies -->
+    <div class="absolute inset-x-0 bottom-0 h-24 pointer-events-none">
+      <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 340 95">
+        <defs>
+          <linearGradient id="hillGradBack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#bbf7d0"/>
+            <stop offset="100%" stop-color="#86efac"/>
+          </linearGradient>
+          <linearGradient id="hillGradMid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4ade80"/>
+            <stop offset="100%" stop-color="#16a34a"/>
+          </linearGradient>
+          <linearGradient id="hillGradFront" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#10b981"/>
+            <stop offset="100%" stop-color="#047857"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Sky Clouds -->
+        <g opacity="0.6">
+          <path d="M 28 14 Q 34 8, 42 10 Q 50 6, 58 11 Q 65 10, 68 16 L 22 16 Q 22 14, 28 14 Z" fill="#ffffff"/>
+          <path d="M 160 11 Q 165 7, 172 9 Q 179 5, 185 10 Q 192 9, 194 14 L 155 14 Q 155 11, 160 11 Z" fill="#ffffff" opacity="0.75"/>
+        </g>
+
+        <!-- Glowing Sun in Sky -->
+        <g transform="translate(305, 16)">
+          <circle cx="0" cy="0" r="13" fill="#fef08a" opacity="0.35"/>
+          <circle cx="0" cy="0" r="7.5" fill="#fde047" opacity="0.85"/>
+          <circle cx="0" cy="0" r="5" fill="#f59e0b"/>
+        </g>
+        
+        <!-- Back Rolling Hill (Layer 1) -->
+        <path d="M 0 52 Q 85 36, 170 46 T 340 40 L 340 95 L 0 95 Z" fill="url(#hillGradBack)" opacity="0.85"/>
+        <!-- Back Trees Container -->
+        <g id="eco-trees-back-container"></g>
+
+        <!-- Mid Rolling Hill (Layer 2) -->
+        <path d="M 0 64 Q 80 48, 165 58 T 340 52 L 340 95 L 0 95 Z" fill="url(#hillGradMid)" opacity="0.95"/>
+        <!-- Mid Trees Container -->
+        <g id="eco-trees-mid-container"></g>
+
+        <!-- Foreground Meadow Hill (Layer 3) -->
+        <path d="M 0 76 Q 95 64, 190 72 T 340 68 L 340 95 L 0 95 Z" fill="url(#hillGradFront)"/>
+        <!-- Foreground Trees Container -->
+        <g id="eco-trees-front-container"></g>
+
+        <!-- Wild Flower Accents on Foreground -->
+        <g opacity="0.75">
+          <circle cx="45" cy="84" r="1.5" fill="#fef08a"/>
+          <circle cx="115" cy="87" r="1.5" fill="#ffffff"/>
+          <circle cx="215" cy="85" r="1.5" fill="#fef08a"/>
+          <circle cx="285" cy="83" r="1.5" fill="#ffffff"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Ground HUD Footer -->
+    <div class="relative z-10 flex items-center justify-between text-[9px] text-emerald-950 font-semibold px-0.5 pt-0.5 mt-auto">
+      <div class="flex items-center gap-1 bg-white/80 backdrop-blur-xs px-2 py-0.5 rounded shadow-2xs">
+        <span class="material-symbols-outlined text-[13px] text-emerald-700">forest</span>
+        <span id="ecoForestLabel">645 Pohon Lestari</span>
+      </div>
+      <span class="font-code-metric font-extrabold text-emerald-800 bg-white/85 border border-emerald-200 px-2 py-0.5 rounded shadow-2xs" id="ecoCo2HeaderDisplay">14.2 Ton CO2/thn</span>
     </div>
   </div>
-  <div class="flex flex-col items-center text-center px-1">
-    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Produksi</span>
-    <div class="flex items-baseline justify-center gap-0.5">
-      <span class="text-[13px] font-extrabold text-slate-900 tracking-tight" id="metric-prod">20.7</span>
-      <span class="text-[10px] font-bold text-slate-500">MWh</span>
+
+  <!-- Global Metrics Summary (Refined Ribbon Card integrated with Forest) -->
+  <div class="grid grid-cols-4 divide-x divide-slate-200 bg-white rounded-xl border border-slate-200 shadow-sm py-2 px-0.5 mt-2">
+    <div class="flex flex-col items-center text-center px-1">
+      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kapasitas</span>
+      <div class="flex items-baseline justify-center gap-0.5">
+        <span class="text-[13px] font-extrabold text-slate-900 tracking-tight" id="metric-capacity">12.6</span>
+        <span class="text-[10px] font-bold text-amber-600">kWp</span>
+      </div>
+    </div>
+    <div class="flex flex-col items-center text-center px-1">
+      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Produksi</span>
+      <div class="flex items-baseline justify-center gap-0.5">
+        <span class="text-[13px] font-extrabold text-slate-900 tracking-tight" id="metric-prod">20.7</span>
+        <span class="text-[10px] font-bold text-slate-500">MWh</span>
+      </div>
+    </div>
+    <div class="flex flex-col items-center text-center px-1">
+      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Hemat/Bln</span>
+      <div class="flex items-baseline justify-center gap-0.5">
+        <span class="text-[13px] font-extrabold text-emerald-600 tracking-tight" id="metric-saving">2.45M</span>
+      </div>
+    </div>
+    <div class="flex flex-col items-center text-center px-1">
+      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Payback</span>
+      <div class="flex items-baseline justify-center gap-0.5">
+        <span class="text-[13px] font-extrabold text-amber-600 tracking-tight" id="metric-payback">4.8</span>
+        <span class="text-[10px] font-bold text-slate-500">Thn</span>
+      </div>
     </div>
   </div>
-  <div class="flex flex-col items-center text-center px-1">
-    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Hemat/Bln</span>
-    <div class="flex items-baseline justify-center gap-0.5">
-      <span class="text-[13px] font-extrabold text-emerald-600 tracking-tight" id="metric-saving">2.45M</span>
-    </div>
-  </div>
-  <div class="flex flex-col items-center text-center px-1">
-    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Payback</span>
-    <div class="flex items-baseline justify-center gap-0.5">
-      <span class="text-[13px] font-extrabold text-amber-600 tracking-tight" id="metric-payback">4.8</span>
-      <span class="text-[10px] font-bold text-slate-500">Thn</span>
-    </div>
-  </div>
-</div>
 </div>
 <!-- Navigation Tabs (Symmetrical 3 Columns) -->
 <div class="grid grid-cols-3 bg-white border-b border-slate-200 px-3 pt-2">
@@ -933,6 +1012,18 @@
       <button type="button" onclick="setCountPreset('opt')" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center font-semibold transition-all">Rekomendasi</button>
       <button type="button" onclick="setCountPreset('min')" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center font-semibold transition-all">Ekonomis</button>
     </div>
+
+    <!-- Eco Integration in Tab 2 -->
+    <div class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/80 border border-emerald-200/70 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[17px] text-emerald-600">park</span>
+        <div>
+          <span class="text-[9.5px] text-slate-500 font-medium block">Estimasi Serapan Lingkungan</span>
+          <span class="font-bold text-emerald-800 text-xs" id="tab2-eco-summary">645 Pohon (~14.2 Ton CO2/thn)</span>
+        </div>
+      </div>
+      <span class="text-[9.5px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Emisi Bersih</span>
+    </div>
   </div>
 
   <!-- Interactive Polygon Tap Guidance -->
@@ -1113,86 +1204,13 @@ Mikroinverter Modular
     </div>
   </div>
 
-  <!-- Interactive Sprouting Eco-Forest Landscape (Polished Layered Diorama) -->
-  <div class="p-3 pt-0 bg-white">
-    <div class="relative w-full h-36 rounded-xl bg-gradient-to-b from-sky-100/70 via-emerald-50/50 to-emerald-100/80 border border-emerald-200/90 overflow-hidden shadow-inner flex flex-col justify-between p-2.5">
-      <!-- Sky HUD Header -->
-      <div class="relative z-10 flex items-center justify-between">
-        <div class="flex items-center gap-1.5 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full border border-emerald-200/80 text-[10px] font-bold text-emerald-950 shadow-2xs">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="ecoForestLabel">Hutan Lestari: 645 Pohon</span>
-        </div>
-        <div class="flex items-center gap-1.5 bg-emerald-700 text-white px-2.5 py-0.5 rounded-full text-[9px] font-bold shadow-2xs">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-ping"></span>
-          <span id="ecoTreeArea">~0.71 Ha Lestari</span>
-        </div>
-      </div>
-
-      <!-- SVG Nature Landscape with 3-Layered Rolling Hills & Tree Canopies -->
-      <div class="absolute inset-x-0 bottom-0 h-28 pointer-events-none">
-        <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 340 95">
-          <defs>
-            <linearGradient id="hillGradBack" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#bbf7d0"/>
-              <stop offset="100%" stop-color="#86efac"/>
-            </linearGradient>
-            <linearGradient id="hillGradMid" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4ade80"/>
-              <stop offset="100%" stop-color="#16a34a"/>
-            </linearGradient>
-            <linearGradient id="hillGradFront" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#10b981"/>
-              <stop offset="100%" stop-color="#047857"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Sky Clouds -->
-          <g opacity="0.6">
-            <path d="M 28 14 Q 34 8, 42 10 Q 50 6, 58 11 Q 65 10, 68 16 L 22 16 Q 22 14, 28 14 Z" fill="#ffffff"/>
-            <path d="M 160 11 Q 165 7, 172 9 Q 179 5, 185 10 Q 192 9, 194 14 L 155 14 Q 155 11, 160 11 Z" fill="#ffffff" opacity="0.75"/>
-          </g>
-
-          <!-- Glowing Sun in Sky -->
-          <g transform="translate(305, 16)">
-            <circle cx="0" cy="0" r="13" fill="#fef08a" opacity="0.35"/>
-            <circle cx="0" cy="0" r="7.5" fill="#fde047" opacity="0.85"/>
-            <circle cx="0" cy="0" r="5" fill="#f59e0b"/>
-          </g>
-          
-          <!-- Back Rolling Hill (Layer 1) -->
-          <path d="M 0 52 Q 85 36, 170 46 T 340 40 L 340 95 L 0 95 Z" fill="url(#hillGradBack)" opacity="0.85"/>
-          <!-- Back Trees Container -->
-          <g id="eco-trees-back-container"></g>
-
-          <!-- Mid Rolling Hill (Layer 2) -->
-          <path d="M 0 64 Q 80 48, 165 58 T 340 52 L 340 95 L 0 95 Z" fill="url(#hillGradMid)" opacity="0.95"/>
-          <!-- Mid Trees Container -->
-          <g id="eco-trees-mid-container"></g>
-
-          <!-- Foreground Meadow Hill (Layer 3) -->
-          <path d="M 0 76 Q 95 64, 190 72 T 340 68 L 340 95 L 0 95 Z" fill="url(#hillGradFront)"/>
-          <!-- Foreground Trees Container -->
-          <g id="eco-trees-front-container"></g>
-
-          <!-- Wild Flower Accents on Foreground -->
-          <g opacity="0.75">
-            <circle cx="45" cy="84" r="1.5" fill="#fef08a"/>
-            <circle cx="115" cy="87" r="1.5" fill="#ffffff"/>
-            <circle cx="215" cy="85" r="1.5" fill="#fef08a"/>
-            <circle cx="285" cy="83" r="1.5" fill="#ffffff"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- Ground HUD Footer -->
-      <div class="relative z-10 flex items-center justify-between text-[9px] text-emerald-950 font-semibold px-1 pt-1 mt-auto">
-        <span class="flex items-center gap-1">
-          <span class="material-symbols-outlined text-[13px] text-emerald-700">forest</span>
-          <span>Dampak Positif Lingkungan Hidup</span>
-        </span>
-        <span class="font-code-metric font-extrabold text-emerald-800 bg-white/85 border border-emerald-200 px-2 py-0.5 rounded shadow-2xs">Emisi Bersih Rendah Karbon</span>
-      </div>
-    </div>
+  <!-- Note linking to Top Diorama -->
+  <div class="px-3 py-2 bg-emerald-50/70 border-t border-emerald-100 flex items-center justify-between text-[10px] text-emerald-900 font-medium">
+    <span class="flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-[14px] text-emerald-600">park</span>
+      <span>Simulasi hutan hidup aktif pada visualizer atas</span>
+    </span>
+    <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Live Studio</span>
   </div>
 </div>
 <!-- ROI & Savings Card -->
@@ -1237,19 +1255,23 @@ Mikroinverter Modular
     </div>
   </div>
 
-  <!-- Real-time Inspector Stat Strip -->
-  <div class="grid grid-cols-3 gap-1.5 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-center">
+  <!-- Real-time Inspector Stat Strip (Integrated Financial & Ecological Analysis) -->
+  <div class="grid grid-cols-4 gap-1 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-center">
     <div>
-      <span class="text-[9px] text-slate-400 font-semibold block uppercase tracking-wider">Tahun Terpilih</span>
-      <span class="font-title text-xs font-extrabold text-slate-900 block" id="roi-inspect-year">Thn 4.8 (BEP)</span>
+      <span class="text-[8.5px] text-slate-400 font-semibold block uppercase tracking-wider">Tahun</span>
+      <span class="font-title text-[11px] font-extrabold text-slate-900 block truncate" id="roi-inspect-year">Thn 4.8 (BEP)</span>
     </div>
     <div>
-      <span class="text-[9px] text-slate-400 font-semibold block uppercase tracking-wider">Arus Kas Bersih</span>
-      <span class="font-title text-xs font-extrabold text-emerald-600 block" id="roi-inspect-val">Rp 0 (Impas)</span>
+      <span class="text-[8.5px] text-slate-400 font-semibold block uppercase tracking-wider">Arus Kas</span>
+      <span class="font-title text-[11px] font-extrabold text-emerald-600 block truncate" id="roi-inspect-val">Rp 0 (Impas)</span>
     </div>
     <div>
-      <span class="text-[9px] text-slate-400 font-semibold block uppercase tracking-wider">Total Hemat Listrik</span>
-      <span class="font-code-metric text-xs font-bold text-slate-700 block" id="roi-inspect-savings">Rp 117.600.000</span>
+      <span class="text-[8.5px] text-slate-400 font-semibold block uppercase tracking-wider">Total Hemat</span>
+      <span class="font-code-metric text-[11px] font-bold text-slate-700 block truncate" id="roi-inspect-savings">Rp 117.6M</span>
+    </div>
+    <div>
+      <span class="text-[8.5px] text-emerald-600 font-semibold block uppercase tracking-wider">Serapan Pohon</span>
+      <span class="font-title text-[11px] font-extrabold text-emerald-700 block truncate" id="roi-inspect-eco">3.115 Pohon</span>
     </div>
   </div>
 
@@ -1344,6 +1366,7 @@ Mikroinverter Modular
       </div>
       <p class="text-xs font-bold font-title tracking-tight mt-0.5" id="roi-tip-val">+Rp 12.400.000</p>
       <p class="text-[8px] text-slate-300" id="roi-tip-savings">Akumulasi Hemat: Rp 147.000.000</p>
+      <p class="text-[8px] text-emerald-300 font-semibold mt-0.5" id="roi-tip-eco">🌱 Serapan: 71.5 Ton CO2 (~3.245 Pohon)</p>
     </div>
   </div>
 
@@ -1548,6 +1571,14 @@ Mikroinverter Modular
 <tr>
 <td class="p-2 text-slate-600">Reduksi Emisi Karbon (CO2)</td>
 <td class="p-2 text-right font-bold text-emerald-700" id="pdfEcoCo2Display">14.2 Ton / tahun</td>
+</tr>
+<tr>
+<td class="p-2 text-slate-600">Ekivalen Penanaman Pohon</td>
+<td class="p-2 text-right font-bold text-sky-700" id="pdfEcoTreesDisplay">645 Pohon / tahun</td>
+</tr>
+<tr>
+<td class="p-2 text-slate-600">Dampak Hutan Lestari (25 Thn)</td>
+<td class="p-2 text-right font-bold text-emerald-700" id="pdfEcoForest25Display">16.125 Pohon (~17.7 Ha)</td>
 </tr>
 </tbody>
 </table>
@@ -1794,10 +1825,10 @@ Mikroinverter Modular
       ecoTreeConfigs.forEach((cfg) => {
         const treeSvg = getTreeSvgGeometry(cfg.type);
         // Outer G: Sets exact fixed coordinates (x, y) and proportional scale
-        // Inner G: Handles vertical pop-up ("poing") strictly from bottom center
+        // Inner G: Handles vertical pop-up ("poing") strictly from bottom center (0, 0)
         const html = `
           <g transform="translate(${cfg.x}, ${cfg.y}) scale(${cfg.scale})">
-            <g id="eco-tree-${cfg.id}" class="eco-tree-stem dormant" style="transition-delay: ${cfg.delay}ms;">
+            <g id="eco-tree-${cfg.id}" class="eco-tree-stem dormant" style="transition-delay: ${cfg.delay}ms; transform: scale(0); opacity: 0;">
               ${treeSvg}
             </g>
           </g>
@@ -1809,20 +1840,21 @@ Mikroinverter Modular
       });
     }
 
-    function updateEcoTrees(treesCount) {
+    function updateEcoTrees(treesCount, maxPotential) {
       const backContainer = document.getElementById('eco-trees-back-container');
-      if (!backContainer) return;
-      
-      // Always check if tree elements actually exist (not just the container)
-      const firstTree = document.getElementById('eco-tree-0');
-      if (!firstTree) {
+      if (!backContainer || !backContainer.children.length) {
         initEcoForest();
       }
 
-      const count = Number(treesCount) || 0;
-      // Active trees scale from 2 (minimum) up to 10 based on tree count
-      let activeCount = Math.min(10, Math.max(2, Math.round((count / 800) * 10)));
-      if (count > 0 && activeCount < 2) activeCount = 2;
+      const count = Math.max(0, Number(treesCount) || 0);
+      const maxTrees = Math.max(100, Number(maxPotential) || 800);
+
+      // Active trees scale from 1 (minimum sprout) up to 10 based on tree count ratio
+      let activeCount = 0;
+      if (count > 0) {
+        const ratio = Math.min(1, Math.max(0.1, count / maxTrees));
+        activeCount = Math.max(1, Math.min(10, Math.round(ratio * 10)));
+      }
 
       for (let i = 0; i < ecoTreeConfigs.length; i++) {
         const treeEl = document.getElementById(`eco-tree-${i}`);
@@ -1830,9 +1862,13 @@ Mikroinverter Modular
           if (i < activeCount) {
             treeEl.classList.remove('dormant');
             treeEl.classList.add('sprouted');
+            treeEl.style.transform = 'scale(1)';
+            treeEl.style.opacity = '1';
           } else {
             treeEl.classList.remove('sprouted');
             treeEl.classList.add('dormant');
+            treeEl.style.transform = 'scale(0)';
+            treeEl.style.opacity = '0';
           }
         }
       }
@@ -1846,6 +1882,18 @@ Mikroinverter Modular
       if (treeAreaEl) {
         const ha = (count * 0.0011).toFixed(2);
         treeAreaEl.textContent = `~${ha} Ha Lestari`;
+      }
+      const coverageEl = document.getElementById('ecoCoverageBadge');
+      if (coverageEl && simState.bill && simState.tariff) {
+        const homeKwh = (simState.bill / simState.tariff) * 12;
+        const pct = Math.round(((simState.actualYearlyProd || 17850) / homeKwh) * 100);
+        if (pct >= 100) {
+          coverageEl.textContent = '100% Beban Listrik Bersih';
+          coverageEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs';
+        } else {
+          coverageEl.textContent = `${pct}% Beban Listrik Tertutup`;
+          coverageEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 shadow-2xs';
+        }
       }
     }
 
@@ -1997,11 +2045,21 @@ Mikroinverter Modular
       if(document.getElementById('metric-bep')) document.getElementById('metric-bep').textContent = Math.ceil(payback);
       if(document.getElementById('bepLabel')) document.getElementById('bepLabel').textContent = `BEP: Thn ${payback}`;
 
-      // Eco Impact (Environmental Calculation)
+      // Eco Impact (Environmental Calculation dynamically linked to Household Bill & Solar Capacity)
       // Standard ESDM 2024 grid factor: ~0.80 kg CO2 / kWh
-      const co2ReductionTon = (actualYearlyProd * 0.8) / 1000;
+      const annualHomeKwh = (simState.bill / simState.tariff) * 12;
+      // Clean energy displacing PLN grid electricity is based on actual household offset (capped by generation & demand)
+      const effectiveOffsetKwh = Math.min(actualYearlyProd, annualHomeKwh);
+      const co2ReductionTon = (effectiveOffsetKwh * 0.8) / 1000;
       // 1 mature urban tree absorbs ~22 kg CO2 / year
-      const treesEquivalent = Math.round((co2ReductionTon * 1000) / 22);
+      const treesEquivalent = Math.max(1, Math.round((co2ReductionTon * 1000) / 22));
+      const maxPotentialTrees = Math.max(treesEquivalent, Math.round(((actualYearlyProd * 0.8) / 1000 * 1000) / 22));
+
+      simState.co2ReductionTon = co2ReductionTon;
+      simState.treesEquivalent = treesEquivalent;
+      simState.annualHomeKwh = annualHomeKwh;
+      simState.effectiveOffsetKwh = effectiveOffsetKwh;
+      simState.actualYearlyProd = actualYearlyProd;
 
       const ecoCo2El = document.getElementById('ecoCo2Display');
       if (ecoCo2El) ecoCo2El.textContent = co2ReductionTon.toFixed(1);
@@ -2009,12 +2067,28 @@ Mikroinverter Modular
       const ecoTreesEl = document.getElementById('ecoTreesDisplay');
       if (ecoTreesEl) ecoTreesEl.textContent = treesEquivalent.toLocaleString('id-ID');
 
+      // Update Top Ribbon Global Metrics Summary
+      const metricTreesSummary = document.getElementById('metric-trees-summary');
+      if (metricTreesSummary) metricTreesSummary.textContent = `${treesEquivalent.toLocaleString('id-ID')} Pohon`;
+      const metricCo2Summary = document.getElementById('metric-co2-summary');
+      if (metricCo2Summary) metricCo2Summary.textContent = `${co2ReductionTon.toFixed(1)} Ton CO2`;
+
+      // Update Tab 2 Module Array Eco Badge
+      const tab2EcoSummary = document.getElementById('tab2-eco-summary');
+      if (tab2EcoSummary) tab2EcoSummary.textContent = `${treesEquivalent.toLocaleString('id-ID')} Pohon (~${co2ReductionTon.toFixed(1)} Ton CO2/thn)`;
+
       // Update Sprouting Tree Visualizer
-      updateEcoTrees(treesEquivalent);
+      updateEcoTrees(treesEquivalent, maxPotentialTrees);
 
       // Sync with PDF Proposal Export Modal
       const pdfEcoCo2El = document.getElementById('pdfEcoCo2Display');
       if (pdfEcoCo2El) pdfEcoCo2El.textContent = `${co2ReductionTon.toFixed(1)} Ton / tahun`;
+
+      const pdfEcoTreesEl = document.getElementById('pdfEcoTreesDisplay');
+      if (pdfEcoTreesEl) pdfEcoTreesEl.textContent = `${treesEquivalent.toLocaleString('id-ID')} Pohon / tahun`;
+
+      const pdfEcoForest25El = document.getElementById('pdfEcoForest25Display');
+      if (pdfEcoForest25El) pdfEcoForest25El.textContent = `${(treesEquivalent * 25).toLocaleString('id-ID')} Pohon (~${(treesEquivalent * 25 * 0.0011).toFixed(1)} Ha)`;
 
       const pdfKwpEl = document.getElementById('pdfKwpDisplay');
       if (pdfKwpEl) pdfKwpEl.textContent = `${actualKwp.toFixed(2)} kWp (${descText})`;
@@ -2244,6 +2318,14 @@ Mikroinverter Modular
         inspectSavings.textContent = formatRp(totalSavings);
       }
 
+      const cumCo2 = ((simState.co2ReductionTon || 14.2) * t).toFixed(1);
+      const cumTrees = Math.round((simState.treesEquivalent || 645) * t);
+
+      const inspectEco = document.getElementById('roi-inspect-eco');
+      if (inspectEco) {
+        inspectEco.textContent = `${cumTrees.toLocaleString('id-ID')} Pohon`;
+      }
+
       // C. Update Slider & Slider Label
       const slider = document.getElementById('roi-year-slider');
       if (slider && Number(slider.value) !== Number(t.toFixed(1))) {
@@ -2285,6 +2367,11 @@ Mikroinverter Modular
         const tipSavings = document.getElementById('roi-tip-savings');
         if (tipSavings) {
           tipSavings.textContent = `Hemat Listrik: ${formatRp(totalSavings)}`;
+        }
+
+        const tipEco = document.getElementById('roi-tip-eco');
+        if (tipEco) {
+          tipEco.textContent = `🌱 Serapan: ${cumCo2} Ton CO2 (~${cumTrees.toLocaleString('id-ID')} Pohon)`;
         }
 
         // Position tooltip smoothly avoiding container edges
@@ -2445,9 +2532,9 @@ Mikroinverter Modular
         activePane.classList.add('block');
         if (targetPaneId === 'pane-financials') {
           setTimeout(() => {
-            initEcoForest();
-            updateSimulation();
-          }, 50);
+            updateRoiChart();
+            updateEcoTrees(simState.treesEquivalent, Math.max(simState.treesEquivalent, Math.round(((simState.actualYearlyProd || 17850) * 0.8) / 22)));
+          }, 30);
         }
       }
 
