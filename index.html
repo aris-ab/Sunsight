@@ -1073,19 +1073,145 @@
 </div>
 <!-- Right Studio Actions -->
 <div class="flex items-center gap-2.5 shrink-0">
-<div class="hidden lg:flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200/80 shadow-xs gap-1">
-<button id="map-btn-satellite" class="map-layer-btn map-layer-btn-satellite px-3 py-1.5 rounded-lg bg-white shadow-xs text-sky-700 border border-sky-200/80 text-xs font-bold flex items-center gap-1.5 transition-all" onclick="setMapLayer('satellite')" type="button">
-<span class="material-symbols-outlined text-[16px] text-sky-600">satellite_alt</span>
-<span>Satelit RGB</span>
-</button>
-<button id="map-btn-edge" class="map-layer-btn map-layer-btn-edge px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 text-xs font-medium flex items-center gap-1.5 transition-all" onclick="setMapLayer('edge')" type="button">
-<span class="material-symbols-outlined text-[16px] text-cyan-600">polyline</span>
-<span>Tepi Canny</span>
-</button>
-<button id="map-btn-heatmap" class="map-layer-btn map-layer-btn-heatmap px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 text-xs font-medium flex items-center gap-1.5 transition-all" onclick="setMapLayer('heatmap')" type="button">
-<span class="material-symbols-outlined text-[16px] text-amber-500">wb_sunny</span>
-<span>Heatmap Surya</span>
-</button>
+<!-- Single Clean Layer Drawer Trigger in Navbar -->
+<div class="relative">
+  <button id="btn-layer-drawer" onclick="toggleLayerDrawer()" type="button" class="px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-xs font-semibold shadow-xs flex items-center gap-2 transition cursor-pointer hover:border-slate-300">
+    <span class="material-symbols-outlined text-[17px] text-amber-500" id="navbar-active-layer-icon">satellite_alt</span>
+    <span class="text-slate-500 font-medium hidden sm:inline">Layer:</span>
+    <span class="font-bold text-slate-900" id="navbar-active-layer-title">Satelit RGB</span>
+    <span class="px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-800 text-[9.5px] font-extrabold uppercase font-code-metric">CV</span>
+    <span class="material-symbols-outlined text-[16px] text-slate-400 transition-transform duration-200" id="navbar-layer-chevron">expand_more</span>
+  </button>
+
+  <!-- Light Mode Layer Drawer / Popover Menu -->
+  <div id="layer-drawer-panel" class="hidden absolute right-0 top-full mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 p-4 select-none animate-fadeIn transition-all">
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200/60">
+          <span class="material-symbols-outlined text-[17px]">layers</span>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-slate-900 font-title">Lapisan Citra &amp; Visi Komputer</h4>
+          <span class="text-[10px] text-slate-500 font-medium">Pilih filter pemrosesan ortofoto satelit</span>
+        </div>
+      </div>
+      <button type="button" onclick="closeLayerDrawer()" class="w-6 h-6 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition cursor-pointer">
+        <span class="material-symbols-outlined text-[16px]">close</span>
+      </button>
+    </div>
+
+    <!-- 6 Layer Selection Options (Light Mode Cards) -->
+    <div class="py-3 space-y-1.5 max-h-[320px] overflow-y-auto">
+      
+      <!-- Option 1: Satelit RGB -->
+      <button type="button" onclick="selectCvLayer('satellite')" id="layer-item-satellite" class="layer-drawer-item w-full p-2.5 rounded-xl border border-amber-300 bg-amber-50/70 text-left flex items-start gap-2.5 transition cursor-pointer">
+        <div class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">satellite_alt</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-900">Satelit RGB (Asli)</span>
+            <span class="layer-active-badge text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded-full">Aktif</span>
+          </div>
+          <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5">Ortofoto 90° nadir spektrum tampak asli (TrueColor)</p>
+        </div>
+      </button>
+
+      <!-- Option 2: Grayscale + CLAHE -->
+      <button type="button" onclick="selectCvLayer('grayscale')" id="layer-item-grayscale" class="layer-drawer-item w-full p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-left flex items-start gap-2.5 transition cursor-pointer">
+        <div class="w-7 h-7 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">tonality</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-900">Grayscale + CLAHE Adaptif</span>
+            <span class="layer-active-badge hidden text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded-full">Aktif</span>
+          </div>
+          <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5">Luminansi Y &amp; normalisasi kontras adaptif lokal</p>
+        </div>
+      </button>
+
+      <!-- Option 3: Deteksi Tepi Canny -->
+      <button type="button" onclick="selectCvLayer('edge')" id="layer-item-edge" class="layer-drawer-item w-full p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-left flex items-start gap-2.5 transition cursor-pointer">
+        <div class="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">polyline</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-900">Deteksi Tepi Canny &amp; Sobel</span>
+            <span class="layer-active-badge hidden text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded-full">Aktif</span>
+          </div>
+          <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5">Gradien spasial tepi &amp; garis bubungan Hough Transform</p>
+        </div>
+      </button>
+
+      <!-- Option 4: Segmentasi Otsu -->
+      <button type="button" onclick="selectCvLayer('otsu')" id="layer-item-otsu" class="layer-drawer-item w-full p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-left flex items-start gap-2.5 transition cursor-pointer">
+        <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">crop_free</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-900">Segmentasi Biner Otsu</span>
+            <span class="layer-active-badge hidden text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded-full">Aktif</span>
+          </div>
+          <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5">Masking foreground atap genteng &amp; morfologi closing</p>
+        </div>
+      </button>
+
+      <!-- Option 5: Halangan & Bayangan -->
+      <button type="button" onclick="selectCvLayer('obstacle')" id="layer-item-obstacle" class="layer-drawer-item w-full p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-left flex items-start gap-2.5 transition cursor-pointer">
+        <div class="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">block</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-900">Masking Halangan &amp; Bayangan</span>
+            <span class="layer-active-badge hidden text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded-full">Aktif</span>
+          </div>
+          <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5">Deteksi blob AC, skylight, serta area bayangan jatuh</p>
+        </div>
+      </button>
+
+      <!-- Option 6: Heatmap Surya -->
+      <button type="button" onclick="selectCvLayer('heatmap')" id="layer-item-heatmap" class="layer-drawer-item w-full p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-left flex items-start gap-2.5 transition cursor-pointer">
+        <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">wb_sunny</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-900">Radiometri Heatmap Surya</span>
+            <span class="layer-active-badge hidden text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded-full">Aktif</span>
+          </div>
+          <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5">Model insolasi radiasi matahari (4.85 kWh/m²/hari)</p>
+        </div>
+      </button>
+
+    </div>
+
+    <!-- Bottom: Telemetri & Info Matematis (Clean Light Mode) -->
+    <div class="pt-3 border-t border-slate-100">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-[10px] space-y-1.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="font-bold text-slate-800 font-title" id="drawer-telemetry-algo">Ortofoto Satelit 90° Nadir</span>
+          </div>
+          <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-bold font-code-metric text-[9px]" id="drawer-telemetry-stage">INPUT CITRA</span>
+        </div>
+        <div class="text-slate-600 font-code-metric text-[9.5px]" id="drawer-telemetry-formula">
+          Sensor: WorldView-3 | Resolusi: 1024×1024 px
+        </div>
+        <div class="flex items-center justify-between text-slate-500 font-code-metric pt-1 border-t border-slate-200/60 text-[9px]">
+          <span>GSD: <strong class="text-slate-700 font-bold">0.08 m/px</strong></span>
+          <span>Domain: <strong class="text-slate-700 font-bold">Spasial RGB</strong></span>
+          <span>Status: <strong class="text-emerald-600 font-bold">RoI Terdeteksi</strong></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 <button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 text-xs font-medium shadow-sm hover:bg-slate-50 transition" onclick="resetCanvasDefaults()" type="button">
 <span class="material-symbols-outlined text-[15px]">undo</span>
@@ -1113,62 +1239,6 @@
 <!-- LEFT: CANVAS VIEWPORT                 -->
 <!-- ===================================== -->
 <div class="relative flex-1 h-[55vh] lg:h-full bg-slate-900 overflow-hidden select-none">
-<!-- Floating Computer Vision Toolbar on Canvas Viewport -->
-<div class="absolute top-4 left-4 z-30 flex items-center p-1 rounded-2xl bg-slate-950/85 backdrop-blur-md border border-slate-700/80 shadow-2xl gap-1 max-w-[calc(100vw-32px)] overflow-x-auto">
-  <div class="px-2.5 py-1 text-[10px] font-extrabold text-amber-400 font-code-metric flex items-center gap-1 border-r border-slate-700/80 mr-0.5 shrink-0">
-    <span class="material-symbols-outlined text-[13px]">visibility</span>
-    <span>CV LAYER</span>
-  </div>
-  <button type="button" onclick="setMapLayer('satellite')" id="cv-btn-satellite" class="cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-white bg-slate-800 shadow-xs shrink-0" title="Citra Satelit Resolusi Tinggi (RGB 90° Nadir)">
-    <span class="material-symbols-outlined text-[14px] text-sky-400">satellite_alt</span>
-    <span>RGB Asli</span>
-  </button>
-  <button type="button" onclick="setMapLayer('grayscale')" id="cv-btn-grayscale" class="cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 shrink-0" title="Konversi Luminans & Kontras CLAHE">
-    <span class="material-symbols-outlined text-[14px] text-slate-300">tonality</span>
-    <span>Grayscale</span>
-  </button>
-  <button type="button" onclick="setMapLayer('edge')" id="cv-btn-edge" class="cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 shrink-0" title="Deteksi Tepi Canny & Konvolusi Sobel 3x3">
-    <span class="material-symbols-outlined text-[14px] text-cyan-400">polyline</span>
-    <span>Tepi Canny</span>
-  </button>
-  <button type="button" onclick="setMapLayer('otsu')" id="cv-btn-otsu" class="cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 shrink-0" title="Segmentasi Biner Otsu & Morfologi Closing">
-    <span class="material-symbols-outlined text-[14px] text-emerald-400">crop_free</span>
-    <span>Segmentasi Otsu</span>
-  </button>
-  <button type="button" onclick="setMapLayer('obstacle')" id="cv-btn-obstacle" class="cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 shrink-0" title="Masking Halangan Atap & Bayangan Jatuh">
-    <span class="material-symbols-outlined text-[14px] text-rose-400">block</span>
-    <span>Halangan &amp; Bayangan</span>
-  </button>
-  <button type="button" onclick="setMapLayer('heatmap')" id="cv-btn-heatmap" class="cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 shrink-0" title="Model Radiometri Insolasi Surya">
-    <span class="material-symbols-outlined text-[14px] text-amber-400">wb_sunny</span>
-    <span>Heatmap Surya</span>
-  </button>
-</div>
-
-<!-- Floating CV Telemetry HUD Box -->
-<div id="cv-telemetry-hud" class="absolute bottom-5 left-4 z-30 max-w-xs sm:max-w-sm rounded-2xl bg-slate-950/90 backdrop-blur-md border border-slate-700/80 text-white shadow-2xl p-3.5 select-none transition-all duration-300">
-  <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-800">
-    <div class="flex items-center gap-1.5">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-      <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest font-code-metric">CV TELEMETRY</span>
-    </div>
-    <button type="button" onclick="toggleCvHud()" class="text-slate-400 hover:text-white p-0.5 rounded cursor-pointer transition">
-      <span class="material-symbols-outlined text-[16px]" id="cv-hud-toggle-icon">expand_more</span>
-    </button>
-  </div>
-  <div id="cv-hud-body" class="space-y-1.5 pt-2 text-left">
-    <div class="flex items-center justify-between">
-      <span class="text-[11px] font-bold text-sky-300 font-title" id="cv-hud-algo-name">Ortofoto Satelit 90° Nadir</span>
-      <span class="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-code-metric font-semibold" id="cv-hud-stage-badge">Input Citra</span>
-    </div>
-    <p class="text-[10px] text-slate-300 leading-tight font-code-metric" id="cv-hud-formula">Sensor: WorldView-3 | Resolusi: 1024×1024 px</p>
-    <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800 font-code-metric text-[9.5px] text-slate-300 space-y-0.5" id="cv-hud-params">
-      <div class="flex justify-between"><span>GSD (Ground Resolution):</span><span class="text-amber-300 font-bold">0.08 m/px</span></div>
-      <div class="flex justify-between"><span>Domain:</span><span class="text-slate-200">Spasial (RGB 24-bit)</span></div>
-      <div class="flex justify-between"><span>Status RoI:</span><span class="text-emerald-400 font-bold">Atap Menteng Terdeteksi</span></div>
-    </div>
-  </div>
-</div>
 
 <!-- Background Orthophoto Satellite Image (Using IMAGE_12) -->
 <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out" id="map-bg" style="background-image: url('satellite_map.jpg');">
@@ -4913,48 +4983,80 @@ Mikroinverter Modular
       document.getElementById('installer-form-success').classList.remove('hidden');
     }
 
-    function toggleCvHud() {
-      const body = document.getElementById('cv-hud-body');
-      const icon = document.getElementById('cv-hud-toggle-icon');
-      if (!body) return;
-      body.classList.toggle('hidden');
-      if (icon) {
-        icon.textContent = body.classList.contains('hidden') ? 'expand_less' : 'expand_more';
+    function toggleLayerDrawer() {
+      const panel = document.getElementById('layer-drawer-panel');
+      const chevron = document.getElementById('navbar-layer-chevron');
+      if (!panel) return;
+      const isHidden = panel.classList.contains('hidden');
+      if (isHidden) {
+        panel.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      } else {
+        panel.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
       }
     }
+
+    function closeLayerDrawer() {
+      const panel = document.getElementById('layer-drawer-panel');
+      const chevron = document.getElementById('navbar-layer-chevron');
+      if (panel) panel.classList.add('hidden');
+      if (chevron) chevron.style.transform = 'rotate(0deg)';
+    }
+
+    function selectCvLayer(type) {
+      setMapLayer(type);
+      closeLayerDrawer();
+    }
+
+    // Close Layer Drawer on outside click
+    document.addEventListener('click', function(e) {
+      const panel = document.getElementById('layer-drawer-panel');
+      const btn = document.getElementById('btn-layer-drawer');
+      if (panel && !panel.classList.contains('hidden')) {
+        if (!panel.contains(e.target) && !btn.contains(e.target)) {
+          closeLayerDrawer();
+        }
+      }
+    });
 
     function setMapLayer(type) {
       const validTypes = ['satellite', 'grayscale', 'edge', 'otsu', 'obstacle', 'heatmap'];
       if (!validTypes.includes(type)) type = 'satellite';
 
-      // 1. Update Canvas Viewport Floating Pills
-      document.querySelectorAll('.cv-layer-pill').forEach(btn => {
-        btn.className = 'cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 shrink-0 cursor-pointer';
-      });
-      const activePill = document.getElementById(`cv-btn-${type}`);
-      if (activePill) {
-        activePill.className = 'cv-layer-pill px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all text-white bg-slate-800 border border-slate-600 shadow-xs shrink-0 cursor-pointer';
-      }
-
-      // 2. Synchronize Header Buttons
-      const btnSat = document.getElementById('map-btn-satellite');
-      const btnEdge = document.getElementById('map-btn-edge');
-      const btnHeat = document.getElementById('map-btn-heatmap');
-
-      const resetHeaderBtn = (btn) => {
-        if (btn) btn.className = 'map-layer-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 text-xs font-medium flex items-center gap-1.5 transition-all';
+      // 1. Update Navbar Trigger Button Title & Icon
+      const navbarTitle = document.getElementById('navbar-active-layer-title');
+      const navbarIcon = document.getElementById('navbar-active-layer-icon');
+      
+      const layerMeta = {
+        satellite: { title: 'Satelit RGB', icon: 'satellite_alt', color: 'text-sky-600' },
+        grayscale: { title: 'Grayscale', icon: 'tonality', color: 'text-slate-600' },
+        edge: { title: 'Tepi Canny', icon: 'polyline', color: 'text-cyan-600' },
+        otsu: { title: 'Segmentasi Otsu', icon: 'crop_free', color: 'text-emerald-600' },
+        obstacle: { title: 'Halangan & Bayangan', icon: 'block', color: 'text-rose-600' },
+        heatmap: { title: 'Heatmap Surya', icon: 'wb_sunny', color: 'text-amber-500' }
       };
-      resetHeaderBtn(btnSat);
-      resetHeaderBtn(btnEdge);
-      resetHeaderBtn(btnHeat);
 
-      if (type === 'satellite' && btnSat) {
-        btnSat.className = 'map-layer-btn map-layer-btn-satellite px-3 py-1.5 rounded-lg bg-white shadow-xs text-sky-700 border border-sky-200/80 text-xs font-bold flex items-center gap-1.5 transition-all';
-      } else if (type === 'edge' && btnEdge) {
-        btnEdge.className = 'map-layer-btn map-layer-btn-edge px-3 py-1.5 rounded-lg bg-white shadow-xs text-cyan-700 border border-cyan-200/80 text-xs font-bold flex items-center gap-1.5 transition-all';
-      } else if (type === 'heatmap' && btnHeat) {
-        btnHeat.className = 'map-layer-btn map-layer-btn-heatmap px-3 py-1.5 rounded-lg bg-white shadow-xs text-amber-700 border border-amber-200/80 text-xs font-bold flex items-center gap-1.5 transition-all';
+      const curMeta = layerMeta[type] || layerMeta.satellite;
+      if (navbarTitle) navbarTitle.textContent = curMeta.title;
+      if (navbarIcon) {
+        navbarIcon.textContent = curMeta.icon;
+        navbarIcon.className = `material-symbols-outlined text-[17px] ${curMeta.color}`;
       }
+
+      // 2. Update Active Item Highlight in Drawer Panel
+      validTypes.forEach(t => {
+        const item = document.getElementById(`layer-item-${t}`);
+        if (!item) return;
+        const badge = item.querySelector('.layer-active-badge');
+        if (t === type) {
+          item.className = 'layer-drawer-item w-full p-2.5 rounded-xl border border-amber-400 bg-amber-50/80 text-left flex items-start gap-2.5 transition cursor-pointer shadow-2xs';
+          if (badge) badge.classList.remove('hidden');
+        } else {
+          item.className = 'layer-drawer-item w-full p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-left flex items-start gap-2.5 transition cursor-pointer';
+          if (badge) badge.classList.add('hidden');
+        }
+      });
 
       // 3. Control Canvas Overlays & Background Shader Filters
       const mapBg = document.getElementById('map-bg');
@@ -4969,104 +5071,55 @@ Mikroinverter Modular
       if (otsuOverlay) otsuOverlay.classList.add('opacity-0');
       if (obstacleOverlay) obstacleOverlay.classList.add('opacity-0');
 
-      // 4. Update Floating CV Telemetry HUD
-      const algoNameEl = document.getElementById('cv-hud-algo-name');
-      const stageBadgeEl = document.getElementById('cv-hud-stage-badge');
-      const formulaEl = document.getElementById('cv-hud-formula');
-      const paramsEl = document.getElementById('cv-hud-params');
+      // 4. Update Telemetry in Drawer Footer
+      const drawerAlgo = document.getElementById('drawer-telemetry-algo');
+      const drawerStage = document.getElementById('drawer-telemetry-stage');
+      const drawerFormula = document.getElementById('drawer-telemetry-formula');
 
       if (type === 'satellite') {
         if (mapBg) mapBg.style.filter = 'none';
-        if (algoNameEl) algoNameEl.textContent = 'Ortofoto Satelit 90° Nadir';
-        if (stageBadgeEl) {
-          stageBadgeEl.textContent = 'Input RGB';
-          stageBadgeEl.className = 'text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-code-metric font-semibold';
-        }
-        if (formulaEl) formulaEl.textContent = 'Sensor: WorldView-3 | Resolusi: 1024×1024 px';
-        if (paramsEl) paramsEl.innerHTML = `
-          <div class="flex justify-between"><span>GSD (Ground Resolution):</span><span class="text-amber-300 font-bold">0.08 m/px</span></div>
-          <div class="flex justify-between"><span>Domain:</span><span class="text-slate-200">Spasial (RGB 24-bit TrueColor)</span></div>
-          <div class="flex justify-between"><span>Status RoI:</span><span class="text-emerald-400 font-bold">Atap Menteng Terdeteksi</span></div>
-        `;
+        if (drawerAlgo) drawerAlgo.textContent = 'Ortofoto Satelit 90° Nadir';
+        if (drawerStage) drawerStage.textContent = 'INPUT RGB';
+        if (drawerFormula) drawerFormula.textContent = 'Sensor: WorldView-3 | Resolusi: 1024×1024 px';
         showCadToast('👁️ Mode: Ortofoto Satelit RGB Asli');
       } 
       else if (type === 'grayscale') {
         if (mapBg) mapBg.style.filter = 'grayscale(100%) contrast(150%) brightness(95%)';
-        if (algoNameEl) algoNameEl.textContent = 'Grayscale + CLAHE Adaptif';
-        if (stageBadgeEl) {
-          stageBadgeEl.textContent = 'Prapemrosesan';
-          stageBadgeEl.className = 'text-[9px] px-1.5 py-0.5 rounded bg-slate-500/20 text-slate-300 font-code-metric font-semibold';
-        }
-        if (formulaEl) formulaEl.textContent = 'Luminans: Y = 0.299R + 0.587G + 0.114B';
-        if (paramsEl) paramsEl.innerHTML = `
-          <div class="flex justify-between"><span>CLAHE Clip Limit:</span><span class="text-amber-300 font-bold">2.0 (Grid 8×8)</span></div>
-          <div class="flex justify-between"><span>Gaussian Smoothing:</span><span class="text-slate-200">Kernel 5×5 (σ = 1.2)</span></div>
-          <div class="flex justify-between"><span>Efek:</span><span class="text-emerald-400 font-bold">Normalisasi Kontras Atap</span></div>
-        `;
+        if (drawerAlgo) drawerAlgo.textContent = 'Grayscale + CLAHE Adaptif';
+        if (drawerStage) drawerStage.textContent = 'PRAPEMROSESAN';
+        if (drawerFormula) drawerFormula.textContent = 'Luminans: Y = 0.299R + 0.587G + 0.114B | Gaussian σ=1.2';
         showCadToast('🔲 Mode: Grayscale & Ekualisasi Kontras CLAHE');
       } 
       else if (type === 'edge') {
         if (mapBg) mapBg.style.filter = 'grayscale(100%) invert(100%) contrast(280%) brightness(45%)';
         if (edgeOverlay) edgeOverlay.classList.remove('opacity-0');
-        if (algoNameEl) algoNameEl.textContent = 'Deteksi Tepi Canny (Sobel 3×3)';
-        if (stageBadgeEl) {
-          stageBadgeEl.textContent = 'Ekstraksi Fitur';
-          stageBadgeEl.className = 'text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-code-metric font-semibold';
-        }
-        if (formulaEl) formulaEl.textContent = 'Gradien: G = √(Gx² + Gy²) | θ = atan2(Gy, Gx)';
-        if (paramsEl) paramsEl.innerHTML = `
-          <div class="flex justify-between"><span>Operator Sobel:</span><span class="text-cyan-300 font-bold">Kernel [-1 0 1; -2 0 2; -1 0 1]</span></div>
-          <div class="flex justify-between"><span>Threshold Canny:</span><span class="text-slate-200">T_low: 50 | T_high: 150</span></div>
-          <div class="flex justify-between"><span>Garis Bubungan Atap:</span><span class="text-emerald-400 font-bold">Hough Peak: 188.2°</span></div>
-        `;
+        if (drawerAlgo) drawerAlgo.textContent = 'Deteksi Tepi Canny (Sobel 3×3)';
+        if (drawerStage) drawerStage.textContent = 'EKSTRAKSI TEPI';
+        if (drawerFormula) drawerFormula.textContent = 'Gradien: G = √(Gx² + Gy²) | Hough Peak: 188.2°';
         showCadToast('⚡ Mode: Deteksi Tepi Canny & Garis Bubungan');
       } 
       else if (type === 'otsu') {
         if (mapBg) mapBg.style.filter = 'grayscale(100%) contrast(250%) brightness(30%)';
         if (otsuOverlay) otsuOverlay.classList.remove('opacity-0');
-        if (algoNameEl) algoNameEl.textContent = 'Segmentasi Biner Otsu';
-        if (stageBadgeEl) {
-          stageBadgeEl.textContent = 'Segmentasi';
-          stageBadgeEl.className = 'text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-code-metric font-semibold';
-        }
-        if (formulaEl) formulaEl.textContent = 'Minimisasi Variansi: σ_b²(t) = ω0·ω1·[μ0 - μ1]²';
-        if (paramsEl) paramsEl.innerHTML = `
-          <div class="flex justify-between"><span>Ambang Optimal:</span><span class="text-emerald-300 font-bold">T* = 138 (Foreground 48%)</span></div>
-          <div class="flex justify-between"><span>Morfologi:</span><span class="text-slate-200">Closing 3×3 Structuring Element</span></div>
-          <div class="flex justify-between"><span>Luas Bidang Efektif:</span><span class="text-amber-300 font-bold">~90.8 m² (4 Titik Kontur)</span></div>
-        `;
+        if (drawerAlgo) drawerAlgo.textContent = 'Segmentasi Biner Otsu';
+        if (drawerStage) drawerStage.textContent = 'SEGMENTASI';
+        if (drawerFormula) drawerFormula.textContent = 'Minimisasi Variansi: σ_b²(t) | Ambang T* = 138';
         showCadToast('🟩 Mode: Segmentasi Biner Otsu & Masking Atap');
       } 
       else if (type === 'obstacle') {
         if (mapBg) mapBg.style.filter = 'contrast(120%) brightness(85%)';
         if (obstacleOverlay) obstacleOverlay.classList.remove('opacity-0');
-        if (algoNameEl) algoNameEl.textContent = 'Deteksi Halangan & Bayangan';
-        if (stageBadgeEl) {
-          stageBadgeEl.textContent = 'Objek Terisolasi';
-          stageBadgeEl.className = 'text-[9px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-code-metric font-semibold';
-        }
-        if (formulaEl) formulaEl.textContent = 'Segmentasi Bayangan: Luminance Drop < 60';
-        if (paramsEl) paramsEl.innerHTML = `
-          <div class="flex justify-between"><span>Unit AC Outdoor:</span><span class="text-rose-400 font-bold">Blob #1 (Area 0.85 m²)</span></div>
-          <div class="flex justify-between"><span>Skylight / Toren:</span><span class="text-amber-300 font-bold">Blob #2 (Area 0.62 m²)</span></div>
-          <div class="flex justify-between"><span>Status Setback:</span><span class="text-emerald-400 font-bold">Dikecualikan dari Array PV</span></div>
-        `;
+        if (drawerAlgo) drawerAlgo.textContent = 'Deteksi Halangan & Bayangan';
+        if (drawerStage) drawerStage.textContent = 'OBJEK ROOFTOP';
+        if (drawerFormula) drawerFormula.textContent = 'Blob: AC Unit (0.85 m²) & Skylight (0.62 m²)';
         showCadToast('🔴 Mode: Deteksi Halangan (AC/Skylight) & Bayangan');
       } 
       else if (type === 'heatmap') {
         if (mapBg) mapBg.style.filter = 'grayscale(100%) contrast(150%) brightness(30%)';
         if (heatmap) heatmap.classList.remove('opacity-0');
-        if (algoNameEl) algoNameEl.textContent = 'Radiometri Iradiansi Surya';
-        if (stageBadgeEl) {
-          stageBadgeEl.textContent = 'Radiometri';
-          stageBadgeEl.className = 'text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-code-metric font-semibold';
-        }
-        if (formulaEl) formulaEl.textContent = 'G_eff = G_in · cos(θ_zenith) · cos(tilt) · η_azimuth';
-        if (paramsEl) paramsEl.innerHTML = `
-          <div class="flex justify-between"><span>Insolasi Rata-rata:</span><span class="text-amber-300 font-bold">4.85 kWh/m²/hari</span></div>
-          <div class="flex justify-between"><span>Peak Sun Hours (PSH):</span><span class="text-sky-300 font-bold">4.5 Jam / hari</span></div>
-          <div class="flex justify-between"><span>Colormap:</span><span class="text-slate-200">Jet / Inferno Pseudocolor</span></div>
-        `;
+        if (drawerAlgo) drawerAlgo.textContent = 'Radiometri Iradiansi Surya';
+        if (drawerStage) drawerStage.textContent = 'RADIOMETRI';
+        if (drawerFormula) drawerFormula.textContent = 'G_eff = G_in · cos(θ) · η_azimuth | 4.85 kWh/m²/hari';
         showCadToast('☀️ Mode: Radiometri Heatmap Insolasi Surya');
       }
     }
