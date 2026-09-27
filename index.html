@@ -646,11 +646,11 @@
         <span class="material-symbols-outlined text-[14px] text-amber-600">rotate_right</span>
         Rotasi Poligon (Puter Sudut)
       </span>
-      <span class="font-code-metric font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded text-[11px]" id="polygonRotationDisplay">-4°</span>
+      <span class="font-code-metric font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded text-[11px]" id="polygonRotationDisplay">+8°</span>
     </div>
-    <input type="range" min="-180" max="180" step="1" value="-4" id="polygonRotationSlider" oninput="setPolygonRotation(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"/>
+    <input type="range" min="-180" max="180" step="1" value="8" id="polygonRotationSlider" oninput="setPolygonRotation(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"/>
     <div class="grid grid-cols-4 gap-1 font-code-metric text-[9.5px]">
-      <button type="button" onclick="setPolygonRotation(-4)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">-4° (AI Satelit)</button>
+      <button type="button" onclick="setPolygonRotation(8)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">+8° (Optimal SSW)</button>
       <button type="button" onclick="setPolygonRotation(0)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">0° Datar</button>
       <button type="button" onclick="setPolygonRotation(45)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">45° Serong</button>
       <button type="button" onclick="setPolygonRotation(90)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">90° Tegak</button>
@@ -863,43 +863,125 @@
   </div>
 </div>
 </div>
-<!-- Azimuth Dial Section -->
+<!-- Azimuth Dial Section (Interactive Navigational Compass) -->
 <div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-emerald-600 text-[18px]">explore</span>
-<span class="font-title text-xs font-bold text-slate-900">Orientasi Arah Hadap (Azimuth)</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold">98.4% Efisiensi Sinar</span>
-</div>
-<div class="flex items-center gap-4 pt-1">
-<!-- Compass Dial Widget -->
-<div class="relative w-20 h-20 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 shadow-inner">
-<span class="absolute top-1 font-code-metric text-[9px] font-bold text-slate-400">N</span>
-<span class="absolute bottom-1 font-code-metric text-[9px] font-bold text-amber-600">S</span>
-<span class="absolute left-1.5 font-code-metric text-[9px] font-bold text-slate-400">W</span>
-<span class="absolute right-1.5 font-code-metric text-[9px] font-bold text-slate-400">E</span>
-<div class="w-12 h-12 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center">
-<div class="w-full h-full relative" style="transform: rotate(188deg);">
-<div class="absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-5 bg-amber-600 rounded-t-sm shadow-sm"></div>
-<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-5 bg-slate-300 rounded-b-sm"></div>
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow-md"></div>
-</div>
-</div>
-</div>
-<!-- Compass Readout Details -->
-<div class="flex-1 space-y-0.5">
-<div class="flex items-baseline gap-1">
-<span class="text-lg font-extrabold text-slate-900 font-headline-sm">188°</span>
-<span class="text-xs font-bold text-amber-700">SSW (Selatan Daya)</span>
-</div>
-<p class="text-[11px] text-slate-500 leading-snug">Menghadap garis khatulistiwa. Deviasi 8° dari arah Selatan Sejati.</p>
-<div class="pt-0.5 flex items-center gap-1 text-emerald-700 text-[10px] font-semibold">
-<span class="material-symbols-outlined text-[13px]">check_circle</span>
-<span>Bebas bayangan pohon &amp; rintangan sekitar</span>
-</div>
-</div>
-</div>
+  <!-- Card Header -->
+  <div class="flex items-center justify-between gap-2">
+    <div class="flex items-center gap-1.5 min-w-0">
+      <span class="material-symbols-outlined text-amber-600 text-[18px] shrink-0">explore</span>
+      <span class="font-title text-xs font-bold text-slate-900 truncate">Orientasi Arah Hadap (Azimuth)</span>
+    </div>
+    <span id="azimuthEffBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors">
+      98.4% Efisiensi Sinar
+    </span>
+  </div>
+
+  <!-- Compass Widget & Dynamic Readout Row -->
+  <div class="flex items-center gap-3.5 pt-0.5">
+    <!-- Precision Compass Dial Widget -->
+    <div class="relative w-22 h-22 sm:w-24 sm:h-24 rounded-full p-1 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 border border-slate-300 shadow-md shrink-0 flex items-center justify-center select-none group cursor-pointer transition-transform hover:scale-105 active:scale-95" 
+         onclick="cycleAzimuthPreset()" 
+         title="Klik untuk rotasi arah azimuth cepat">
+      <!-- Outer Dial Face with Minor & Major Ticks -->
+      <svg class="w-full h-full" viewBox="0 0 100 100">
+        <!-- Outer casing -->
+        <circle cx="50" cy="50" r="48" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#1e293b" stroke-width="1" />
+        <circle cx="50" cy="50" r="37" fill="#020617" stroke="#334155" stroke-width="0.5" stroke-dasharray="1 3" />
+        
+        <!-- Precision Ticks every 30 deg -->
+        <g stroke="#64748b" stroke-width="1" stroke-linecap="round">
+          <line x1="50" y1="8" x2="50" y2="12" />
+          <line x1="50" y1="88" x2="50" y2="92" />
+          <line x1="8" y1="50" x2="12" y2="50" />
+          <line x1="88" y1="50" x2="92" y2="50" />
+          <line x1="71" y1="13.6" x2="69" y2="17.1" />
+          <line x1="29" y1="86.4" x2="31" y2="82.9" />
+          <line x1="86.4" y1="29" x2="82.9" y2="31" />
+          <line x1="13.6" y1="71" x2="17.1" y2="69" />
+          <line x1="86.4" y1="71" x2="82.9" y2="69" />
+          <line x1="13.6" y1="29" x2="17.1" y2="31" />
+          <line x1="71" y1="86.4" x2="69" y2="82.9" />
+          <line x1="29" y1="13.6" x2="31" y2="17.1" />
+        </g>
+        
+        <!-- Cardinal Direction Indicators -->
+        <text x="50" y="20" fill="#f43f5e" font-size="8.5" font-weight="900" font-family="monospace" text-anchor="middle" dominant-baseline="central">N</text>
+        <text x="50" y="80" fill="#f59e0b" font-size="8.5" font-weight="900" font-family="monospace" text-anchor="middle" dominant-baseline="central">S</text>
+        <text x="80" y="50" fill="#94a3b8" font-size="7.5" font-weight="bold" font-family="monospace" text-anchor="middle" dominant-baseline="central">E</text>
+        <text x="20" y="50" fill="#94a3b8" font-size="7.5" font-weight="bold" font-family="monospace" text-anchor="middle" dominant-baseline="central">W</text>
+      </svg>
+      
+      <!-- Dynamic Rotating Needle Assembly -->
+      <div id="compassNeedleWrapper" class="absolute inset-0 flex items-center justify-center pointer-events-none" style="transform: rotate(188deg); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
+        <svg class="w-18 h-18 sm:w-20 sm:h-20 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]" viewBox="0 0 80 80">
+          <!-- North Pointer (Dual-tone Crimson Arrow) -->
+          <polygon points="40,11 36.5,40 40,37" fill="#f43f5e" />
+          <polygon points="40,11 43.5,40 40,37" fill="#be123c" />
+          
+          <!-- South Pointer (Dual-tone Solar Amber Arrow) -->
+          <polygon points="40,69 36.5,40 40,43" fill="#fbbf24" />
+          <polygon points="40,69 43.5,40 40,43" fill="#d97706" />
+          
+          <!-- Center Pivot Metallic Rivet -->
+          <circle cx="40" cy="40" r="4.5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2" />
+          <circle cx="40" cy="40" r="2" fill="#0f172a" />
+        </svg>
+      </div>
+
+      <!-- Subtle glass reflection -->
+      <div class="absolute inset-1 rounded-full bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none"></div>
+    </div>
+
+    <!-- Compass Readout Details -->
+    <div class="flex-1 min-w-0 space-y-1">
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <span id="azimuthDegDisplay" class="text-xl font-extrabold text-slate-900 font-headline-sm leading-none">188°</span>
+        <span id="azimuthNameDisplay" class="text-[10.5px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-md leading-none">SSW (Selatan Daya)</span>
+      </div>
+      <p id="azimuthDescDisplay" class="text-[11px] text-slate-500 leading-snug line-clamp-2">
+        Menghadap garis khatulistiwa. Deviasi 8° dari arah Selatan Sejati (Optimal AI).
+      </p>
+      <div id="azimuthFeatureDisplay" class="pt-0.5 flex items-center gap-1.5 text-emerald-700 text-[10px] font-semibold">
+        <span id="azimuthFeatureIcon" class="material-symbols-outlined text-[13px]">check_circle</span>
+        <span id="azimuthFeatureText">Bebas bayangan pohon &amp; rintangan sekitar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Azimuth Slider & Quick Controls -->
+  <div class="space-y-1.5 pt-2 border-t border-slate-200/80">
+    <div class="flex items-center justify-between text-[11px]">
+      <span class="font-medium text-slate-600 flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px] text-amber-600">navigation</span>
+        Atur Sudut Kompas (0° - 360°)
+      </span>
+      <span class="font-code-metric font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded text-[11px]" id="azimuthSliderValDisplay">188°</span>
+    </div>
+    <input type="range" min="0" max="360" step="1" value="188" id="azimuthSlider" oninput="onAzimuthSliderChange(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"/>
+    
+    <!-- Quick Preset Buttons & Nudge Controls -->
+    <div class="flex items-center gap-1 pt-0.5">
+      <!-- Nudge Left -10° -->
+      <button type="button" onclick="nudgeAzimuth(-10)" class="py-1 px-1.5 rounded bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 text-center transition flex items-center justify-center shrink-0 cursor-pointer" title="Putar -10°">
+        <span class="material-symbols-outlined text-[13px]">rotate_left</span>
+      </button>
+
+      <!-- Presets Grid -->
+      <div class="grid grid-cols-5 gap-1 flex-1 font-code-metric text-[9.5px]">
+        <button type="button" id="azimuth-btn-0" onclick="setAzimuth(0)" class="azimuth-preset-btn py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center transition cursor-pointer">0° U</button>
+        <button type="button" id="azimuth-btn-90" onclick="setAzimuth(90)" class="azimuth-preset-btn py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center transition cursor-pointer">90° T</button>
+        <button type="button" id="azimuth-btn-180" onclick="setAzimuth(180)" class="azimuth-preset-btn py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center transition cursor-pointer">180° S</button>
+        <button type="button" id="azimuth-btn-188" onclick="setAzimuth(188)" class="azimuth-preset-btn py-1 px-1 rounded bg-amber-500 text-white font-bold border border-amber-500 text-center transition shadow-2xs cursor-pointer">188° ⭐</button>
+        <button type="button" id="azimuth-btn-270" onclick="setAzimuth(270)" class="azimuth-preset-btn py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center transition cursor-pointer">270° B</button>
+      </div>
+
+      <!-- Nudge Right +10° -->
+      <button type="button" onclick="nudgeAzimuth(10)" class="py-1 px-1.5 rounded bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 text-center transition flex items-center justify-center shrink-0 cursor-pointer" title="Putar +10°">
+        <span class="material-symbols-outlined text-[13px]">rotate_right</span>
+      </button>
+    </div>
+  </div>
 </div>
 <!-- Batas Keamanan Keliling & Jalur Talang Air (Setback & Gutter) -->
 <div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
@@ -1549,7 +1631,7 @@ Mikroinverter Modular
 <div class="relative h-32 rounded-lg overflow-hidden border border-slate-200">
 <img alt="Snapshot Atap" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WoMTUXCGJ2Eeg06cTMtnUHYLFinAzTNAaKTXly_1ckfAZCTGzCXJg36p2V3C0WnuGei_Jyutg1biogKh1owCVQ6ZYD2Uto7tSOmHerNwNBqAVu874Q5a_nFFEuAaZSZy2AinZ9HNiJjAaw5HojV0juJbscoDv-1z8NH1yTf25DQ5gKr2hOAo3-T79xrK7R3o_dzu8fGrhw5AzSrLrgQU3nCZtwqZmcoyBAC4wU5DQbuLX1u6w6XAdY83A"/>
 <div class="absolute inset-0 bg-sky-950/20 flex items-center justify-center">
-<span class="px-2.5 py-1 rounded bg-black/70 text-white font-code-metric text-[10px] font-medium backdrop-blur-sm">
+<span id="pdfRoofConfigBadge" class="px-2.5 py-1 rounded bg-black/70 text-white font-code-metric text-[10px] font-medium backdrop-blur-sm">
                 28x Modul Surya • Orientasi SSW 188° • Tilt 22°
               </span>
 </div>
@@ -1760,6 +1842,7 @@ Mikroinverter Modular
       modulePower: 550,
       inverterType: 'string', // 'string' or 'micro'
       pitch: 22,
+      azimuth: 188, // in degrees (0 to 360)
       ridge: 12.48,
       slope: 7.28,
       setback: 0.50, // in meters
@@ -2049,7 +2132,23 @@ Mikroinverter Modular
       }
 
       const actualKwp = (modulesFitted * (simState.modulePower / 1000));
-      const actualYearlyProd = actualKwp * peakSunHours * 365 * efficiency;
+      const azimuthEff = (typeof getAzimuthEfficiency === 'function')
+        ? getAzimuthEfficiency(simState.azimuth !== undefined ? simState.azimuth : 188)
+        : 0.984;
+      const actualYearlyProd = actualKwp * peakSunHours * 365 * efficiency * azimuthEff;
+      
+      const azBadge = document.getElementById('azimuthEffBadge');
+      if (azBadge) {
+        const effPct = (azimuthEff * 100).toFixed(1);
+        azBadge.textContent = `${effPct}% Efisiensi Sinar`;
+        if (azimuthEff >= 0.95) {
+          azBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors';
+        } else if (azimuthEff >= 0.92) {
+          azBadge.className = 'px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors';
+        } else {
+          azBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors';
+        }
+      }
       
       const capEl = document.getElementById('metric-capacity');
       if (capEl) capEl.textContent = actualKwp.toFixed(1);
@@ -2149,6 +2248,12 @@ Mikroinverter Modular
 
       const pdfYearlyProdEl = document.getElementById('pdfYearlyProdDisplay');
       if (pdfYearlyProdEl) pdfYearlyProdEl.textContent = `${Math.round(actualYearlyProd).toLocaleString('id-ID')} kWh/thn`;
+
+      const pdfRoofBadge = document.getElementById('pdfRoofConfigBadge');
+      if (pdfRoofBadge && typeof getAzimuthDetails === 'function') {
+        const azDetails = getAzimuthDetails(simState.azimuth !== undefined ? simState.azimuth : 188);
+        pdfRoofBadge.textContent = `${modulesFitted}x Modul Surya • Orientasi ${azDetails.code} ${simState.azimuth || 188}° • Tilt ${simState.pitch}°`;
+      }
 
       const pdfAreaEl = document.getElementById('pdfAreaDisplay');
       if (pdfAreaEl) pdfAreaEl.textContent = `${netArea.toFixed(1)} m²`;
@@ -2722,7 +2827,7 @@ Mikroinverter Modular
     }
 
     let currentOffsetX = 0, currentOffsetY = 0;
-    let currentRotation = -4;
+    let currentRotation = 8;
 
     function updateDimensions() {
       const r = document.getElementById('input-ridge').value;
@@ -2741,6 +2846,226 @@ Mikroinverter Modular
       }
       
       updateSimulation();
+    }
+
+    // ==========================================
+    // AZIMUTH ORIENTATION & COMPASS ENGINE
+    // ==========================================
+    function getAzimuthEfficiency(deg) {
+      deg = ((deg % 360) + 360) % 360;
+      let devFromMeridian = deg % 180;
+      if (devFromMeridian > 90) devFromMeridian = 180 - devFromMeridian; // 0° at N/S, 90° at E/W
+      
+      // Indonesian tropical solar profile (equatorial ~ -6°S):
+      // Max irradiance at North/South axis (~99.4%), slight drop at pure East/West (~91.4%)
+      let eff = 0.994 - 0.078 * Math.sin((devFromMeridian * Math.PI) / 180);
+      
+      // Tropical afternoon thermal factor & cloud profile for West orientation
+      if (deg > 180 && deg < 360) {
+        eff -= 0.005 * Math.sin((devFromMeridian * Math.PI) / 180);
+      }
+      
+      // Calibrated preset optimal value
+      if (Math.round(deg) === 188) return 0.984;
+      
+      return Math.max(0.88, Math.min(1.0, eff));
+    }
+
+    function getAzimuthDetails(deg) {
+      deg = ((Math.round(deg) % 360) + 360) % 360;
+      
+      if (deg === 188) {
+        return {
+          code: 'SSW',
+          name: 'Selatan Daya',
+          desc: 'Menghadap garis khatulistiwa. Deviasi 8° dari arah Selatan Sejati (Optimal AI).',
+          featureIcon: 'check_circle',
+          featureText: 'Bebas bayangan pohon & rintangan sekitar',
+          featureClass: 'text-emerald-700'
+        };
+      }
+      if (deg === 180) {
+        return {
+          code: 'S',
+          name: 'Selatan Sejati',
+          desc: 'Menghadap poros selatan sempurna. Tangkapan radiasi matahari konstan sepanjang tahun.',
+          featureIcon: 'check_circle',
+          featureText: 'Poros Selatan Sejati • Tangkapan Maksimal',
+          featureClass: 'text-emerald-700'
+        };
+      }
+      if (deg === 0 || deg === 360) {
+        return {
+          code: 'N',
+          name: 'Utara Sejati',
+          desc: 'Menghadap khatulistiwa utara. Tangkapan matahari equatorial konsisten.',
+          featureIcon: 'check_circle',
+          featureText: 'Orientasi Khatulistiwa • Penyinaran Bersih',
+          featureClass: 'text-emerald-700'
+        };
+      }
+      if (deg === 90) {
+        return {
+          code: 'E',
+          name: 'Timur Sejati',
+          desc: 'Menghadap fajar timur. Produksi puncak pagi hari, berkurang di sore hari.',
+          featureIcon: 'wb_sunny',
+          featureText: 'Puncak pagi hari • Waspada pohon timur',
+          featureClass: 'text-sky-700'
+        };
+      }
+      if (deg === 270) {
+        return {
+          code: 'W',
+          name: 'Barat Sejati',
+          desc: 'Menghadap matahari terbenam. Puncak produksi siang ke sore dengan suhu panel lebih hangat.',
+          featureIcon: 'thermostat',
+          featureText: 'Puncak sore hari • Suhu panel lebih hangat',
+          featureClass: 'text-amber-700'
+        };
+      }
+
+      const directions = [
+        { min: 348.75, max: 360, code: 'N', name: 'Utara Sejati', desc: 'Menghadap poros utara. Tangkapan optimal equinox Maret–September.' },
+        { min: 0, max: 11.25, code: 'N', name: 'Utara Sejati', desc: 'Menghadap poros utara. Tangkapan optimal equinox Maret–September.' },
+        { min: 11.25, max: 33.75, code: 'NNE', name: 'Utara-Timur Laut', desc: 'Orientasi utara condong fajar pagi.' },
+        { min: 33.75, max: 56.25, code: 'NE', name: 'Timur Laut', desc: 'Penyinaran stabil pagi hingga siang hari.' },
+        { min: 56.25, max: 78.75, code: 'ENE', name: 'Timur Menenggara', desc: 'Tangkapan radiasi dominan matahari terbit.' },
+        { min: 78.75, max: 101.25, code: 'E', name: 'Timur', desc: 'Menghadap matahari terbit. Efisiensi puncak pagi hari, berkurang di sore hari.' },
+        { min: 101.25, max: 123.75, code: 'ESE', name: 'Tenggara Timur', desc: 'Penyerapan energi baik menjelang tengah hari.' },
+        { min: 123.75, max: 146.25, code: 'SE', name: 'Tenggara', desc: 'Menghadap belahan tenggara khatulistiwa.' },
+        { min: 146.25, max: 168.75, code: 'SSE', name: 'Selatan-Tenggara', desc: 'Deviasi rendah dari meridian selatan. Tangkapan sangat tinggi.' },
+        { min: 168.75, max: 191.25, code: 'SSW', name: 'Selatan Daya', desc: 'Menghadap garis khatulistiwa. Deviasi 8° dari arah Selatan Sejati (Optimal).' },
+        { min: 191.25, max: 213.75, code: 'SSW', name: 'Selatan-Barat Daya', desc: 'Orientasi ideal iklim tropis Indonesia dengan pemanfaatan sinar sore.' },
+        { min: 213.75, max: 236.25, code: 'SW', name: 'Barat Daya', desc: 'Penyerapan optimal saat matahari condong ke barat daya.' },
+        { min: 236.25, max: 258.75, code: 'WSW', name: 'Barat-Barat Daya', desc: 'Tangkapan intensif sore hari, suhu modul cenderung lebih hangat.' },
+        { min: 258.75, max: 281.25, code: 'W', name: 'Barat', desc: 'Menghadap matahari terbenam. Puncak produksi siang-sore hari.' },
+        { min: 281.25, max: 303.75, code: 'WNW', name: 'Barat-Barat Laut', desc: 'Penyerapan matahari sore condong ke utara.' },
+        { min: 303.75, max: 326.25, code: 'NW', name: 'Barat Laut', desc: 'Menghadap barat laut khatulistiwa.' },
+        { min: 326.25, max: 348.75, code: 'NNW', name: 'Utara-Barat Laut', desc: 'Cenderung ke utara dengan tangkapan radiasi tengah hari.' }
+      ];
+
+      let match = directions.find(d => deg >= d.min && deg < d.max) || directions[0];
+      
+      let featureIcon = 'check_circle';
+      let featureText = 'Bebas bayangan pohon & rintangan sekitar';
+      let featureClass = 'text-emerald-700';
+
+      if (deg >= 60 && deg <= 120) {
+        featureIcon = 'wb_sunny';
+        featureText = 'Puncak pagi hari • Waspada pohon timur';
+        featureClass = 'text-sky-700';
+      } else if (deg >= 240 && deg <= 300) {
+        featureIcon = 'thermostat';
+        featureText = 'Puncak sore hari • Suhu panel lebih hangat';
+        featureClass = 'text-amber-700';
+      }
+
+      return {
+        code: match.code,
+        name: match.name,
+        desc: match.desc,
+        featureIcon,
+        featureText,
+        featureClass
+      };
+    }
+
+    const AZIMUTH_PRESETS = [0, 90, 180, 188, 270];
+
+    function setAzimuth(deg, syncCad = true) {
+      deg = Math.round(deg);
+      deg = ((deg % 360) + 360) % 360;
+      simState.azimuth = deg;
+
+      // 1. Rotate Needle
+      const needle = document.getElementById('compassNeedleWrapper');
+      if (needle) {
+        needle.style.transform = `rotate(${deg}deg)`;
+      }
+
+      // 2. Readouts & Details
+      const details = getAzimuthDetails(deg);
+      const eff = getAzimuthEfficiency(deg);
+      const effPct = (eff * 100).toFixed(1);
+
+      const degEl = document.getElementById('azimuthDegDisplay');
+      if (degEl) degEl.textContent = `${deg}°`;
+
+      const sliderVal = document.getElementById('azimuthSliderValDisplay');
+      if (sliderVal) sliderVal.textContent = `${deg}°`;
+
+      const slider = document.getElementById('azimuthSlider');
+      if (slider && Number(slider.value) !== deg) slider.value = deg;
+
+      const nameEl = document.getElementById('azimuthNameDisplay');
+      if (nameEl) nameEl.textContent = `${details.code} (${details.name})`;
+
+      const descEl = document.getElementById('azimuthDescDisplay');
+      if (descEl) descEl.textContent = details.desc;
+
+      const featContainer = document.getElementById('azimuthFeatureDisplay');
+      const featIcon = document.getElementById('azimuthFeatureIcon');
+      const featText = document.getElementById('azimuthFeatureText');
+      if (featContainer && featIcon && featText) {
+        featContainer.className = `pt-0.5 flex items-center gap-1.5 ${details.featureClass} text-[10px] font-semibold`;
+        featIcon.textContent = details.featureIcon;
+        featText.textContent = details.featureText;
+      }
+
+      const badge = document.getElementById('azimuthEffBadge');
+      if (badge) {
+        badge.textContent = `${effPct}% Efisiensi Sinar`;
+        if (eff >= 0.95) {
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors';
+        } else if (eff >= 0.92) {
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors';
+        } else {
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 text-[10px] font-bold whitespace-nowrap shrink-0 shadow-2xs transition-colors';
+        }
+      }
+
+      // 3. Highlight Preset Button
+      document.querySelectorAll('.azimuth-preset-btn').forEach(btn => {
+        btn.className = 'azimuth-preset-btn py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center transition cursor-pointer';
+      });
+      const exactBtn = document.getElementById(`azimuth-btn-${deg}`);
+      if (exactBtn) {
+        if (deg === 188) {
+          exactBtn.className = 'azimuth-preset-btn py-1 px-1 rounded bg-amber-500 text-white font-bold border border-amber-500 text-center transition shadow-2xs cursor-pointer';
+        } else {
+          exactBtn.className = 'azimuth-preset-btn py-1 px-1 rounded bg-slate-900 text-white font-bold border border-slate-900 text-center transition shadow-2xs cursor-pointer';
+        }
+      }
+
+      // 4. Two-way CAD Polygon Sync
+      if (syncCad) {
+        let rot = deg - 180;
+        if (rot > 180) rot -= 360;
+        if (rot < -180) rot += 360;
+        setPolygonRotation(rot, false);
+      }
+
+      // 5. Update Full Energy and Financial Simulation
+      updateSimulation();
+    }
+
+    function onAzimuthSliderChange(val) {
+      setAzimuth(Number(val), true);
+    }
+
+    function nudgeAzimuth(delta) {
+      const current = simState.azimuth !== undefined ? simState.azimuth : 188;
+      const next = ((current + delta) % 360 + 360) % 360;
+      setAzimuth(next, true);
+    }
+
+    function cycleAzimuthPreset() {
+      const current = simState.azimuth !== undefined ? simState.azimuth : 188;
+      const idx = AZIMUTH_PRESETS.indexOf(current);
+      const next = (idx === -1 || idx === AZIMUTH_PRESETS.length - 1) ? AZIMUTH_PRESETS[0] : AZIMUTH_PRESETS[idx + 1];
+      setAzimuth(next, true);
+      showCadToast(`Orientasi kompas: ${next}°`);
     }
 
     function generatePanels() {
@@ -3272,10 +3597,10 @@ Mikroinverter Modular
       showCadToast(`Bentuk atap: ${shape === 'l-shape' ? 'Bentuk L (Corner)' : shape === 'trapezoid' ? 'Limasan (Hip)' : 'Persegi (Gable)'}`);
     }
 
-    function setPolygonRotation(deg) {
+    function setPolygonRotation(deg, syncAzimuth = true) {
       currentRotation = Number(deg);
       const disp = document.getElementById('polygonRotationDisplay');
-      if (disp) disp.textContent = deg + '°';
+      if (disp) disp.textContent = (currentRotation > 0 ? '+' : '') + currentRotation + '°';
       const slider = document.getElementById('polygonRotationSlider');
       if (slider && Number(slider.value) !== Number(deg)) slider.value = deg;
       
@@ -3285,6 +3610,11 @@ Mikroinverter Modular
       }
       const badge = document.getElementById('rotate-hud-badge');
       if (badge) badge.textContent = `${deg}°`;
+
+      if (syncAzimuth && typeof setAzimuth === 'function') {
+        let az = ((Number(deg) + 180) % 360 + 360) % 360;
+        setAzimuth(az, false);
+      }
     }
 
     function nudgePolygon(dx, dy) {
@@ -3407,11 +3737,12 @@ Mikroinverter Modular
     function resetCanvasDefaults() {
       currentOffsetX = 0;
       currentOffsetY = 0;
-      currentRotation = -4;
+      currentRotation = 8;
       zoomLevel = 1;
       simState.ridge = 12.48;
       simState.slope = 7.28;
       simState.pitch = 22;
+      simState.azimuth = 188;
       simState.roofShape = 'rectangle';
       simState.hasObstacle = true;
       simState.hasSkylight = false;
@@ -3438,7 +3769,8 @@ Mikroinverter Modular
       setLayoutOrientation('portrait');
       setInverterType('string');
       setRoofShape('rectangle');
-      setPolygonRotation(-4);
+      setPolygonRotation(8, false);
+      setAzimuth(188, false);
 
       const moduleSelect = document.getElementById('moduleSelect');
       if (moduleSelect) moduleSelect.value = "550";
@@ -3560,6 +3892,8 @@ Mikroinverter Modular
     window.addEventListener('DOMContentLoaded', () => {
       initEcoForest();
       setPitchValue(22);
+      setPolygonRotation(8, false);
+      setAzimuth(188, false);
       calculateFinancials();
       updateDimensions();
       
@@ -3683,9 +4017,15 @@ Mikroinverter Modular
 
           if (rotateBadge) rotateBadge.textContent = `${rot}°`;
           const disp = document.getElementById('polygonRotationDisplay');
-          if (disp) disp.textContent = `${rot}°`;
+          if (disp) disp.textContent = `${rot > 0 ? '+' : ''}${rot}°`;
           const slider = document.getElementById('polygonRotationSlider');
           if (slider && Number(slider.value) !== rot) slider.value = rot;
+
+          // Live sync compass azimuth during interactive CAD mouse rotation
+          if (typeof setAzimuth === 'function') {
+            let az = ((rot + 180) % 360 + 360) % 360;
+            setAzimuth(az, false);
+          }
         }
       });
 
