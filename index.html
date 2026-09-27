@@ -23,6 +23,22 @@
     .animate-radar {
       animation: radarScan 3s linear infinite;
     }
+    @keyframes solarGlint {
+      0% { transform: translateX(-150%) skewX(-20deg); opacity: 0; }
+      20% { opacity: 0.6; }
+      40% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+      100% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+    }
+    .animate-solar-glint {
+      animation: solarGlint 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-gentle-float {
+      animation: gentleFloat 6s ease-in-out infinite;
+    }
     /* Global input & focus reset to eliminate harsh black browser/forms outlines */
     input, textarea, select, button {
       outline: none !important;
@@ -148,10 +164,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="./logo.svg" alt="SunSight Logo" class="h-9 w-auto"/>
-        <div class="hidden sm:flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-700 text-xs font-bold">Simulasi AI v2.4</span>
-          <span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-semibold">ESDM 2024 Ready</span>
-        </div>
       </div>
       
       <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold text-slate-600">
@@ -175,180 +187,288 @@
   <!-- ========================================== -->
   <!-- HERO SECTION                               -->
   <!-- ========================================== -->
-  <div class="relative overflow-hidden pt-10 sm:pt-16 pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
+  <div class="relative overflow-hidden pt-8 sm:pt-14 pb-12 sm:pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
     <!-- Atmospheric Ambient Glows -->
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-amber-200/40 via-amber-100/20 to-transparent blur-3xl pointer-events-none rounded-full"></div>
-    <div class="absolute top-48 -right-24 w-80 h-80 bg-sky-200/30 blur-3xl pointer-events-none rounded-full"></div>
+    <div class="absolute -top-24 left-1/3 -translate-x-1/2 w-[650px] h-[350px] bg-gradient-to-b from-amber-200/40 via-amber-100/20 to-transparent blur-3xl pointer-events-none rounded-full"></div>
+    <div class="absolute top-48 right-0 w-96 h-96 bg-sky-200/30 blur-3xl pointer-events-none rounded-full"></div>
     
-    <div class="relative z-10 text-center max-w-4xl mx-auto space-y-5">
-      <!-- Announcement Pill -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold shadow-xs">
-        <span class="flex h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
-        <span>Simulasi PLTS Atap Cerdas Pertama Berbasis Ortofoto Satelit 90° Nadir</span>
-      </div>
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      
+      <!-- LEFT COLUMN: Copy, Value Prop, Search & Sample Locations (col-span-12 lg:col-span-7) -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        <!-- Main Headline -->
+        <h1 class="text-3xl sm:text-5xl lg:text-[44px] xl:text-[50px] font-extrabold text-slate-900 tracking-tight leading-[1.14] font-headline-lg">
+          Pangkas Tagihan Listrik PLN hingga <br class="hidden sm:inline"/>
+          <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 bg-clip-text text-transparent">85% Melalui Analisis Citra Satelit</span>
+        </h1>
 
-      <!-- Main Headline -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.18] font-headline-lg">
-        Pangkas Tagihan Listrik PLN hingga <br class="hidden sm:inline"/>
-        <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 bg-clip-text text-transparent">85% Tanpa Perlu Panjat Atap</span>
-      </h1>
+        <!-- Subtitle & Value Proposition -->
+        <p class="text-sm sm:text-base text-slate-600 font-normal leading-relaxed max-w-xl">
+          Simulasi pintar PLTS Atap otomatis dari ortofoto 90° nadir. Rekonstruksi kontur poligon atap, deteksi halangan bayangan (HVAC), kompas azimuth surya, dan estimasi ROI presisi tanpa perlu survei manual.
+        </p>
 
-      <!-- Subtitle -->
-      <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-        Dapatkan analisis kapasitas modul surya, kompas arah hadap matahari (azimuth), kalkulasi titik impas modal (BEP), dan laporan proposal EPC resmi dalam hitungan detik.
-      </p>
-
-      <!-- Interactive Search Bar -->
-      <div class="pt-3 max-w-2xl mx-auto">
-        <div class="bg-white p-2 rounded-2xl shadow-xl shadow-slate-200/80 border border-slate-200 flex flex-col sm:flex-row gap-2 focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/10 transition-all">
-          <div class="flex-1 relative flex items-center pl-3">
-            <span class="material-symbols-outlined text-amber-500 text-[22px] shrink-0">location_on</span>
-            <input class="seamless-input w-full px-3 py-2 text-sm text-slate-800 placeholder-slate-400 bg-transparent border-0 font-medium" 
-                   id="landing-address-input" 
-                   placeholder="Masukkan alamat rumah atau nama perumahan..." 
-                   type="text" 
-                   value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
+        <!-- Interactive Search Bar -->
+        <div class="pt-1 max-w-xl">
+          <div class="bg-white p-2 rounded-2xl shadow-xl shadow-slate-200/80 border border-slate-200 flex flex-col sm:flex-row gap-2 focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/10 transition-all">
+            <div class="flex-1 relative flex items-center pl-3">
+              <span class="material-symbols-outlined text-amber-500 text-[22px] shrink-0">location_on</span>
+              <input class="seamless-input w-full px-3 py-2 text-sm text-slate-800 placeholder-slate-400 bg-transparent border-0 font-medium" 
+                     id="landing-address-input" 
+                     placeholder="Masukkan alamat rumah atau perumahan..." 
+                     type="text" 
+                     value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
+            </div>
+            <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-[0.98] text-white font-title text-sm font-bold shadow-md shadow-amber-600/25 transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer" onclick="startScanningSequence()">
+              <span class="material-symbols-outlined text-[18px]">search</span>
+              <span>Mulai Analisis</span>
+            </button>
           </div>
-          <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-[0.98] text-white font-title text-sm font-bold shadow-md shadow-amber-600/25 transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer" onclick="startScanningSequence()">
-            <span class="material-symbols-outlined text-[18px]">search</span>
-            <span>Mulai Analisis Atap Gratis</span>
-          </button>
-        </div>
 
-        <!-- Quick Location Chips -->
-        <div class="mt-3 flex items-center justify-center gap-1.5 flex-wrap text-xs text-slate-500">
-          <span class="font-medium text-slate-400">Pilih Contoh:</span>
-          <button type="button" onclick="setLandingSampleAddress('Jl. Diponegoro No. 24, Menteng, Jakarta Pusat')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
-            📍 Menteng, Jakarta
-          </button>
-          <button type="button" onclick="setLandingSampleAddress('Jl. Grand Boulevard, BSD City, Tangerang Selatan')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
-            📍 BSD City, Tangerang
-          </button>
-          <button type="button" onclick="setLandingSampleAddress('Jl. Dago Pakar Permai No. 12, Bandung')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
-            📍 Dago, Bandung
-          </button>
-          <button type="button" onclick="setLandingSampleAddress('Bukit Golf Utama, CitraLand, Surabaya Barat')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
-            📍 CitraLand, Surabaya
-          </button>
-        </div>
-
-        <!-- Guarantee Badges -->
-        <div class="mt-4 flex items-center justify-center gap-4 text-[11px] text-slate-500">
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-emerald-600 text-[15px]">verified</span>100% Gratis &amp; Instan</span>
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-emerald-600 text-[15px]">lock</span>Data Lokasi Aman</span>
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-emerald-600 text-[15px]">assignment_turned_in</span>Format Bankable Proposal</span>
+          <!-- Quick Location Chips (With elegant 3D gradient finish) -->
+          <div class="mt-3.5 flex items-center gap-2 flex-wrap text-xs text-slate-500">
+            <span class="font-semibold text-slate-400 text-[11.5px]">Pilih Contoh:</span>
+            <button type="button" onclick="setLandingSampleAddress('Jl. Diponegoro No. 24, Menteng, Jakarta Pusat')" class="px-3 py-1.5 rounded-full bg-gradient-to-b from-white to-slate-50 hover:to-amber-50/70 border border-slate-200 hover:border-amber-300 text-slate-700 hover:text-amber-900 font-semibold shadow-xs hover:shadow transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-1.5">
+              <span>📍 Menteng, Jakarta</span>
+            </button>
+            <button type="button" onclick="setLandingSampleAddress('Jl. Grand Boulevard, BSD City, Tangerang Selatan')" class="px-3 py-1.5 rounded-full bg-gradient-to-b from-white to-slate-50 hover:to-amber-50/70 border border-slate-200 hover:border-amber-300 text-slate-700 hover:text-amber-900 font-semibold shadow-xs hover:shadow transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-1.5">
+              <span>📍 BSD City, Tangerang</span>
+            </button>
+            <button type="button" onclick="setLandingSampleAddress('Jl. Dago Pakar Permai No. 12, Bandung')" class="px-3 py-1.5 rounded-full bg-gradient-to-b from-white to-slate-50 hover:to-amber-50/70 border border-slate-200 hover:border-amber-300 text-slate-700 hover:text-amber-900 font-semibold shadow-xs hover:shadow transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-1.5">
+              <span>📍 Dago, Bandung</span>
+            </button>
+            <button type="button" onclick="setLandingSampleAddress('Bukit Golf Utama, CitraLand, Surabaya Barat')" class="px-3 py-1.5 rounded-full bg-gradient-to-b from-white to-slate-50 hover:to-amber-50/70 border border-slate-200 hover:border-amber-300 text-slate-700 hover:text-amber-900 font-semibold shadow-xs hover:shadow transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-1.5">
+              <span>📍 CitraLand, Surabaya</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Hero Visual Mockup: CAD Studio Teaser Card -->
-      <div class="pt-8 max-w-4xl mx-auto">
-        <div class="relative rounded-2xl p-2 sm:p-3 bg-gradient-to-b from-slate-200 via-slate-100 to-white shadow-2xl border border-slate-200/90 group">
-          <div class="relative h-64 sm:h-96 rounded-xl overflow-hidden bg-slate-900 border border-slate-800">
-            <!-- Satellite Map with CAD Overlay -->
-            <div class="absolute inset-0 bg-cover bg-center filter contrast-125 brightness-95" style="background-image: url('satellite_map.jpg');"></div>
+      <!-- RIGHT COLUMN: Interactive Live CV & Solar Showcase Card (col-span-12 lg:col-span-5) -->
+      <div class="lg:col-span-5 w-full">
+        <div class="relative rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-slate-200 via-slate-100 to-white shadow-2xl border border-slate-200/90 group">
+          
+          <!-- Top Telemetry Header & Interactive CV Mode Switcher -->
+          <div class="flex items-center justify-between gap-2 px-1 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span class="text-[11px] font-bold text-slate-800 font-mono tracking-tight" id="hero-showcase-title">CV Simulasi: Tata Letak Surya</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500 bg-slate-200/70 px-2 py-0.5 rounded font-bold">GSD 0.08 m/px</span>
+          </div>
+
+          <!-- CV Layer Mode Switcher Tabs -->
+          <div class="grid grid-cols-4 gap-1 p-1 bg-slate-200/60 rounded-xl mb-2 text-[10px] sm:text-[11px] font-semibold">
+            <button type="button" id="hero-tab-panels" onclick="switchHeroShowcaseMode('panels')" class="py-1.5 px-1 rounded-lg bg-white text-slate-900 shadow-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
+              <span>☀️ Surya</span>
+            </button>
+            <button type="button" id="hero-tab-edge" onclick="switchHeroShowcaseMode('edge')" class="py-1.5 px-1 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1 cursor-pointer">
+              <span>⚡ Tepi CV</span>
+            </button>
+            <button type="button" id="hero-tab-otsu" onclick="switchHeroShowcaseMode('otsu')" class="py-1.5 px-1 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1 cursor-pointer">
+              <span>🟩 Otsu</span>
+            </button>
+            <button type="button" id="hero-tab-heat" onclick="switchHeroShowcaseMode('heat')" class="py-1.5 px-1 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1 cursor-pointer">
+              <span>🔥 Heatmap</span>
+            </button>
+          </div>
+
+          <!-- Main Interactive Display Canvas Frame -->
+          <div class="relative h-72 sm:h-96 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner">
+            <!-- Satellite Map Base Layer -->
+            <div id="hero-mockup-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-500 filter contrast-125 brightness-95" style="background-image: url('satellite_map.jpg');"></div>
             
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+            <!-- Vignette & Lighting Contrast Overlays -->
+            <div id="hero-mockup-vignette" class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none transition-opacity duration-500"></div>
 
-            <!-- Radar Scanner Beam in Mockup -->
-            <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_15px_rgba(251,191,36,0.9)] animate-radar pointer-events-none"></div>
+            <!-- Dynamic Laser Scanline -->
+            <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_16px_rgba(251,191,36,0.95)] animate-radar pointer-events-none z-10"></div>
 
-            <!-- Centered CAD Polygon Frame Mockup -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 sm:w-80 h-36 sm:h-44 border-2 border-amber-400/90 rounded bg-amber-500/10 backdrop-blur-2xs shadow-[0_0_20px_rgba(245,158,11,0.25)] flex flex-col justify-between p-2 pointer-events-none">
-              <div class="flex items-center justify-between text-[10px] font-code-metric text-amber-300 font-bold bg-slate-900/80 px-2 py-0.5 rounded">
-                <span>CAD ATAP #06 • 12.48m × 7.28m</span>
-                <span class="text-emerald-400">98.4% EFISIENSI</span>
+            <!-- ========================================== -->
+            <!-- LAYER A: SOLAR PANELS WITH GLINT & CELLS   -->
+            <!-- ========================================== -->
+            <div id="hero-layer-panels" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-84 h-40 sm:h-48 border-2 border-amber-400/90 rounded-lg bg-amber-500/10 backdrop-blur-2xs shadow-[0_0_24px_rgba(245,158,11,0.25)] flex flex-col justify-between p-2 transition-all duration-300 z-10">
+              <!-- Header Bar of CAD RoI -->
+              <div class="flex items-center justify-between text-[10px] font-mono text-amber-300 font-bold bg-slate-900/85 px-2 py-0.5 rounded border border-amber-500/30">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                  POLIGON ATAP #06 • 12.48m × 7.28m
+                </span>
+                <span class="text-emerald-400 font-extrabold">98.4% EFISIENSI</span>
               </div>
-              <!-- Mock panel grid lines -->
-              <div class="grid grid-cols-6 grid-rows-3 gap-1 flex-1 py-1.5 opacity-80">
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-rose-950 border border-rose-400/80 flex items-center justify-center text-[9px] text-rose-300 font-bold">HVAC</div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
-              </div>
-              <div class="flex items-center justify-between text-[9px] font-code-metric text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded">
-                <span>24x Modul 550W Tier-1</span>
-                <span class="text-amber-300 font-bold">13.20 kWp</span>
-              </div>
-            </div>
 
-            <!-- Floating Badge 1: Savings -->
-            <div class="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-md p-2.5 sm:p-3 rounded-xl border border-slate-200/80 shadow-lg flex items-center gap-3 pointer-events-none text-left">
-              <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-[22px]">payments</span>
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-500 font-medium block">Estimasi Penghematan</span>
-                <span class="text-xs sm:text-sm font-extrabold text-emerald-700 font-headline-sm">Rp 2,45 Juta / bln</span>
-                <span class="text-[9.5px] text-slate-500 block">Balik Modal 4.8 Tahun</span>
-              </div>
-            </div>
+              <!-- 24 High-Detail Solar Panels with Shimmer & Realistic Cells -->
+              <div class="relative grid grid-cols-6 grid-rows-4 gap-1 flex-1 py-1.5 overflow-hidden">
+                <!-- Glint light sweep animation across all solar panels -->
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none animate-solar-glint z-20"></div>
 
-            <!-- Floating Badge 2: Azimuth Compass -->
-            <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-slate-900/90 text-white backdrop-blur-md p-2 sm:p-2.5 rounded-xl border border-slate-700 shadow-lg flex items-center gap-2.5 pointer-events-none text-left">
-              <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-amber-400 shrink-0">
-                <span class="material-symbols-outlined text-[18px]">explore</span>
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-extrabold text-amber-400">188° SSW</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">Optimal</span>
+                <!-- 24 Solar Modules -->
+                <!-- Row 1 -->
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #01: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
                 </div>
-                <span class="text-[9px] text-slate-400 block">Orientasi Surya Khatulistiwa</span>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #02: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #03: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #04: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #05: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #06: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #07: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #08: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <!-- Obstacle HVAC Unit (detected via Computer Vision) -->
+                <div class="relative rounded-xs bg-rose-950/90 border border-rose-400 flex flex-col items-center justify-center text-[8px] text-rose-300 font-bold shadow-xs cursor-not-allowed group/obs" title="Halangan Terdeteksi CV: Unit HVAC">
+                  <span>HVAC</span>
+                  <span class="text-[6.5px] text-rose-400">SHADE</span>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #10: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #11: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #12: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #13: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #14: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #15: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #16: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #17: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #18: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #19: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #20: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #21: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #22: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #23: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+                <div class="group/p relative rounded-xs bg-sky-950 border border-sky-400/60 hover:border-amber-400 hover:bg-sky-900 transition-all cursor-pointer shadow-xs flex items-center justify-center overflow-hidden" title="Modul #24: 550W Tier-1">
+                  <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-30"><div class="border-b border-r border-sky-300"></div><div class="border-b border-sky-300"></div><div class="border-r border-sky-300"></div><div></div></div>
+                </div>
+              </div>
+
+              <!-- Footer Bar of CAD RoI -->
+              <div class="flex items-center justify-between text-[9px] font-mono text-slate-300 bg-slate-900/85 px-2 py-0.5 rounded border border-slate-700/60">
+                <span class="flex items-center gap-1"><span class="text-amber-400 font-bold">23x</span> Modul Tier-1 (550Wp)</span>
+                <span class="text-amber-300 font-bold">12.65 kWp Kapasitas</span>
               </div>
             </div>
 
-            <!-- Interactive Action Button overlay -->
-            <div class="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
-              <button type="button" onclick="goToStudioDirect()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-title font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95">
-                <span>Buka Demo Studio Ini</span>
-                <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+            <!-- ========================================== -->
+            <!-- LAYER B: CANNY EDGE OVERLAY (Hidden init)  -->
+            <!-- ========================================== -->
+            <div id="hero-layer-edge" class="hidden absolute inset-0 z-10 pointer-events-none p-4 flex flex-col justify-between">
+              <svg class="w-full h-full" viewBox="0 0 400 300" fill="none" stroke="currentColor">
+                <!-- Cyan edge lines showing Canny filtering -->
+                <polygon points="50,40 350,40 370,250 30,250" stroke="#00f5ff" stroke-width="2" stroke-dasharray="4 2" fill="none" filter="drop-shadow(0 0 6px #00f5ff)" />
+                <line x1="200" y1="40" x2="200" y2="250" stroke="#00f5ff" stroke-width="2" />
+                <line x1="50" y1="145" x2="360" y2="145" stroke="#00f5ff" stroke-width="1.5" stroke-dasharray="2 2" />
+                <!-- Obstacle edge box -->
+                <rect x="150" y="95" width="40" height="35" stroke="#ff3b30" stroke-width="2" fill="rgba(255,59,48,0.2)" />
+                <text x="55" y="60" fill="#00f5ff" font-size="10" font-family="monospace" font-weight="bold">Sobel Gradient ∇I: Gx + Gy [Threshold: 120, 200]</text>
+              </svg>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LAYER C: OTSU BINARIZATION MASK (Hidden)   -->
+            <!-- ========================================== -->
+            <div id="hero-layer-otsu" class="hidden absolute inset-0 z-10 pointer-events-none p-4 flex flex-col justify-between">
+              <svg class="w-full h-full" viewBox="0 0 400 300">
+                <!-- Green segmented polygon mask -->
+                <polygon points="50,40 350,40 370,250 30,250" fill="rgba(16, 185, 129, 0.45)" stroke="#10b981" stroke-width="2" filter="drop-shadow(0 0 8px #10b981)" />
+                <rect x="150" y="95" width="40" height="35" fill="rgba(239, 68, 68, 0.6)" stroke="#ef4444" stroke-width="2" />
+                <text x="55" y="60" fill="#a7f3d0" font-size="10" font-family="monospace" font-weight="bold">Otsu Variance σ²B = 0.884 • Mask Luas Atap: 90.8 m²</text>
+              </svg>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LAYER D: RADIOMETRIC HEATMAP (Hidden init) -->
+            <!-- ========================================== -->
+            <div id="hero-layer-heat" class="hidden absolute inset-0 z-10 pointer-events-none p-4 flex flex-col justify-between">
+              <div class="absolute inset-x-8 inset-y-10 rounded-2xl bg-gradient-to-br from-amber-500/60 via-red-600/50 to-purple-800/40 mix-blend-color-dodge blur-sm border border-amber-400/50 flex items-center justify-center"></div>
+              <div class="absolute top-6 left-6 text-[10px] font-mono font-bold text-amber-300 bg-slate-950/80 px-2.5 py-1 rounded border border-amber-500/40">
+                Radiometri Surya: G_eff 4.85 kWh/m²/hari [Optimal SSW]
+              </div>
+            </div>
+
+            <!-- Floating Badge 1: Savings (Bottom-Left) -->
+            <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-slate-200/90 shadow-lg flex items-center gap-2.5 pointer-events-none text-left z-20 animate-gentle-float">
+              <div class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[20px]">payments</span>
+              </div>
+              <div>
+                <span class="text-[9.5px] text-slate-500 font-semibold block">Estimasi Penghematan</span>
+                <span class="text-xs sm:text-sm font-extrabold text-emerald-700 font-headline-sm">Rp 2,45 Jt / bln</span>
+                <span class="text-[9px] text-slate-500 font-medium block">Balik Modal 4.8 Tahun</span>
+              </div>
+            </div>
+
+            <!-- Floating Badge 2: Azimuth Compass (Top-Right) -->
+            <div class="absolute top-3 right-3 bg-slate-900/90 text-white backdrop-blur-md p-2 rounded-xl border border-slate-700 shadow-lg flex items-center gap-2 pointer-events-none text-left z-20">
+              <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-amber-400 shrink-0">
+                <span class="material-symbols-outlined text-[16px]">explore</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-1">
+                  <span class="text-[11px] font-extrabold text-amber-400">188° SSW</span>
+                  <span class="text-[8.5px] px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">Optimal</span>
+                </div>
+                <span class="text-[8.5px] text-slate-400 block">Orientasi Surya Khatulistiwa</span>
+              </div>
+            </div>
+
+            <!-- Interactive Action Button overlay (Bottom-Right) -->
+            <div class="absolute bottom-3 right-3 z-20">
+              <button type="button" onclick="goToStudioDirect()" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-title font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95">
+                <span>Buka Demo Studio</span>
+                <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
               </button>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- TRUST & CREDENTIALS RIBBON                 -->
-  <!-- ========================================== -->
-  <div class="w-full bg-slate-900 text-white py-8 px-4 sm:px-6 border-y border-slate-800">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-800">
-        <div class="p-2">
-          <span class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-headline-sm block">12.500+</span>
-          <span class="text-xs text-slate-400 font-medium block mt-1">Atap Rumah &amp; Usaha Dianalisis</span>
-        </div>
-        <div class="p-2 pt-4 md:pt-2">
-          <span class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-headline-sm block">Rp 48+ Miliar</span>
-          <span class="text-xs text-slate-400 font-medium block mt-1">Total Proyeksi Hemat Pelanggan</span>
-        </div>
-        <div class="p-2 pt-4 md:pt-2">
-          <span class="text-2xl sm:text-3xl font-extrabold text-sky-400 font-headline-sm block">98.4%</span>
-          <span class="text-xs text-slate-400 font-medium block mt-1">Akurasi Deteksi Orientasi Azimuth</span>
-        </div>
-        <div class="p-2 pt-4 md:pt-2">
-          <span class="text-2xl sm:text-3xl font-extrabold text-amber-300 font-headline-sm block">18.200 Ton</span>
-          <span class="text-xs text-slate-400 font-medium block mt-1">Emisi CO2 Berhasil Dipangkas</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ========================================== -->
   <!-- QUICK CALCULATOR SECTION                   -->
@@ -3769,6 +3889,56 @@ Mikroinverter Modular
         addr.focus();
         addr.classList.add('ring-2', 'ring-amber-500');
         setTimeout(() => addr.classList.remove('ring-2', 'ring-amber-500'), 1000);
+      }
+    }
+
+    function switchHeroShowcaseMode(mode) {
+      const tabPanels = document.getElementById('hero-tab-panels');
+      const tabEdge = document.getElementById('hero-tab-edge');
+      const tabOtsu = document.getElementById('hero-tab-otsu');
+      const tabHeat = document.getElementById('hero-tab-heat');
+
+      const layerPanels = document.getElementById('hero-layer-panels');
+      const layerEdge = document.getElementById('hero-layer-edge');
+      const layerOtsu = document.getElementById('hero-layer-otsu');
+      const layerHeat = document.getElementById('hero-layer-heat');
+
+      const title = document.getElementById('hero-showcase-title');
+      const bg = document.getElementById('hero-mockup-bg');
+
+      if (!tabPanels || !layerPanels) return;
+
+      const inactiveClass = 'py-1.5 px-1 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1 cursor-pointer';
+      [tabPanels, tabEdge, tabOtsu, tabHeat].forEach(t => {
+        if (t) t.className = inactiveClass;
+      });
+
+      if (layerPanels) layerPanels.classList.add('hidden');
+      if (layerEdge) layerEdge.classList.add('hidden');
+      if (layerOtsu) layerOtsu.classList.add('hidden');
+      if (layerHeat) layerHeat.classList.add('hidden');
+
+      if (mode === 'edge') {
+        if (tabEdge) tabEdge.className = 'py-1.5 px-1 rounded-lg bg-slate-900 text-cyan-400 shadow-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer';
+        if (layerEdge) layerEdge.classList.remove('hidden');
+        if (bg) bg.style.filter = 'contrast(220%) brightness(25%) grayscale(100%)';
+        if (title) title.textContent = 'CV Deteksi Tepi: Algoritma Canny';
+      } else if (mode === 'otsu') {
+        if (tabOtsu) tabOtsu.className = 'py-1.5 px-1 rounded-lg bg-emerald-900 text-emerald-300 shadow-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer';
+        if (layerOtsu) layerOtsu.classList.remove('hidden');
+        if (bg) bg.style.filter = 'contrast(140%) brightness(60%)';
+        if (title) title.textContent = 'CV Segmentasi: Ambang Otsu Mask';
+      } else if (mode === 'heat') {
+        if (tabHeat) tabHeat.className = 'py-1.5 px-1 rounded-lg bg-amber-500 text-slate-950 shadow-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer';
+        if (layerHeat) layerHeat.classList.remove('hidden');
+        if (bg) bg.style.filter = 'contrast(120%) brightness(55%)';
+        if (title) title.textContent = 'CV Radiometri: Heatmap Iradiansi';
+      } else {
+        // default: 'panels'
+        if (tabPanels) tabPanels.className = 'py-1.5 px-1 rounded-lg bg-white text-slate-900 shadow-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer';
+        if (layerPanels) layerPanels.classList.remove('hidden');
+        if (bg) bg.style.filter = 'contrast(125%) brightness(95%)';
+        if (title) title.textContent = 'CV Simulasi: Tata Letak Surya';
       }
     }
 
