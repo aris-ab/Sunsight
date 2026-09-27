@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
     @layer base {
+      html { scroll-behavior: smooth; }
       html, body { margin: 0; padding: 0; }
       body { overscroll-behavior: none; }
     }
@@ -141,91 +142,786 @@
 <!-- ========================================== -->
 <!-- 1. STATE: LANDING (Hero & Address Search) -->
 <!-- ========================================== -->
-<section class="relative min-h-screen flex flex-col justify-between overflow-x-hidden bg-[#fbfbfe]" id="state-landing">
-<!-- Top Nav Landing -->
-<header class="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-40">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<img src="./logo.svg" alt="SunSight Logo" class="h-9 w-auto"/>
-<span class="ml-2 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200/60 text-amber-700 text-xs font-semibold">Simulasi PLTS v2.4</span>
-</div>
-<div class="flex items-center gap-4">
-<a class="hidden md:inline-block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#features">Fitur Ortofoto</a>
-<a class="hidden md:inline-block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#financials">Tarif PLN 2024</a>
-<button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white transition shadow-sm" onclick="goToStudioDirect()">
-<span>Buka Studio Langsung</span>
-<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</button>
-</div>
-</div>
-</header>
-<!-- Main Landing Content -->
-<div class="flex-1 flex flex-col items-center justify-center px-4 py-16 max-w-5xl mx-auto text-center relative z-10">
-<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-6 shadow-sm">
-<span class="flex h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
-<span>Solusi Pintar Simulasi Potensi PLTS Atap Indonesia</span>
-</div>
-<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] max-w-4xl font-headline-lg">
-        Ketahui Potensi Surya &amp; Penghematan Listrik Atap Anda dalam <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 bg-clip-text text-transparent">Hitungan Detik</span>
-</h1>
-<p class="mt-5 text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed">
-        Analisis citra satelit nadir 90°, deteksi azimuth &amp; kemiringan atap otomatis, serta kalkulasi penghematan tagihan listrik PLN sesuai regulasi ESDM terbaru.
+<section class="relative min-h-screen flex flex-col overflow-x-hidden bg-[#fbfbfe]" id="state-landing">
+  <!-- Top Nav Landing -->
+  <header class="w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="./logo.svg" alt="SunSight Logo" class="h-9 w-auto"/>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-700 text-xs font-bold">Simulasi AI v2.4</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-semibold">ESDM 2024 Ready</span>
+        </div>
+      </div>
+      
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold text-slate-600">
+        <a class="hover:text-amber-600 transition-colors" href="#quick-calculator">Kalkulator Hemat</a>
+        <a class="hover:text-amber-600 transition-colors" href="#how-it-works">Cara Kerja</a>
+        <a class="hover:text-amber-600 transition-colors" href="#features">Fitur Cerdas</a>
+        <a class="hover:text-amber-600 transition-colors" href="#comparison">Komparasi</a>
+        <a class="hover:text-amber-600 transition-colors" href="#testimonials">Testimoni</a>
+        <a class="hover:text-amber-600 transition-colors" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 hover:bg-slate-800 text-white transition shadow-sm cursor-pointer" onclick="goToStudioDirect()">
+          <span>Buka Studio CAD</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- HERO SECTION                               -->
+  <!-- ========================================== -->
+  <div class="relative overflow-hidden pt-10 sm:pt-16 pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
+    <!-- Atmospheric Ambient Glows -->
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-amber-200/40 via-amber-100/20 to-transparent blur-3xl pointer-events-none rounded-full"></div>
+    <div class="absolute top-48 -right-24 w-80 h-80 bg-sky-200/30 blur-3xl pointer-events-none rounded-full"></div>
+    
+    <div class="relative z-10 text-center max-w-4xl mx-auto space-y-5">
+      <!-- Announcement Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold shadow-xs">
+        <span class="flex h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
+        <span>Simulasi PLTS Atap Cerdas Pertama Berbasis Ortofoto Satelit 90° Nadir</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.18] font-headline-lg">
+        Pangkas Tagihan Listrik PLN hingga <br class="hidden sm:inline"/>
+        <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 bg-clip-text text-transparent">85% Tanpa Perlu Panjat Atap</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+        Dapatkan analisis kapasitas modul surya, kompas arah hadap matahari (azimuth), kalkulasi titik impas modal (BEP), dan laporan proposal EPC resmi dalam hitungan detik.
       </p>
-<!-- Interactive Search Box -->
-<div class="mt-8 w-full max-w-2xl bg-white p-2.5 rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200 flex flex-col sm:flex-row gap-2 focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/10 transition-all">
-<div class="flex-1 relative flex items-center pl-3">
-<span class="material-symbols-outlined text-slate-400 text-[22px] shrink-0">location_on</span>
-<input class="seamless-input w-full px-3 py-2 text-sm text-slate-800 placeholder-slate-400 bg-transparent border-0 font-medium" id="landing-address-input" placeholder="Masukkan alamat rumah atau koordinat lokasi..." type="text" value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
-</div>
-<button class="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-[0.98] text-white font-title text-sm font-bold shadow-md shadow-amber-600/25 transition-all flex items-center justify-center gap-2 shrink-0" onclick="startScanningSequence()">
-<span class="material-symbols-outlined text-[18px]">search</span>
-<span>Mulai Analisis Atap</span>
-</button>
-</div>
-<!-- Quick Demo Pill -->
-<div class="mt-4 flex items-center justify-center gap-2 flex-wrap text-xs text-slate-500">
-<span>Contoh Alamat:</span>
-<button class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition-all group" onclick="triggerQuickDemo()">
-<span class="material-symbols-outlined text-[14px] text-amber-600">apartment</span>
-<span>Coba Demo: Jl. Diponegoro No. 24, Menteng, Jakarta Pusat</span>
-<span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-</button>
-</div>
-<!-- 3 Feature Badges -->
-<div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-4xl text-left">
-<div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
-<div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[22px]">satellite_alt</span>
-</div>
-<div>
-<h4 class="font-title font-semibold text-slate-900 text-sm">Citra Ortofoto 90° Nadir</h4>
-<p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Resolusi spasial ultra-tinggi bebas distorsi sudut perspektif untuk presisi ukuran atap.</p>
-</div>
-</div>
-<div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
-<div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[22px]">price_check</span>
-</div>
-<div>
-<h4 class="font-title font-semibold text-slate-900 text-sm">Sesuai Tarif PLN 2024</h4>
-<p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Kalkulasi akurat golongan R-1, R-2, &amp; B-2 dengan simulasi ekspor-impor net metering.</p>
-</div>
-</div>
-<div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
-<div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[22px]">layers</span>
-</div>
-<div>
-<h4 class="font-title font-semibold text-slate-900 text-sm">Simulasi Presisi 3D CAD</h4>
-<p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Penataan modul surya otomatis, clearance rintangan HVAC, dan kalkulasi cosine pitch.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Landing Footer -->
-<footer class="w-full border-t border-slate-200 py-4 px-6 text-center text-xs text-slate-400 bg-white">
-      © 2024 SunSight CAD Platform. Data Citra Satelit Resolusi Tinggi &amp; Perhitungan Sinar Matahari NREL SAM.
-    </footer>
+
+      <!-- Interactive Search Bar -->
+      <div class="pt-3 max-w-2xl mx-auto">
+        <div class="bg-white p-2 rounded-2xl shadow-xl shadow-slate-200/80 border border-slate-200 flex flex-col sm:flex-row gap-2 focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/10 transition-all">
+          <div class="flex-1 relative flex items-center pl-3">
+            <span class="material-symbols-outlined text-amber-500 text-[22px] shrink-0">location_on</span>
+            <input class="seamless-input w-full px-3 py-2 text-sm text-slate-800 placeholder-slate-400 bg-transparent border-0 font-medium" 
+                   id="landing-address-input" 
+                   placeholder="Masukkan alamat rumah atau nama perumahan..." 
+                   type="text" 
+                   value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
+          </div>
+          <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-[0.98] text-white font-title text-sm font-bold shadow-md shadow-amber-600/25 transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer" onclick="startScanningSequence()">
+            <span class="material-symbols-outlined text-[18px]">search</span>
+            <span>Mulai Analisis Atap Gratis</span>
+          </button>
+        </div>
+
+        <!-- Quick Location Chips -->
+        <div class="mt-3 flex items-center justify-center gap-1.5 flex-wrap text-xs text-slate-500">
+          <span class="font-medium text-slate-400">Pilih Contoh:</span>
+          <button type="button" onclick="setLandingSampleAddress('Jl. Diponegoro No. 24, Menteng, Jakarta Pusat')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
+            📍 Menteng, Jakarta
+          </button>
+          <button type="button" onclick="setLandingSampleAddress('Jl. Grand Boulevard, BSD City, Tangerang Selatan')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
+            📍 BSD City, Tangerang
+          </button>
+          <button type="button" onclick="setLandingSampleAddress('Jl. Dago Pakar Permai No. 12, Bandung')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
+            📍 Dago, Bandung
+          </button>
+          <button type="button" onclick="setLandingSampleAddress('Bukit Golf Utama, CitraLand, Surabaya Barat')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition cursor-pointer">
+            📍 CitraLand, Surabaya
+          </button>
+        </div>
+
+        <!-- Guarantee Badges -->
+        <div class="mt-4 flex items-center justify-center gap-4 text-[11px] text-slate-500">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-emerald-600 text-[15px]">verified</span>100% Gratis &amp; Instan</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-emerald-600 text-[15px]">lock</span>Data Lokasi Aman</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-emerald-600 text-[15px]">assignment_turned_in</span>Format Bankable Proposal</span>
+        </div>
+      </div>
+
+      <!-- Hero Visual Mockup: CAD Studio Teaser Card -->
+      <div class="pt-8 max-w-4xl mx-auto">
+        <div class="relative rounded-2xl p-2 sm:p-3 bg-gradient-to-b from-slate-200 via-slate-100 to-white shadow-2xl border border-slate-200/90 group">
+          <div class="relative h-64 sm:h-96 rounded-xl overflow-hidden bg-slate-900 border border-slate-800">
+            <!-- Satellite Map with CAD Overlay -->
+            <div class="absolute inset-0 bg-cover bg-center filter contrast-125 brightness-95" style="background-image: url('satellite_map.jpg');"></div>
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+
+            <!-- Radar Scanner Beam in Mockup -->
+            <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_15px_rgba(251,191,36,0.9)] animate-radar pointer-events-none"></div>
+
+            <!-- Centered CAD Polygon Frame Mockup -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 sm:w-80 h-36 sm:h-44 border-2 border-amber-400/90 rounded bg-amber-500/10 backdrop-blur-2xs shadow-[0_0_20px_rgba(245,158,11,0.25)] flex flex-col justify-between p-2 pointer-events-none">
+              <div class="flex items-center justify-between text-[10px] font-code-metric text-amber-300 font-bold bg-slate-900/80 px-2 py-0.5 rounded">
+                <span>CAD ATAP #06 • 12.48m × 7.28m</span>
+                <span class="text-emerald-400">98.4% EFISIENSI</span>
+              </div>
+              <!-- Mock panel grid lines -->
+              <div class="grid grid-cols-6 grid-rows-3 gap-1 flex-1 py-1.5 opacity-80">
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-rose-950 border border-rose-400/80 flex items-center justify-center text-[9px] text-rose-300 font-bold">HVAC</div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+                <div class="rounded-xs bg-sky-950 border border-sky-400/50"></div>
+              </div>
+              <div class="flex items-center justify-between text-[9px] font-code-metric text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded">
+                <span>24x Modul 550W Tier-1</span>
+                <span class="text-amber-300 font-bold">13.20 kWp</span>
+              </div>
+            </div>
+
+            <!-- Floating Badge 1: Savings -->
+            <div class="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-md p-2.5 sm:p-3 rounded-xl border border-slate-200/80 shadow-lg flex items-center gap-3 pointer-events-none text-left">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">payments</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 font-medium block">Estimasi Penghematan</span>
+                <span class="text-xs sm:text-sm font-extrabold text-emerald-700 font-headline-sm">Rp 2,45 Juta / bln</span>
+                <span class="text-[9.5px] text-slate-500 block">Balik Modal 4.8 Tahun</span>
+              </div>
+            </div>
+
+            <!-- Floating Badge 2: Azimuth Compass -->
+            <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-slate-900/90 text-white backdrop-blur-md p-2 sm:p-2.5 rounded-xl border border-slate-700 shadow-lg flex items-center gap-2.5 pointer-events-none text-left">
+              <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-amber-400 shrink-0">
+                <span class="material-symbols-outlined text-[18px]">explore</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-extrabold text-amber-400">188° SSW</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">Optimal</span>
+                </div>
+                <span class="text-[9px] text-slate-400 block">Orientasi Surya Khatulistiwa</span>
+              </div>
+            </div>
+
+            <!-- Interactive Action Button overlay -->
+            <div class="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
+              <button type="button" onclick="goToStudioDirect()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-title font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95">
+                <span>Buka Demo Studio Ini</span>
+                <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- TRUST & CREDENTIALS RIBBON                 -->
+  <!-- ========================================== -->
+  <div class="w-full bg-slate-900 text-white py-8 px-4 sm:px-6 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-800">
+        <div class="p-2">
+          <span class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-headline-sm block">12.500+</span>
+          <span class="text-xs text-slate-400 font-medium block mt-1">Atap Rumah &amp; Usaha Dianalisis</span>
+        </div>
+        <div class="p-2 pt-4 md:pt-2">
+          <span class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-headline-sm block">Rp 48+ Miliar</span>
+          <span class="text-xs text-slate-400 font-medium block mt-1">Total Proyeksi Hemat Pelanggan</span>
+        </div>
+        <div class="p-2 pt-4 md:pt-2">
+          <span class="text-2xl sm:text-3xl font-extrabold text-sky-400 font-headline-sm block">98.4%</span>
+          <span class="text-xs text-slate-400 font-medium block mt-1">Akurasi Deteksi Orientasi Azimuth</span>
+        </div>
+        <div class="p-2 pt-4 md:pt-2">
+          <span class="text-2xl sm:text-3xl font-extrabold text-amber-300 font-headline-sm block">18.200 Ton</span>
+          <span class="text-xs text-slate-400 font-medium block mt-1">Emisi CO2 Berhasil Dipangkas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- QUICK CALCULATOR SECTION                   -->
+  <!-- ========================================== -->
+  <section id="quick-calculator" class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+      <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+        Kalkulator Instan
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-headline-lg">
+        Berapa Penghematan yang Bisa Anda Dapatkan?
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Geser perkiraan tagihan listrik PLN bulanan rumah Anda untuk melihat rekomendasi kapasitas PLTS, estimasi penghematan, dan masa balik modal secara langsung.
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl shadow-slate-200/50">
+      <div class="space-y-6">
+        <!-- Slider Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
+          <div>
+            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Rata-rata Tagihan Listrik PLN / Bulan</label>
+            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-headline-sm" id="landingBillDisplay">Rp 2.800.000 / bulan</span>
+          </div>
+          <!-- Quick Preset Buttons -->
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" onclick="onLandingCalculatorChange(1500000)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-800 text-xs font-medium text-slate-700 transition cursor-pointer">Rp 1,5 Jt</button>
+            <button type="button" onclick="onLandingCalculatorChange(2800000)" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 font-bold text-xs transition cursor-pointer border border-amber-300">Rp 2,8 Jt</button>
+            <button type="button" onclick="onLandingCalculatorChange(5000000)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-800 text-xs font-medium text-slate-700 transition cursor-pointer">Rp 5 Jt</button>
+            <button type="button" onclick="onLandingCalculatorChange(10000000)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-800 text-xs font-medium text-slate-700 transition cursor-pointer">Rp 10 Jt</button>
+          </div>
+        </div>
+
+        <!-- Range Input -->
+        <div class="space-y-2">
+          <input type="range" 
+                 min="500000" 
+                 max="15000000" 
+                 step="100000" 
+                 value="2800000" 
+                 id="landingBillSlider" 
+                 oninput="onLandingCalculatorChange(this.value)" 
+                 class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"/>
+          <div class="flex justify-between font-code-metric text-[10px] text-slate-400">
+            <span>Min (Rp 500 Ribu)</span>
+            <span>Standar Rumah (Rp 2,8 Juta)</span>
+            <span>Maks Rumah/Komersial (Rp 15 Juta)</span>
+          </div>
+        </div>
+
+        <!-- Output Metric Cards (4 Grid) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-4">
+          <!-- Metric 1: Monthly Saving -->
+          <div class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 text-left">
+            <div class="flex items-center gap-1.5 text-emerald-800 text-[11px] font-bold mb-1">
+              <span class="material-symbols-outlined text-[16px]">savings</span>
+              <span>Hemat / Bulan</span>
+            </div>
+            <span class="text-xl sm:text-2xl font-extrabold text-emerald-800 font-headline-sm block" id="landingCalcSavingMonth">Rp 2.436.000</span>
+            <span class="text-[10px] text-emerald-700 mt-1 block font-medium">Potensi hemat hingga ~87%</span>
+          </div>
+
+          <!-- Metric 2: Sizing -->
+          <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/90 text-left">
+            <div class="flex items-center gap-1.5 text-amber-900 text-[11px] font-bold mb-1">
+              <span class="material-symbols-outlined text-[16px]">solar_power</span>
+              <span>Rekomendasi Kapasitas</span>
+            </div>
+            <span class="text-xl sm:text-2xl font-extrabold text-slate-900 font-headline-sm block" id="landingCalcKwp">12.6 kWp</span>
+            <span class="text-[10px] text-amber-800 mt-1 block font-medium">~24 Modul Surya Tier-1</span>
+          </div>
+
+          <!-- Metric 3: Cumulative 25 Years -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left">
+            <div class="flex items-center gap-1.5 text-slate-700 text-[11px] font-bold mb-1">
+              <span class="material-symbols-outlined text-[16px]">auto_graph</span>
+              <span>Hemat 25 Tahun</span>
+            </div>
+            <span class="text-xl sm:text-2xl font-extrabold text-slate-900 font-headline-sm block" id="landingCalc25Total">Rp 730.800.000</span>
+            <span class="text-[10px] text-slate-500 mt-1 block font-medium">Garansi performa modul 25 thn</span>
+          </div>
+
+          <!-- Metric 4: Payback Period -->
+          <div class="p-4 rounded-2xl bg-sky-50/80 border border-sky-200/90 text-left">
+            <div class="flex items-center gap-1.5 text-sky-800 text-[11px] font-bold mb-1">
+              <span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+              <span>Balik Modal (BEP)</span>
+            </div>
+            <span class="text-xl sm:text-2xl font-extrabold text-sky-900 font-headline-sm block" id="landingCalcPayback">~4.8 Tahun</span>
+            <span class="text-[10px] text-sky-700 mt-1 block font-medium">20+ tahun listrik gratis setelahnya</span>
+          </div>
+        </div>
+
+        <!-- Action Button CTA -->
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900 text-white">
+          <div class="text-left">
+            <span class="text-xs text-amber-400 font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px]">verified</span>
+              Berdasarkan Aturan Tarif PLN &amp; ESDM 2024
+            </span>
+            <p class="text-xs text-slate-300 mt-0.5">Ingin melihat posisi penataan panel di atap rumah Anda?</p>
+          </div>
+          <button type="button" onclick="applyLandingCalculatorToStudio()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-title font-extrabold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer shrink-0">
+            <span>Desain Tata Letak Atap Ini</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- HOW IT WORKS (4 STEPS)                     -->
+  <!-- ========================================== -->
+  <section id="how-it-works" class="py-16 sm:py-20 bg-slate-100/60 border-y border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <span class="px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-wider">
+          Proses Cepat &amp; Presisi
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-headline-lg">
+          4 Langkah Mudah Menuju Listrik Mandiri
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Dari citra satelit hingga proposal EPC siap pasang, semua dapat diselesaikan langsung melalui browser Anda.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative group hover:-translate-y-1 transition-transform">
+          <div class="w-12 h-12 rounded-xl bg-amber-500 text-white font-title font-extrabold text-lg flex items-center justify-center mb-4 shadow-md shadow-amber-500/20">
+            1
+          </div>
+          <h3 class="font-title font-bold text-slate-900 text-base mb-2">Input Alamat Rumah</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Ketik alamat atau koordinat lokasi Anda. AI SunSight memuat ortofoto satelit 90° nadir beresolusi tinggi secara instan.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative group hover:-translate-y-1 transition-transform">
+          <div class="w-12 h-12 rounded-xl bg-slate-900 text-white font-title font-extrabold text-lg flex items-center justify-center mb-4 shadow-md">
+            2
+          </div>
+          <h3 class="font-title font-bold text-slate-900 text-base mb-2">AI Deteksi Geometri</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Sistem mengidentifikasi bubungan atap, kemiringan pitch, kompas azimuth hadap khatulistiwa, serta batas aman talang air.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative group hover:-translate-y-1 transition-transform">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white font-title font-extrabold text-lg flex items-center justify-center mb-4 shadow-md shadow-emerald-600/20">
+            3
+          </div>
+          <h3 class="font-title font-bold text-slate-900 text-base mb-2">Simulasi Tata Letak &amp; ROI</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Modul surya Tier-1 disusun otomatis dengan clearance rintangan HVAC. Hitung penghematan tagihan PLN dan kurva titik impas.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative group hover:-translate-y-1 transition-transform">
+          <div class="w-12 h-12 rounded-xl bg-sky-600 text-white font-title font-extrabold text-lg flex items-center justify-center mb-4 shadow-md shadow-sky-600/20">
+            4
+          </div>
+          <h3 class="font-title font-bold text-slate-900 text-base mb-2">Ekspor Proposal &amp; Hubungkan EPC</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Unduh proposal teknis PDF resmi siap cetak dan teruskan spesifikasi ke kontraktor installer surya bersertifikasi resmi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- FEATURES DEEP-DIVE                         -->
+  <!-- ========================================== -->
+  <section id="features" class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+      <span class="px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider">
+        Keunggulan Utama
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-headline-lg">
+        Teknologi Studio AI Tercanggih di Kelasnya
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Dirancang khusus untuk karakteristik arsitektur atap hunian dan komersial di Indonesia.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Card 1 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[28px]">satellite_alt</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-title">Citra Ortofoto 90° Nadir Bebas Distorsi</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Menggunakan citra satelit ortorektifikasi tegak lurus (90° nadir) tanpa kemiringan sudut perspektif. Ukuran bubungan (*ridge*) dan lereng (*slope*) terukur dengan presisi tinggi setara pengukuran meteran fisik.
+          </p>
+        </div>
+        <div class="pt-2 flex items-center gap-2 text-xs font-semibold text-sky-700">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+          <span>Akurasi kalibrasi skala 1 meter = 20px CAD</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[28px]">explore</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-title">Kompas Navigasi Azimuth Dua Arah</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Dilengkapi dial kompas navigasi presisi 3D dengan sinkronisasi dua arah ke poligon atap. Menghitung penalti deviasi sudut hadap terhadap garis khatulistiwa dan pola radiasi matahari tropis Indonesia.
+          </p>
+        </div>
+        <div class="pt-2 flex items-center gap-2 text-xs font-semibold text-amber-700">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+          <span>Preset 188° Optimal SSW (98.4% Efisiensi)</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[28px]">account_balance_wallet</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-title">Kalkulasi Finansial Sesuai Regulasi ESDM 2024</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Perhitungan CAPEX transparan mulai dari modul Tier-1 550W, inverter modular/string, racking, hingga biaya instalasi. Menghitung BEP, IRR, serta grafik kumulatif arus kas hingga 25 tahun tanpa biaya tersembunyi.
+          </p>
+        </div>
+        <div class="pt-2 flex items-center gap-2 text-xs font-semibold text-emerald-700">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+          <span>Tarif PLN Resmi R-1, R-2, R-3, B-2 &amp; B-3</span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[28px]">forest</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-title">Diorama Hutan Lestari &amp; Dampak Ekologis</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Lihat dampak nyata transisi hijau rumah Anda! Visualisasi 24 pohon ekologis pada diorama 3 lapis tumbuh merekah seiring penambahan kapasitas PLTS dan reduksi emisi karbon tahunan.
+          </p>
+        </div>
+        <div class="pt-2 flex items-center gap-2 text-xs font-semibold text-teal-700">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+          <span>Faktor Grid ESDM 0.80 kg CO2 / kWh terintegrasi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- COMPARISON TABLE                           -->
+  <!-- ========================================== -->
+  <section id="comparison" class="py-16 sm:py-20 bg-slate-100/60 border-y border-slate-200/70">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <span class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider">
+          Komparasi Efisiensi
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-headline-lg">
+          Mengapa Memilih SunSight AI?
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Lihat bagaimana platform digital kami merevolusi cara pemilik rumah dan EPC merencanakan PLTS atap.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-900 text-white font-title">
+                <th class="p-4 sm:p-5 font-bold w-1/3">Aspek Penilaian</th>
+                <th class="p-4 sm:p-5 font-bold w-1/3 text-slate-300">Survei Manual Tradisional</th>
+                <th class="p-4 sm:p-5 font-bold w-1/3 text-amber-400 bg-slate-800/80">SunSight AI Platform</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-4 sm:p-5 font-semibold text-slate-800">Waktu Proses Analisis</td>
+                <td class="p-4 sm:p-5 text-slate-500">3 s.d. 7 Hari Kerja</td>
+                <td class="p-4 sm:p-5 font-bold text-emerald-700 bg-amber-50/40">⚡ &lt; 3 Detik (Instan)</td>
+              </tr>
+              <tr>
+                <td class="p-4 sm:p-5 font-semibold text-slate-800">Risiko Keamanan Fisik</td>
+                <td class="p-4 sm:p-5 text-rose-600 font-medium">Tinggi (Harus panjat atap genteng)</td>
+                <td class="p-4 sm:p-5 font-bold text-emerald-700 bg-amber-50/40">🛡️ 100% Aman Digital dari Browser</td>
+              </tr>
+              <tr>
+                <td class="p-4 sm:p-5 font-semibold text-slate-800">Biaya Studi Awal</td>
+                <td class="p-4 sm:p-5 text-slate-500">Rp 500.000 - Rp 2.000.000</td>
+                <td class="p-4 sm:p-5 font-bold text-emerald-700 bg-amber-50/40">🎁 100% Gratis Tanpa Komitmen</td>
+              </tr>
+              <tr>
+                <td class="p-4 sm:p-5 font-semibold text-slate-800">Penataan Modul &amp; Rintangan</td>
+                <td class="p-4 sm:p-5 text-slate-500">Sketsa perkiraan kasar</td>
+                <td class="p-4 sm:p-5 font-bold text-emerald-700 bg-amber-50/40">📐 CAD Interaktif (Chiller &amp; Skylight)</td>
+              </tr>
+              <tr>
+                <td class="p-4 sm:p-5 font-semibold text-slate-800">Kalkulasi Titik Impas (BEP)</td>
+                <td class="p-4 sm:p-5 text-slate-500">Estimasi tabel statis</td>
+                <td class="p-4 sm:p-5 font-bold text-emerald-700 bg-amber-50/40">📊 Kurva Finansial Real-time 25 Thn</td>
+              </tr>
+              <tr>
+                <td class="p-4 sm:p-5 font-semibold text-slate-800">Format Laporan Penawaran</td>
+                <td class="p-4 sm:p-5 text-slate-500">Format surat penawaran manual</td>
+                <td class="p-4 sm:p-5 font-bold text-emerald-700 bg-amber-50/40">📄 Ekspor Proposal PDF Resmi 1-Klik</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- TESTIMONIALS (SOCIAL PROOF)                -->
+  <!-- ========================================== -->
+  <section id="testimonials" class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+      <span class="px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-wider">
+        Kisah Nyata
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-headline-lg">
+        Dipercaya Ribuan Pemilik Rumah &amp; Bisnis
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Dengar langsung pengalaman mereka yang telah beralih ke energi surya bersama SunSight.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Testimonial 1 -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+        <div class="space-y-3">
+          <div class="flex text-amber-400 text-sm">
+            ★★★★★
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+            "Tagihan listrik PLN saya dari Rp 3,2 juta per bulan sekarang cuma sisa 450 ribuan. Proposal dari SunSight sangat detail dan langsung diterima bank untuk pembiayaan hijau."
+          </p>
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-xs">
+            HK
+          </div>
+          <div>
+            <span class="font-bold text-slate-900 text-xs block">Hendra Kusuma</span>
+            <span class="text-[11px] text-slate-500">Menteng, Jakarta Pusat • Daya 5.500 VA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+        <div class="space-y-3">
+          <div class="flex text-amber-400 text-sm">
+            ★★★★★
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+            "Fitur kompas azimuth dan deteksi bayangan pohonnya luar biasa membantu. Kami bisa menghindari bagian atap yang tertutup bayangan pohon tetangga tanpa perlu keluar biaya survei."
+          </p>
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs">
+            RD
+          </div>
+          <div>
+            <span class="font-bold text-slate-900 text-xs block">Dr. Ratna Dewi</span>
+            <span class="text-[11px] text-slate-500">BSD City, Tangerang • Daya 3.500 VA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+        <div class="space-y-3">
+          <div class="flex text-amber-400 text-sm">
+            ★★★★★
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+            "Sebagai pengelola ruko komersial, fitur clearance rintangan AC chiller sangat krusial. Dalam 2 menit kami tahu persis kapasitas maksimal atap tanpa perlu membahayakan staf naik ke atas."
+          </p>
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-xs">
+            EF
+          </div>
+          <div>
+            <span class="font-bold text-slate-900 text-xs block">Ir. Edwin Firmansyah</span>
+            <span class="text-[11px] text-slate-500">Cikarang, Jawa Barat • Ruko Komersial 22 kVA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- FAQ ACCORDION                              -->
+  <!-- ========================================== -->
+  <section id="faq" class="py-16 sm:py-20 bg-slate-100/60 border-t border-slate-200/70">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center space-y-3 mb-12">
+        <span class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider">
+          Pertanyaan Umum
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-headline-lg">
+          Hal yang Sering Ditanyakan
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Jawaban transparan untuk semua keraguan Anda sebelum memasang PLTS atap.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <!-- FAQ 1 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+          <button type="button" onclick="toggleLandingFaq(1)" class="w-full p-4 sm:p-5 text-left font-title font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between gap-3 hover:text-amber-600 transition cursor-pointer">
+            <span>Apakah atap rumah saya cocok untuk dipasang panel surya?</span>
+            <span id="faq-icon-1" class="material-symbols-outlined text-[20px] text-slate-400 transition-transform">expand_more</span>
+          </button>
+          <div id="faq-body-1" class="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Sebagian besar tipe atap di Indonesia (genteng keramik, genteng beton, spandek/metal roof, dan dak beton) sangat cocok. SunSight menganalisis kemiringan optimal (10°–25°) dan orientasi hadap khatulistiwa agar produksi listrik maksimal.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+          <button type="button" onclick="toggleLandingFaq(2)" class="w-full p-4 sm:p-5 text-left font-title font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between gap-3 hover:text-amber-600 transition cursor-pointer">
+            <span>Bagaimana aturan regulasi Permen ESDM No. 2 Tahun 2024 terbaru?</span>
+            <span id="faq-icon-2" class="material-symbols-outlined text-[20px] text-slate-400 transition-transform">expand_more</span>
+          </button>
+          <div id="faq-body-2" class="hidden px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Regulasi Permen ESDM 2/2024 menghapus batasan kapasitas maksimal 100% daya tersambung dan menggantinya dengan sistem kuota per wilayah transmisi PLN. SunSight secara otomatis menghitung *sizing ratio* optimal yang memenuhi izin kuota PLN tanpa over-capacity.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+          <button type="button" onclick="toggleLandingFaq(3)" class="w-full p-4 sm:p-5 text-left font-title font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between gap-3 hover:text-amber-600 transition cursor-pointer">
+            <span>Berapa lama masa pakai panel surya dan inverter?</span>
+            <span id="faq-icon-3" class="material-symbols-outlined text-[20px] text-slate-400 transition-transform">expand_more</span>
+          </button>
+          <div id="faq-body-3" class="hidden px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Panel surya Tier-1 memiliki garansi performa degradasi hingga 25 tahun (output tetap &gt;80%). Inverter memiliki masa pakai rata-rata 10–15 tahun, dan model finansial SunSight telah memperhitungkan biaya penggantian inverter pada tahun ke-12.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+          <button type="button" onclick="toggleLandingFaq(4)" class="w-full p-4 sm:p-5 text-left font-title font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between gap-3 hover:text-amber-600 transition cursor-pointer">
+            <span>Berapa lama proses pemasangan hingga PLTS menyala?</span>
+            <span id="faq-icon-4" class="material-symbols-outlined text-[20px] text-slate-400 transition-transform">expand_more</span>
+          </button>
+          <div id="faq-body-4" class="hidden px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Proses pemasangan fisik panel surya residensial umumnya hanya memakan waktu 2–4 hari kerja. Pengurusan perizinan dan pemasangan meteran net-metering kWh Exim PLN rata-rata memakan waktu 2–4 minggu dibantu penuh oleh mitra EPC resmi kami.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+          <button type="button" onclick="toggleLandingFaq(5)" class="w-full p-4 sm:p-5 text-left font-title font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between gap-3 hover:text-amber-600 transition cursor-pointer">
+            <span>Apakah simulasi di platform SunSight ini benar-benar gratis?</span>
+            <span id="faq-icon-5" class="material-symbols-outlined text-[20px] text-slate-400 transition-transform">expand_more</span>
+          </button>
+          <div id="faq-body-5" class="hidden px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Ya, 100% gratis tanpa perlu registrasi kartu kredit. Anda dapat mencoba simulasi atap, menyesuaikan jumlah panel, melihat analisis finansial, dan mengunduh proposal PDF secara cuma-cuma.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- FINAL CALL TO ACTION                       -->
+  <!-- ========================================== -->
+  <section class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-8 sm:p-14 text-center text-white overflow-hidden shadow-2xl border border-slate-800">
+      <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-500/20 blur-3xl pointer-events-none rounded-full"></div>
+      <div class="relative z-10 max-w-2xl mx-auto space-y-5">
+        <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+          Mulai Hari Ini
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold font-headline-lg leading-tight">
+          Siap Mengubah Atap Rumah Menjadi Sumber Penghematan Mandiri?
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          Dapatkan analisis akurat potensi daya listrik surya dan estimasi penghematan tagihan PLN secara instan.
+        </p>
+        <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button type="button" onclick="triggerQuickDemo()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-title font-bold text-sm shadow-lg transition flex items-center justify-center gap-2 cursor-pointer hover:scale-105 active:scale-95">
+            <span class="material-symbols-outlined text-[18px]">search</span>
+            <span>Mulai Analisis Atap Gratis</span>
+          </button>
+          <button type="button" onclick="goToStudioDirect()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-title font-semibold text-sm border border-white/20 transition flex items-center justify-center gap-2 cursor-pointer">
+            <span>Buka Studio CAD Langsung</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- LANDING FOOTER                             -->
+  <!-- ========================================== -->
+  <footer class="w-full border-t border-slate-200 bg-white py-12 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-xs text-slate-500">
+      <!-- Col 1 -->
+      <div class="space-y-3">
+        <img src="./logo.svg" alt="SunSight Logo" class="h-8 w-auto"/>
+        <p class="leading-relaxed">
+          Platform simulasi cerdas PLTS atap Indonesia berbasis computer vision citra satelit dan kalkulasi regulasi energi terbarukan.
+        </p>
+        <div class="flex items-center gap-2 text-slate-400">
+          <span class="font-code-metric">Versi 2.4.0 (Build 2024)</span>
+        </div>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="space-y-2">
+        <span class="font-title font-bold text-slate-900 text-xs uppercase tracking-wider block">Fitur Studio</span>
+        <ul class="space-y-1.5">
+          <li><a href="#features" class="hover:text-amber-600 transition">Ortofoto Nadir 90°</a></li>
+          <li><a href="#quick-calculator" class="hover:text-amber-600 transition">Kalkulator Penghematan</a></li>
+          <li><a href="#how-it-works" class="hover:text-amber-600 transition">Kompas Azimuth Real-time</a></li>
+          <li><a href="#features" class="hover:text-amber-600 transition">Deteksi Rintangan CAD</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="space-y-2">
+        <span class="font-title font-bold text-slate-900 text-xs uppercase tracking-wider block">Regulasi &amp; Data</span>
+        <ul class="space-y-1.5">
+          <li><span class="text-slate-600">Permen ESDM No. 2/2024</span></li>
+          <li><span class="text-slate-600">Tarif Tenaga Listrik PLN 2024</span></li>
+          <li><span class="text-slate-600">Model Radiasi NREL SAM</span></li>
+          <li><span class="text-slate-600">Standar Tier-1 BloombergNEF</span></li>
+        </ul>
+      </div>
+
+      <!-- Col 4 -->
+      <div class="space-y-2">
+        <span class="font-title font-bold text-slate-900 text-xs uppercase tracking-wider block">Kontak &amp; Kemitraan</span>
+        <p class="leading-relaxed">
+          Ingin bergabung sebagai mitra kontraktor installer EPC resmi di platform SunSight?
+        </p>
+        <button type="button" onclick="openInstallerModal()" class="inline-flex items-center gap-1.5 text-amber-700 font-bold hover:underline cursor-pointer">
+          <span>Hubungi Tim Kemitraan EPC</span>
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+      <span>© 2024 SunSight CAD Platform. Hak Cipta Dilindungi Undang-Undang.</span>
+      <span>Dikembangkan untuk percepatan adopsi energi surya atap di Indonesia.</span>
+    </div>
+  </footer>
 </section>
 <!-- ========================================== -->
 <!-- 2. STATE: SCANNING HUD (AI Processing)     -->
@@ -2719,9 +3415,93 @@ Mikroinverter Modular
       }, 2300);
     }
 
+    function setLandingSampleAddress(addrText) {
+      const addr = document.getElementById('landing-address-input');
+      if (addr) {
+        addr.value = addrText;
+        addr.focus();
+        addr.classList.add('ring-2', 'ring-amber-500');
+        setTimeout(() => addr.classList.remove('ring-2', 'ring-amber-500'), 1000);
+      }
+    }
+
+    function onLandingCalculatorChange(val) {
+      const bill = Number(val) || 2800000;
+      const slider = document.getElementById('landingBillSlider');
+      if (slider && Number(slider.value) !== bill) {
+        slider.value = bill;
+      }
+      
+      const billDisplay = document.getElementById('landingBillDisplay');
+      if (billDisplay) {
+        billDisplay.textContent = 'Rp ' + bill.toLocaleString('id-ID') + ' / bulan';
+      }
+
+      const tariff = (typeof simState !== 'undefined' && simState.tariff) ? simState.tariff : 1444.7;
+      const monthlyKwh = bill / tariff;
+      const targetSolarKwh = monthlyKwh * 0.87;
+      const kwpNeeded = Math.max(1.6, Math.round((targetSolarKwh / (4.5 * 30 * 0.8)) * 10) / 10);
+      
+      const monthlySaving = Math.round(bill * 0.87);
+      const cumulative25 = monthlySaving * 12 * 25;
+      
+      const turnkeyCost = kwpNeeded * 13500000;
+      const annualSaving = monthlySaving * 12;
+      const paybackYears = Math.max(3.8, Math.round((turnkeyCost / annualSaving) * 10) / 10);
+
+      const savingEl = document.getElementById('landingCalcSavingMonth');
+      if (savingEl) savingEl.textContent = 'Rp ' + monthlySaving.toLocaleString('id-ID');
+
+      const kwpEl = document.getElementById('landingCalcKwp');
+      if (kwpEl) kwpEl.textContent = kwpNeeded.toFixed(1) + ' kWp';
+
+      const total25El = document.getElementById('landingCalc25Total');
+      if (total25El) total25El.textContent = 'Rp ' + (cumulative25 / 1000000).toLocaleString('id-ID', { maximumFractionDigits: 1 }) + ' Juta';
+
+      const paybackEl = document.getElementById('landingCalcPayback');
+      if (paybackEl) paybackEl.textContent = '~' + paybackYears.toFixed(1) + ' Tahun';
+    }
+
+    function applyLandingCalculatorToStudio() {
+      const slider = document.getElementById('landingBillSlider');
+      const val = slider ? Number(slider.value) : 2800000;
+      
+      if (typeof simState !== 'undefined') {
+        simState.bill = val;
+      }
+      const studioSlider = document.getElementById('inputBill');
+      if (studioSlider) studioSlider.value = val;
+      if (typeof onBillSliderChange === 'function') {
+        onBillSliderChange(val);
+      }
+      
+      triggerQuickDemo();
+    }
+
+    function toggleLandingFaq(index) {
+      const body = document.getElementById(`faq-body-${index}`);
+      const icon = document.getElementById(`faq-icon-${index}`);
+      if (!body) return;
+      const isCurrentlyHidden = body.classList.contains('hidden');
+      
+      for (let i = 1; i <= 5; i++) {
+        const b = document.getElementById(`faq-body-${i}`);
+        const ic = document.getElementById(`faq-icon-${i}`);
+        if (b) b.classList.add('hidden');
+        if (ic) ic.style.transform = 'rotate(0deg)';
+      }
+
+      if (isCurrentlyHidden) {
+        body.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
     function triggerQuickDemo() {
       const addr = document.getElementById('landing-address-input');
-      if(addr) addr.value = "Jl. Diponegoro No. 24, Menteng, Jakarta Pusat";
+      if (addr && !addr.value.trim()) {
+        addr.value = "Jl. Diponegoro No. 24, Menteng, Jakarta Pusat";
+      }
       startScanningSequence();
     }
 
@@ -3890,6 +4670,7 @@ Mikroinverter Modular
 
     // Initialize on load & DOM Event Listeners
     window.addEventListener('DOMContentLoaded', () => {
+      onLandingCalculatorChange(2800000);
       initEcoForest();
       setPitchValue(22);
       setPolygonRotation(8, false);
