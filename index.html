@@ -1811,7 +1811,11 @@ Mikroinverter Modular
 
     function updateEcoTrees(treesCount) {
       const backContainer = document.getElementById('eco-trees-back-container');
-      if (!backContainer || !backContainer.children.length) {
+      if (!backContainer) return;
+      
+      // Always check if tree elements actually exist (not just the container)
+      const firstTree = document.getElementById('eco-tree-0');
+      if (!firstTree) {
         initEcoForest();
       }
 
@@ -2439,8 +2443,11 @@ Mikroinverter Modular
       if (activePane) {
         activePane.classList.remove('hidden');
         activePane.classList.add('block');
-        if (targetPaneId === 'tab-pane-financial') {
-          setTimeout(updateRoiChart, 20);
+        if (targetPaneId === 'pane-financials') {
+          setTimeout(() => {
+            initEcoForest();
+            updateSimulation();
+          }, 50);
         }
       }
 
