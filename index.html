@@ -388,9 +388,10 @@
   <span class="text-[9.5px] text-slate-300">Lebar Atap</span>
 </div>
 
-<!-- Setback Boundary (Dashed Safety Margin with Internal Label) -->
-<div class="absolute rounded-md border-2 border-dashed border-amber-400/80 bg-emerald-500/[0.02] pointer-events-none transition-all duration-200" id="canvas-setback-box" style="top: 10px; left: 10px; right: 10px; bottom: 12px;">
-  <div class="absolute top-1 left-1.5 px-1.5 py-0.2 rounded bg-amber-500/90 text-white font-code-metric text-[7.5px] font-bold shadow-xs flex items-center gap-1 backdrop-blur-xs">
+<!-- Setback Boundary (Dashed Safety Margin with High-Visibility Clear Label) -->
+<div class="absolute rounded-md border-2 border-dashed border-amber-400/80 bg-emerald-500/[0.02] pointer-events-none transition-all duration-200 z-20" id="canvas-setback-box" style="top: 10px; left: 10px; right: 10px; bottom: 12px;">
+  <div class="absolute -top-2.5 left-2 px-1.5 py-0.5 rounded bg-amber-500 text-white font-code-metric text-[8px] font-bold shadow-md flex items-center gap-1 backdrop-blur-xs border border-amber-300/60 z-20">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-200"></span>
     <span>Setback <span id="canvas-setback-label">0.50m</span></span>
   </div>
 </div>
@@ -480,17 +481,13 @@
 <div class="p-3 pb-2.5 bg-slate-50/70 border-b border-slate-200 shrink-0">
   <!-- Interactive Sprouting Eco-Forest Landscape (Polished Layered Diorama) -->
   <div class="relative w-full h-28 rounded-xl bg-gradient-to-b from-sky-100/70 via-emerald-50/50 to-emerald-100/80 border border-emerald-200/90 overflow-hidden shadow-inner flex flex-col justify-between p-2">
-    <!-- Sky HUD Header -->
-    <div class="relative z-10 flex items-center justify-between">
-      <div></div>
-      <!-- Right side: Clean Green Pill without blinking ping & Coverage Badge -->
-      <div class="flex items-center gap-1.5">
-        <span id="ecoCoverageBadge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/95 text-emerald-800 border border-emerald-200 shadow-2xs">100% Beban Listrik Bersih</span>
-        <div class="flex items-center gap-1 bg-emerald-700/95 text-white px-2 py-0.5 rounded-full text-[9px] font-bold shadow-2xs">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-          <span id="ecoTreeArea">~0.71 Ha Lestari</span>
-        </div>
+    <!-- Sky HUD Header (Right-Aligned Pill Badges) -->
+    <div class="relative z-10 flex items-center justify-end gap-1.5 w-full">
+      <div class="flex items-center gap-1 bg-emerald-700/95 text-white px-2 py-0.5 rounded-full text-[9px] font-bold shadow-2xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+        <span id="ecoTreeArea">~0.79 Ha Lestari</span>
       </div>
+      <span id="ecoCoverageBadge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/95 text-emerald-800 border border-emerald-200 shadow-2xs">100% Beban Listrik Bersih</span>
     </div>
 
     <!-- SVG Nature Landscape with 3-Layered Rolling Hills & Tree Canopies -->
@@ -920,11 +917,20 @@
       <span class="font-medium text-slate-600">Batas Keamanan Tepi (Setback Keliling)</span>
       <span class="font-code-metric font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded text-[11px]" id="setbackDisplay">0.50 m</span>
     </div>
-    <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" id="setbackSlider" max="1.0" min="0.2" oninput="onSetbackChange(this.value)" step="0.05" type="range" value="0.50"/>
-    <div class="flex justify-between font-code-metric text-[9.5px] text-slate-400">
-      <span class="cursor-pointer hover:text-sky-600" onclick="onSetbackChange(0.3)">Min (0.3m)</span>
-      <span class="cursor-pointer hover:text-sky-600 font-semibold text-slate-700" onclick="onSetbackChange(0.5)">Standar PLN (0.5m)</span>
-      <span class="cursor-pointer hover:text-sky-600" onclick="onSetbackChange(0.8)">Aman (0.8m)</span>
+    <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" id="setbackSlider" max="0.8" min="0.2" oninput="onSetbackChange(this.value)" step="0.05" type="range" value="0.50"/>
+    <div class="relative w-full flex justify-between font-code-metric text-[9.5px] text-slate-400 pt-0.5">
+      <button type="button" class="flex flex-col items-start hover:text-sky-600 transition cursor-pointer" onclick="onSetbackChange(0.2)">
+        <span class="w-1 h-1 rounded-full bg-slate-300 mb-0.5 ml-1"></span>
+        <span>Min (0.2m)</span>
+      </button>
+      <button type="button" class="flex flex-col items-center hover:text-sky-600 transition font-semibold text-slate-700 cursor-pointer" onclick="onSetbackChange(0.5)">
+        <span class="w-1.5 h-1.5 rounded-full bg-sky-500 mb-0.5"></span>
+        <span>Standar PLN (0.5m)</span>
+      </button>
+      <button type="button" class="flex flex-col items-end hover:text-sky-600 transition cursor-pointer" onclick="onSetbackChange(0.8)">
+        <span class="w-1 h-1 rounded-full bg-slate-300 mb-0.5 mr-1"></span>
+        <span>Aman (0.8m)</span>
+      </button>
     </div>
   </div>
 
@@ -934,11 +940,20 @@
       <span class="font-medium text-slate-600">Jalur Talang Air &amp; Akses Pemeliharaan (Bawah)</span>
       <span class="font-code-metric font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded text-[11px]" id="gutterDisplay">0.60 m</span>
     </div>
-    <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" id="gutterSlider" max="1.2" min="0.3" oninput="onGutterChange(this.value)" step="0.05" type="range" value="0.60"/>
-    <div class="flex justify-between font-code-metric text-[9.5px] text-slate-400">
-      <span class="cursor-pointer hover:text-amber-600" onclick="onGutterChange(0.4)">Ringkas (0.4m)</span>
-      <span class="cursor-pointer hover:text-amber-600 font-semibold text-slate-700" onclick="onGutterChange(0.6)">Standar Talang (0.6m)</span>
-      <span class="cursor-pointer hover:text-amber-600" onclick="onGutterChange(1.0)">Walkway (1.0m)</span>
+    <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" id="gutterSlider" max="0.9" min="0.3" oninput="onGutterChange(this.value)" step="0.05" type="range" value="0.60"/>
+    <div class="relative w-full flex justify-between font-code-metric text-[9.5px] text-slate-400 pt-0.5">
+      <button type="button" class="flex flex-col items-start hover:text-amber-600 transition cursor-pointer" onclick="onGutterChange(0.3)">
+        <span class="w-1 h-1 rounded-full bg-slate-300 mb-0.5 ml-1"></span>
+        <span>Ringkas (0.3m)</span>
+      </button>
+      <button type="button" class="flex flex-col items-center hover:text-amber-600 transition font-semibold text-slate-700 cursor-pointer" onclick="onGutterChange(0.6)">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mb-0.5"></span>
+        <span>Standar Talang (0.6m)</span>
+      </button>
+      <button type="button" class="flex flex-col items-end hover:text-amber-600 transition cursor-pointer" onclick="onGutterChange(0.9)">
+        <span class="w-1 h-1 rounded-full bg-slate-300 mb-0.5 mr-1"></span>
+        <span>Walkway (0.9m)</span>
+      </button>
     </div>
   </div>
 
@@ -1763,23 +1778,41 @@ Mikroinverter Modular
       }
     }
 
-    // Eco-Forest Layered Diorama Tree Configurations
+    // Eco-Forest Layered Diorama Tree Configurations (Expanded 24 Diverse Trees across 3 Layers)
     const ecoTreeConfigs = [
-      // Layer 1: Back Hill (y ~ 44-50, scale ~0.65-0.72)
-      { id: 0, layer: 'back', x: 38, y: 50, scale: 0.72, type: 'pine', delay: 0 },
-      { id: 1, layer: 'back', x: 92, y: 44, scale: 0.68, type: 'oak', delay: 40 },
-      { id: 2, layer: 'back', x: 162, y: 48, scale: 0.72, type: 'poplar', delay: 80 },
-      { id: 3, layer: 'back', x: 232, y: 44, scale: 0.65, type: 'pine', delay: 120 },
-      { id: 4, layer: 'back', x: 292, y: 46, scale: 0.70, type: 'oak', delay: 160 },
+      // Stage 1 (Initial Sprout: 500k - 2.8M, ids 0-5)
+      { id: 0, layer: 'front', x: 168, y: 75, scale: 1.14, type: 'oak', delay: 20 },
+      { id: 1, layer: 'mid', x: 135, y: 56, scale: 0.92, type: 'pine', delay: 40 },
+      { id: 2, layer: 'back', x: 175, y: 46, scale: 0.70, type: 'poplar', delay: 60 },
+      { id: 3, layer: 'mid', x: 202, y: 56, scale: 0.90, type: 'oak', delay: 80 },
+      { id: 4, layer: 'front', x: 228, y: 74, scale: 1.12, type: 'poplar', delay: 100 },
+      { id: 5, layer: 'back', x: 118, y: 41, scale: 0.72, type: 'pine', delay: 120 },
 
-      // Layer 2: Mid Hill (y ~ 56-62, scale ~0.88-0.92)
-      { id: 5, layer: 'mid', x: 65, y: 62, scale: 0.90, type: 'oak', delay: 200 },
-      { id: 6, layer: 'mid', x: 128, y: 58, scale: 0.88, type: 'pine', delay: 240 },
-      { id: 7, layer: 'mid', x: 198, y: 58, scale: 0.92, type: 'poplar', delay: 280 },
-      { id: 8, layer: 'mid', x: 265, y: 56, scale: 0.88, type: 'oak', delay: 320 },
+      // Stage 2 (Growth Canopy: 3M - 6M, ids 6-10)
+      { id: 6, layer: 'mid', x: 70, y: 53, scale: 0.90, type: 'oak', delay: 140 },
+      { id: 7, layer: 'front', x: 110, y: 73, scale: 1.16, type: 'oak', delay: 160 },
+      { id: 8, layer: 'back', x: 210, y: 44, scale: 0.67, type: 'poplar', delay: 180 },
+      { id: 9, layer: 'mid', x: 238, y: 54, scale: 0.89, type: 'pine', delay: 200 },
+      { id: 10, layer: 'back', x: 85, y: 38, scale: 0.66, type: 'pine', delay: 220 },
 
-      // Layer 3: Foreground Meadow (y ~ 74, scale ~1.15)
-      { id: 9, layer: 'front', x: 165, y: 74, scale: 1.15, type: 'oak', delay: 360 }
+      // Stage 3 (Expanding Woodland: 6M - 10M, ids 11-15)
+      { id: 11, layer: 'front', x: 290, y: 75, scale: 1.15, type: 'oak', delay: 240 },
+      { id: 12, layer: 'mid', x: 170, y: 58, scale: 0.88, type: 'pine', delay: 260 },
+      { id: 13, layer: 'back', x: 245, y: 42, scale: 0.71, type: 'oak', delay: 280 },
+      { id: 14, layer: 'mid', x: 102, y: 53, scale: 0.87, type: 'poplar', delay: 300 },
+      { id: 15, layer: 'front', x: 48, y: 76, scale: 1.10, type: 'pine', delay: 320 },
+
+      // Stage 4 (Dense Forest: 10M - 13M, ids 16-19)
+      { id: 16, layer: 'back', x: 52, y: 42, scale: 0.70, type: 'oak', delay: 340 },
+      { id: 17, layer: 'mid', x: 272, y: 53, scale: 0.91, type: 'pine', delay: 360 },
+      { id: 18, layer: 'back', x: 280, y: 41, scale: 0.66, type: 'pine', delay: 380 },
+      { id: 19, layer: 'mid', x: 35, y: 62, scale: 0.88, type: 'poplar', delay: 400 },
+
+      // Stage 5 (Full Lush Biosphere: 13M - 15M Slider Mentok, ids 20-23)
+      { id: 20, layer: 'back', x: 22, y: 49, scale: 0.65, type: 'pine', delay: 420 },
+      { id: 21, layer: 'back', x: 150, y: 44, scale: 0.68, type: 'pine', delay: 440 },
+      { id: 22, layer: 'mid', x: 308, y: 54, scale: 0.87, type: 'oak', delay: 460 },
+      { id: 23, layer: 'back', x: 315, y: 43, scale: 0.69, type: 'poplar', delay: 480 }
     ];
 
     function getTreeSvgGeometry(type) {
@@ -1847,16 +1880,15 @@ Mikroinverter Modular
       }
 
       const count = Math.max(0, Number(treesCount) || 0);
-      const maxTrees = Math.max(100, Number(maxPotential) || 800);
+      const totalTreesInConfig = ecoTreeConfigs.length;
 
-      // Active trees scale from 1 (minimum sprout) up to 10 based on tree count ratio
-      let activeCount = 0;
-      if (count > 0) {
-        const ratio = Math.min(1, Math.max(0.1, count / maxTrees));
-        activeCount = Math.max(1, Math.min(10, Math.round(ratio * 10)));
-      }
+      // Scale active trees from 2 sprouts (at min bill Rp 500k / ~128 trees) up to all 24 trees (at max bill Rp 15M / ~3850 trees)
+      const minBenchmark = 120;
+      const maxBenchmark = 3850;
+      const progressRatio = Math.max(0, Math.min(1, (count - minBenchmark) / (maxBenchmark - minBenchmark)));
+      const activeCount = Math.max(2, Math.min(totalTreesInConfig, Math.round(2 + progressRatio * (totalTreesInConfig - 2))));
 
-      for (let i = 0; i < ecoTreeConfigs.length; i++) {
+      for (let i = 0; i < totalTreesInConfig; i++) {
         const treeEl = document.getElementById(`eco-tree-${i}`);
         if (treeEl) {
           if (i < activeCount) {
@@ -1876,7 +1908,7 @@ Mikroinverter Modular
       // Update forest badge and equivalent green area
       const forestLabel = document.getElementById('ecoForestLabel');
       if (forestLabel) {
-        forestLabel.textContent = `Hutan Lestari: ${count.toLocaleString('id-ID')} Pohon`;
+        forestLabel.textContent = `${count.toLocaleString('id-ID')} Pohon Lestari`;
       }
       const treeAreaEl = document.getElementById('ecoTreeArea');
       if (treeAreaEl) {
@@ -1889,10 +1921,10 @@ Mikroinverter Modular
         const pct = Math.round(((simState.actualYearlyProd || 17850) / homeKwh) * 100);
         if (pct >= 100) {
           coverageEl.textContent = '100% Beban Listrik Bersih';
-          coverageEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs';
+          coverageEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/95 text-emerald-800 border border-emerald-200 shadow-2xs';
         } else {
           coverageEl.textContent = `${pct}% Beban Listrik Tertutup`;
-          coverageEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 shadow-2xs';
+          coverageEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-100/95 text-sky-800 border border-sky-200 shadow-2xs';
         }
       }
     }
@@ -2045,24 +2077,25 @@ Mikroinverter Modular
       if(document.getElementById('metric-bep')) document.getElementById('metric-bep').textContent = Math.ceil(payback);
       if(document.getElementById('bepLabel')) document.getElementById('bepLabel').textContent = `BEP: Thn ${payback}`;
 
-      // Eco Impact (Environmental Calculation dynamically linked to Household Bill & Solar Capacity)
+      // Eco Impact (Environmental Calculation dynamically linked to Household Bill & Clean Transition Potential)
       // Standard ESDM 2024 grid factor: ~0.80 kg CO2 / kWh
       const annualHomeKwh = (simState.bill / simState.tariff) * 12;
-      // Clean energy displacing PLN grid electricity is based on actual household offset (capped by generation & demand)
-      const effectiveOffsetKwh = Math.min(actualYearlyProd, annualHomeKwh);
-      const co2ReductionTon = (effectiveOffsetKwh * 0.8) / 1000;
+      // Carbon reduction and tree planting equivalent scales with clean energy transition across full slider range (up to 15M)
+      const co2ReductionTon = (annualHomeKwh * 0.8) / 1000;
       // 1 mature urban tree absorbs ~22 kg CO2 / year
       const treesEquivalent = Math.max(1, Math.round((co2ReductionTon * 1000) / 22));
-      const maxPotentialTrees = Math.max(treesEquivalent, Math.round(((actualYearlyProd * 0.8) / 1000 * 1000) / 22));
+      const maxPotentialTrees = Math.max(treesEquivalent, 3850);
 
       simState.co2ReductionTon = co2ReductionTon;
       simState.treesEquivalent = treesEquivalent;
       simState.annualHomeKwh = annualHomeKwh;
-      simState.effectiveOffsetKwh = effectiveOffsetKwh;
       simState.actualYearlyProd = actualYearlyProd;
 
       const ecoCo2El = document.getElementById('ecoCo2Display');
       if (ecoCo2El) ecoCo2El.textContent = co2ReductionTon.toFixed(1);
+
+      const ecoCo2HeaderEl = document.getElementById('ecoCo2HeaderDisplay');
+      if (ecoCo2HeaderEl) ecoCo2HeaderEl.textContent = `${co2ReductionTon.toFixed(1)} Ton CO2/thn`;
 
       const ecoTreesEl = document.getElementById('ecoTreesDisplay');
       if (ecoTreesEl) ecoTreesEl.textContent = treesEquivalent.toLocaleString('id-ID');
@@ -2783,10 +2816,7 @@ Mikroinverter Modular
                    onclick="toggleSlotState(${r}, ${c})"
                    class="group relative rounded-xs bg-rose-500/25 border border-rose-500/80 flex flex-col items-center justify-center text-center backdrop-blur-xs select-none shadow-xs cursor-pointer transition-all hover:scale-105 hover:ring-2 hover:ring-rose-400"
                    title="Slot [${r+1},${c+1}]: Rintangan HVAC Chiller • Klik untuk ganti ke Slot Kosong">
-                <div class="flex items-center gap-0.5">
-                  <span class="w-1 h-1 rounded-full bg-rose-400 animate-ping"></span>
-                  <span class="material-symbols-outlined text-rose-300 text-[11px] leading-none">ac_unit</span>
-                </div>
+                <span class="material-symbols-outlined text-rose-300 text-[13px] leading-none">ac_unit</span>
                 <span class="text-[6.5px] font-bold text-rose-100 tracking-tight leading-none mt-0.5">HVAC</span>
                 <span class="text-[5.5px] text-rose-200/80 leading-none">Chiller</span>
               </div>
@@ -2830,8 +2860,8 @@ Mikroinverter Modular
               invBadge = `<span class="absolute top-0.5 right-0.5 px-0.5 py-0.2 rounded-xs ${stringBadgeColor} font-code-metric text-[5.5px] font-extrabold leading-none shadow-2xs">${stringName}</span>`;
             } else {
               invBadge = `
-                <div class="absolute -top-1 left-1/2 -translate-x-1/2 px-0.5 rounded-xs bg-slate-950/95 border border-emerald-400 text-[5px] font-extrabold text-emerald-300 flex items-center gap-0.5 shadow-xs">
-                  <span class="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
+                <div class="absolute top-0.5 left-1/2 -translate-x-1/2 px-1 py-0.5 rounded-xs bg-slate-950/95 border border-emerald-400 text-[6px] font-extrabold text-emerald-300 flex items-center gap-0.5 shadow-xs z-10 leading-none">
+                  <span class="w-1 h-1 rounded-full bg-emerald-400"></span>
                   <span>μ</span>
                 </div>
               `;
@@ -2846,7 +2876,7 @@ Mikroinverter Modular
             const panelHtml = `
               <div style="width:${panelW_px}px; height:${panelH_px}px; ${transformStyle}"
                    onclick="toggleSlotState(${r}, ${c})"
-                   class="pv-module group relative rounded-xs ${bgGrad} border ${stringBorder} p-0.5 flex ${flexDir} justify-between transition-all duration-200 hover:ring-2 hover:ring-amber-400 hover:scale-105 cursor-pointer overflow-hidden"
+                   class="pv-module group relative rounded-xs ${bgGrad} border ${stringBorder} p-0.5 flex ${flexDir} justify-between transition-all duration-200 hover:ring-2 hover:ring-amber-400 hover:scale-105 cursor-pointer"
                    title="Slot [${r+1},${c+1}] • Modul #${pId} • ${simState.modulePower}W (${simState.orientation.toUpperCase()}) • Klik untuk ganti ke Skylight">
                 ${invBadge}
                 ${cellDivisions}
