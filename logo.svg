@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 40" fill="none">
+  <defs>
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Solar & PV Diamond Icon Mark -->
+  <g transform="translate(4, 4)">
+    <!-- Sun orbit dashes & core disc -->
+    <circle cx="16" cy="16" r="14" stroke="#F59E0B" stroke-width="1.75" stroke-dasharray="2.5 3.5" opacity="0.75"/>
+    <circle cx="16" cy="16" r="8" fill="url(#sunGrad)"/>
+    
+    <!-- PV angled panel segments -->
+    <path d="M16 16 L28 24 L16 31 L4 24 Z" fill="url(#panelGrad)"/>
+    <path d="M16 16 L28 24 M16 23.5 L22 27.5 M10 27.5 L16 23.5" stroke="#FFFFFF" stroke-width="0.9" opacity="0.95"/>
+  </g>
+  
+  <!-- Logo Wordmark: High-contrast Slate-900 / Charcoal for 'Sun', and Brand Amber for 'Sight' -->
+  <text x="42" y="26" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="800" font-size="19" fill="#0F172A" letter-spacing="-0.03em">Sun<tspan fill="#F59E0B">Sight</tspan></text>
+</svg>

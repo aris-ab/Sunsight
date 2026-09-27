@@ -1,0 +1,3520 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SunSight - Solusi Pintar Simulasi Potensi PLTS Atap</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    @keyframes radarScan {
+      0% { transform: translateY(-100%); opacity: 0.1; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(1000%); opacity: 0.1; }
+    }
+    .animate-radar {
+      animation: radarScan 3s linear infinite;
+    }
+    /* Global input & focus reset to eliminate harsh black browser/forms outlines */
+    input, textarea, select, button {
+      outline: none !important;
+    }
+    input:focus, textarea:focus, select:focus, button:focus {
+      outline: none !important;
+    }
+    /* Seamless inputs embedded in custom cards */
+    .seamless-input {
+      border: none !important;
+      border-width: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      -webkit-appearance: none !important;
+    }
+    .seamless-input:focus {
+      border: none !important;
+      border-width: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      --tw-ring-shadow: 0 0 #0000 !important;
+      --tw-shadow: 0 0 #0000 !important;
+    }
+    /* Eco-Forest Sprouting Animation ("Poing" pop-up straight upward from soil) */
+    .eco-tree-stem {
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    }
+    .eco-tree-stem.sprouted {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .eco-tree-stem.dormant {
+      transform: scale(0);
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-primary": "#ffb77d",
+            "inverse-surface": "#1e293b",
+            "surface-bright": "#faf8ff",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-surface": "#0f172a",
+            "on-secondary-container": "#00714e",
+            "on-secondary-fixed-variant": "#005137",
+            "surface-tint": "#d97706",
+            "tertiary-container": "#007bb9",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#2f1500",
+            "secondary": "#059669",
+            "secondary-container": "#82f5c1",
+            "background": "#f8fafc",
+            "surface-container-low": "#f8fafc",
+            "tertiary-fixed": "#cce5ff",
+            "on-tertiary-fixed": "#001d31",
+            "on-tertiary-fixed-variant": "#004b73",
+            "inverse-on-surface": "#f1f5f9",
+            "on-primary-container": "#fffbff",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#cbd5e1",
+            "surface-variant": "#dae2fd",
+            "on-primary-fixed-variant": "#6e3900",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "tertiary": "#0284c7",
+            "on-secondary-fixed": "#002114",
+            "primary": "#d97706",
+            "outline": "#64748b",
+            "primary-fixed-dim": "#ffb77d",
+            "tertiary-fixed-dim": "#93ccff",
+            "on-background": "#0f172a",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#fdfcff",
+            "surface-container": "#f1f5f9",
+            "surface-container-highest": "#e2e8f0",
+            "on-secondary": "#ffffff",
+            "secondary-fixed-dim": "#68dba9",
+            "surface": "#f8fafc",
+            "secondary-fixed": "#85f8c4",
+            "primary-container": "#b45309",
+            "on-surface-variant": "#475569",
+            "primary-fixed": "#ffdcc3",
+            "surface-container-high": "#e2e8f0",
+            "error-container": "#fee2e2"
+          },
+          fontFamily: {
+            "title": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "code-metric": ["Inter", "monospace"],
+            "label-sm": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-slate-50 font-body-md text-on-surface antialiased selection:bg-amber-100 selection:text-amber-900 min-h-screen">
+<!-- ========================================== -->
+<!-- 1. STATE: LANDING (Hero & Address Search) -->
+<!-- ========================================== -->
+<section class="relative min-h-screen flex flex-col justify-between overflow-x-hidden bg-[#fbfbfe]" id="state-landing">
+<!-- Top Nav Landing -->
+<header class="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-40">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img src="./logo.svg" alt="SunSight Logo" class="h-9 w-auto"/>
+<span class="ml-2 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200/60 text-amber-700 text-xs font-semibold">Simulasi PLTS v2.4</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden md:inline-block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#features">Fitur Ortofoto</a>
+<a class="hidden md:inline-block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#financials">Tarif PLN 2024</a>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white transition shadow-sm" onclick="goToStudioDirect()">
+<span>Buka Studio Langsung</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Landing Content -->
+<div class="flex-1 flex flex-col items-center justify-center px-4 py-16 max-w-5xl mx-auto text-center relative z-10">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-6 shadow-sm">
+<span class="flex h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
+<span>Solusi Pintar Simulasi Potensi PLTS Atap Indonesia</span>
+</div>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] max-w-4xl font-headline-lg">
+        Ketahui Potensi Surya &amp; Penghematan Listrik Atap Anda dalam <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 bg-clip-text text-transparent">Hitungan Detik</span>
+</h1>
+<p class="mt-5 text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed">
+        Analisis citra satelit nadir 90°, deteksi azimuth &amp; kemiringan atap otomatis, serta kalkulasi penghematan tagihan listrik PLN sesuai regulasi ESDM terbaru.
+      </p>
+<!-- Interactive Search Box -->
+<div class="mt-8 w-full max-w-2xl bg-white p-2.5 rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200 flex flex-col sm:flex-row gap-2 focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/10 transition-all">
+<div class="flex-1 relative flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-400 text-[22px] shrink-0">location_on</span>
+<input class="seamless-input w-full px-3 py-2 text-sm text-slate-800 placeholder-slate-400 bg-transparent border-0 font-medium" id="landing-address-input" placeholder="Masukkan alamat rumah atau koordinat lokasi..." type="text" value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
+</div>
+<button class="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-[0.98] text-white font-title text-sm font-bold shadow-md shadow-amber-600/25 transition-all flex items-center justify-center gap-2 shrink-0" onclick="startScanningSequence()">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span>Mulai Analisis Atap</span>
+</button>
+</div>
+<!-- Quick Demo Pill -->
+<div class="mt-4 flex items-center justify-center gap-2 flex-wrap text-xs text-slate-500">
+<span>Contoh Alamat:</span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-300 border border-slate-200 text-slate-700 font-medium transition-all group" onclick="triggerQuickDemo()">
+<span class="material-symbols-outlined text-[14px] text-amber-600">apartment</span>
+<span>Coba Demo: Jl. Diponegoro No. 24, Menteng, Jakarta Pusat</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- 3 Feature Badges -->
+<div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-4xl text-left">
+<div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">satellite_alt</span>
+</div>
+<div>
+<h4 class="font-title font-semibold text-slate-900 text-sm">Citra Ortofoto 90° Nadir</h4>
+<p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Resolusi spasial ultra-tinggi bebas distorsi sudut perspektif untuk presisi ukuran atap.</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">price_check</span>
+</div>
+<div>
+<h4 class="font-title font-semibold text-slate-900 text-sm">Sesuai Tarif PLN 2024</h4>
+<p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Kalkulasi akurat golongan R-1, R-2, &amp; B-2 dengan simulasi ekspor-impor net metering.</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">layers</span>
+</div>
+<div>
+<h4 class="font-title font-semibold text-slate-900 text-sm">Simulasi Presisi 3D CAD</h4>
+<p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Penataan modul surya otomatis, clearance rintangan HVAC, dan kalkulasi cosine pitch.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Landing Footer -->
+<footer class="w-full border-t border-slate-200 py-4 px-6 text-center text-xs text-slate-400 bg-white">
+      © 2024 SunSight CAD Platform. Data Citra Satelit Resolusi Tinggi &amp; Perhitungan Sinar Matahari NREL SAM.
+    </footer>
+</section>
+<!-- ========================================== -->
+<!-- 2. STATE: SCANNING HUD (AI Processing)     -->
+<!-- ========================================== -->
+<section class="hidden fixed inset-0 z-50 bg-slate-950 text-white flex flex-col items-center justify-center px-6 select-none overflow-hidden" id="state-scanning">
+<!-- Telemetry Map Backdrop with Scan Beam -->
+<div class="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none scale-105 filter grayscale contrast-150" style="background-image: url('satellite_map.jpg');"></div>
+<div class="absolute inset-0 bg-radial-gradient from-transparent via-slate-950/70 to-slate-950"></div>
+<!-- Radar Line Animation -->
+<div class="absolute inset-x-0 h-2 bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_20px_rgba(251,191,36,0.8)] animate-radar pointer-events-none"></div>
+<!-- Center Telemetry Card -->
+<div class="relative z-10 w-full max-w-lg bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col items-center text-center">
+<!-- Radar Target Ring -->
+<div class="relative w-20 h-20 mb-6 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-2 border-amber-500/30 animate-ping"></div>
+<div class="absolute inset-1 rounded-full border border-amber-500/50"></div>
+<div class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-400 flex items-center justify-center text-amber-400">
+<span class="material-symbols-outlined text-[26px] animate-spin">cyclone</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-400 font-code-metric text-xs uppercase tracking-widest font-semibold">
+        Simulasi Cerdas Aktif
+      </span>
+<h3 class="text-xl sm:text-2xl font-bold font-title mt-2 text-white">Memproses Ortofoto &amp; Geometri Atap</h3>
+<p class="text-xs text-slate-400 mt-1 font-code-metric">Target: Jl. Diponegoro No. 24, Menteng [-6.2088°, 106.8456°]</p>
+<!-- Checklist Progress -->
+<div class="w-full mt-6 space-y-3 text-left">
+<!-- Step 1 -->
+<div class="flex items-center gap-3 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60">
+<span class="material-symbols-outlined text-emerald-400 text-[18px]" id="scan-icon-1">check_circle</span>
+<span class="text-xs sm:text-sm font-medium text-slate-200" id="scan-text-1">1. Mengambil citra satelit resolusi tinggi &amp; ortofoto 90° nadir...</span>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center gap-3 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60">
+<span class="material-symbols-outlined text-amber-400 text-[18px] animate-spin" id="scan-icon-2">refresh</span>
+<span class="text-xs sm:text-sm font-medium text-slate-200" id="scan-text-2">2. Rekonstruksi polygon 3D &amp; mendeteksi kemiringan/orientasi atap...</span>
+</div>
+<!-- Step 3 -->
+<div class="flex items-center gap-3 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60">
+<span class="material-symbols-outlined text-slate-500 text-[18px]" id="scan-icon-3">hourglass_empty</span>
+<span class="text-xs sm:text-sm font-medium text-slate-400" id="scan-text-3">3. Menghitung insolasi harian &amp; potensi PLTS fotovoltaik...</span>
+</div>
+</div>
+<!-- Action Button to fast forward -->
+<div class="mt-6 pt-4 border-t border-slate-800 w-full flex items-center justify-between">
+<span class="text-xs text-slate-400 font-code-metric">Estimasi: ~2.0 dtk</span>
+<button class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-title font-bold text-xs shadow-md transition flex items-center gap-1.5" onclick="goToStudioDirect()">
+<span>Lanjut ke Studio Langsung</span>
+<span class="material-symbols-outlined text-[14px]">fast_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 3. STATE: STUDIO (CAD Workspace & Studio)  -->
+<!-- ========================================== -->
+<section class="hidden min-h-screen flex flex-col bg-slate-50" id="state-studio">
+<!-- Studio Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+<div class="h-16 w-full px-4 sm:px-6 flex items-center justify-between gap-3">
+<!-- Logo & Back Link -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 transition" onclick="goToLandingState()" title="Ganti Lokasi">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+</button>
+<div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
+<div class="flex items-center gap-2">
+<img src="./logo.svg" alt="SunSight Logo" class="h-7 w-auto"/>
+</div>
+<span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-code-metric text-xs">
+            Proyek Menteng #06
+          </span>
+</div>
+<!-- Center Address Input Field -->
+<div class="flex-1 max-w-md mx-2">
+<div class="relative flex items-center w-full">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 pointer-events-none text-[18px]">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-800 placeholder:text-slate-400 text-xs font-medium focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none transition-all" type="text" value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
+</div>
+</div>
+<!-- Right Studio Actions -->
+<div class="flex items-center gap-2.5 shrink-0">
+<div class="hidden lg:flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200/80 shadow-xs gap-1">
+<button id="map-btn-satellite" class="map-layer-btn map-layer-btn-satellite px-3 py-1.5 rounded-lg bg-white shadow-xs text-sky-700 border border-sky-200/80 text-xs font-bold flex items-center gap-1.5 transition-all" onclick="setMapLayer('satellite')" type="button">
+<span class="material-symbols-outlined text-[16px] text-sky-600">satellite_alt</span>
+<span>Satelit Nadir</span>
+</button>
+<button id="map-btn-heatmap" class="map-layer-btn map-layer-btn-heatmap px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 text-xs font-medium flex items-center gap-1.5 transition-all" onclick="setMapLayer('heatmap')" type="button">
+<span class="material-symbols-outlined text-[16px] text-amber-500">wb_sunny</span>
+<span>Heatmap Surya</span>
+</button>
+</div>
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 text-xs font-medium shadow-sm hover:bg-slate-50 transition" onclick="resetCanvasDefaults()" type="button">
+<span class="material-symbols-outlined text-[15px]">undo</span>
+<span>Reset</span>
+</button>
+<!-- Export PDF Trigger -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-semibold shadow-sm hover:bg-slate-800 transition" onclick="openPdfModal()" type="button">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span class="hidden md:inline">Ekspor Proposal PDF</span>
+</button>
+<!-- Avatar / Profile -->
+<div class="relative flex items-center shrink-0">
+<div class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center border border-amber-300">
+              ID
+            </div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+</div>
+</div>
+</div>
+</header>
+<!-- Studio Main Workspace: Canvas + Inspector Sidebar -->
+<main class="w-full pt-16 flex-1 flex flex-col">
+<div class="flex flex-col lg:flex-row w-full h-[calc(100vh-64px)] overflow-hidden">
+<!-- ===================================== -->
+<!-- LEFT: CANVAS VIEWPORT                 -->
+<!-- ===================================== -->
+<div class="relative flex-1 h-[55vh] lg:h-full bg-slate-900 overflow-hidden select-none">
+<!-- Background Orthophoto Satellite Image (Using IMAGE_12) -->
+<div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out" id="map-bg" style="background-image: url('satellite_map.jpg');">
+</div>
+<!-- Heatmap Overlay (Initially hidden) -->
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/40 via-rose-500/20 to-transparent mix-blend-overlay transition-opacity duration-700 opacity-0 pointer-events-none" id="heatmap-overlay"></div>
+<!-- Subtle High-Precision Blueprint Tint Overlay -->
+<div class="absolute inset-0 bg-slate-950/25 pointer-events-none backdrop-blur-[0.2px]"></div>
+<!-- Vector CAD Grid Lines Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-30">
+<defs>
+<pattern height="40" id="cadGrid2" patternunits="userSpaceOnUse" width="40">
+<path class="text-sky-300/30" d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="0.75"></path>
+<circle class="fill-sky-400/50" cx="0" cy="0" r="1"></circle>
+</pattern>
+</defs>
+<rect fill="url(#cadGrid2)" height="100%" width="100%"></rect>
+</svg>
+<!-- Interactive Roof Surface Polygon & Solar Array Grid -->
+<div class="absolute inset-0 overflow-hidden" id="canvas-container">
+<!-- Floating HUD Notification for CAD Tools & Actions -->
+<div id="cad-tool-toast" class="absolute top-4 left-1/2 -translate-x-1/2 z-30 hidden px-4 py-1.5 rounded-full bg-slate-900/95 backdrop-blur-md text-white border border-slate-700/80 shadow-xl text-xs font-medium items-center gap-2 transition-all">
+  <span class="material-symbols-outlined text-amber-400 text-[16px]">info</span>
+  <span id="cad-tool-toast-msg">Mode CAD</span>
+</div>
+
+<div class="absolute cursor-grab select-none" id="cad-array-box" style="left: 50%; top: 50%; width: 250px; height: 145px; transition: width 0.1s, height 0.1s; transform: translate(-50%, -50%) rotate(-4deg);">
+<!-- Outer Roof Boundary Shape -->
+<div id="cad-roof-surface" class="absolute inset-0 rounded-lg bg-sky-950/30 border-2 border-sky-400/70 shadow-[0_0_30px_rgba(2,132,199,0.3)] transition-all duration-200">
+
+<!-- Non-overlapping Clean Architectural Dimension Tags -->
+<!-- Top Ridge Dimension Tag -->
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-slate-900/90 text-white shadow-lg flex items-center gap-1.5 pointer-events-none border border-slate-700/80 backdrop-blur-md whitespace-nowrap z-10">
+  <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+  <span class="font-code-metric text-[11px] font-bold text-amber-300" id="canvas-ridge-val">12.48 m</span>
+  <span class="text-[9.5px] text-slate-300">Panjang Atap</span>
+</div>
+
+<!-- Right Slope Dimension Tag (Horizontal, readable, offset cleanly) -->
+<div class="absolute -right-28 top-1/2 -translate-y-1/2 px-2.5 py-0.5 rounded-full bg-slate-900/90 text-white shadow-lg flex items-center gap-1.5 pointer-events-none border border-slate-700/80 backdrop-blur-md whitespace-nowrap z-10">
+  <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+  <span class="font-code-metric text-[11px] font-bold text-sky-300" id="canvas-slope-val">7.28 m</span>
+  <span class="text-[9.5px] text-slate-300">Lebar Atap</span>
+</div>
+
+<!-- Setback Boundary (Dashed Safety Margin with Internal Label) -->
+<div class="absolute rounded-md border-2 border-dashed border-amber-400/80 bg-emerald-500/[0.02] pointer-events-none transition-all duration-200" id="canvas-setback-box" style="top: 10px; left: 10px; right: 10px; bottom: 12px;">
+  <div class="absolute top-1 left-1.5 px-1.5 py-0.2 rounded bg-amber-500/90 text-white font-code-metric text-[7.5px] font-bold shadow-xs flex items-center gap-1 backdrop-blur-xs">
+    <span>Setback <span id="canvas-setback-label">0.50m</span></span>
+  </div>
+</div>
+
+<!-- Gutter Waterway Zone (Jalur Talang Air Tepi Bawah) -->
+<div id="canvas-gutter-strip" class="absolute bottom-0 left-0 right-0 bg-sky-500/20 border-t border-dashed border-sky-400/80 flex items-center justify-center px-2 pointer-events-none transition-all duration-200 overflow-hidden" style="height: 14px;">
+  <span class="text-[7.5px] font-bold text-sky-200 uppercase tracking-wider flex items-center gap-1">
+    <span class="material-symbols-outlined text-[10px]">water_drop</span>
+    Jalur Talang Air (<span id="canvas-gutter-label">0.60m</span>)
+  </span>
+</div>
+
+<!-- Solar PV Array Grid (Populated Dynamically via renderPolygonModules) -->
+<div class="absolute p-0.5 transition-all duration-300 opacity-100" id="pv-module-grid" style="top: 10px; left: 10px; right: 10px; bottom: 12px;">
+  <!-- Panels dynamically rendered here based on module tier, orientation, spacing, tilt & inverter -->
+</div>
+
+<!-- Measurement Ruler Diagonal Overlay (Toggled via Measure Tool) -->
+<svg id="measure-overlay" class="absolute inset-0 w-full h-full pointer-events-none hidden z-10 overflow-visible">
+  <line x1="0" y1="0" x2="100%" y2="100%" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="42%" y="45%" width="64" height="18" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="55%" y="54%" text-anchor="middle" dominant-baseline="middle" font-size="9" fill="#fef08a" font-family="Inter" font-weight="700" id="measure-diag-val">Diag: 14.45m</text>
+</svg>
+</div>
+
+<!-- 4 Precision Corner Handles (Non-overlapping vertex pins) -->
+<div data-handle="tl" class="cad-handle absolute -top-2 -left-2 w-4 h-4 rounded-full bg-white shadow-md flex items-center justify-center cursor-nwse-resize group border-2 border-sky-500 hover:border-amber-500 hover:scale-125 transition-all z-20" title="Tarik Sudut Kiri-Atas">
+  <div class="w-1.5 h-1.5 rounded-full bg-slate-900 group-hover:bg-amber-500 transition-colors"></div>
+</div>
+<div data-handle="tr" class="cad-handle absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white shadow-md flex items-center justify-center cursor-nesw-resize group border-2 border-sky-500 hover:border-amber-500 hover:scale-125 transition-all z-20" title="Tarik Sudut Kanan-Atas">
+  <div class="w-1.5 h-1.5 rounded-full bg-slate-900 group-hover:bg-amber-500 transition-colors"></div>
+</div>
+<div data-handle="bl" class="cad-handle absolute -bottom-2 -left-2 w-4 h-4 rounded-full bg-white shadow-md flex items-center justify-center cursor-nesw-resize group border-2 border-sky-500 hover:border-amber-500 hover:scale-125 transition-all z-20" title="Tarik Sudut Kiri-Bawah">
+  <div class="w-1.5 h-1.5 rounded-full bg-slate-900 group-hover:bg-amber-500 transition-colors"></div>
+</div>
+<div data-handle="br" class="cad-handle absolute -bottom-2 -right-2 w-4 h-4 rounded-full bg-white shadow-md flex items-center justify-center cursor-nwse-resize group border-2 border-sky-500 hover:border-amber-500 hover:scale-125 transition-all z-20" title="Tarik Sudut Kanan-Bawah">
+  <div class="w-1.5 h-1.5 rounded-full bg-slate-900 group-hover:bg-amber-500 transition-colors"></div>
+</div>
+
+<!-- Rotation Handle (Offset above top meteran with vertical connector) -->
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 flex flex-col items-center group cursor-grab active:cursor-grabbing z-20" id="rotate-handle" title="Tahan dan putar untuk mengubah sudut arah atap">
+  <span id="rotate-hud-badge" class="hidden px-2 py-0.5 rounded bg-slate-900 text-amber-400 font-code-metric text-[10px] font-bold shadow-md whitespace-nowrap mb-1 border border-slate-700">-4°</span>
+  <div class="w-7 h-7 rounded-full bg-white shadow-lg border border-slate-300 flex items-center justify-center text-slate-600 group-hover:text-amber-600 group-hover:border-amber-400 group-hover:scale-110 transition-all">
+    <span class="material-symbols-outlined text-[15px]">rotate_right</span>
+  </div>
+  <div class="w-px h-3 bg-slate-400/80"></div>
+</div>
+</div>
+</div>
+
+<!-- Floating Minimalist CAD Toolbar (Left Middle) -->
+<div class="absolute top-1/2 -translate-y-1/2 left-4 z-20 flex flex-col items-center gap-1.5 p-1.5 rounded-2xl bg-white/90 backdrop-blur-md shadow-lg border border-slate-200">
+<button onclick="setCadTool('select', this)" id="cad-tool-select" class="cad-tool-btn w-10 h-10 rounded-xl flex items-center justify-center bg-amber-500 text-white shadow-sm transition" title="Mode Pilih &amp; Geser (Move)" type="button">
+<span class="material-symbols-outlined text-[20px]">near_me</span>
+</button>
+<button onclick="setCadTool('edit_polygon', this)" id="cad-tool-polygon" class="cad-tool-btn w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition" title="Edit Bentuk &amp; Simpul Poligon" type="button">
+<span class="material-symbols-outlined text-[20px]">polyline</span>
+</button>
+<button onclick="setCadTool('add_obstacle', this)" id="cad-tool-obstacle" class="cad-tool-btn w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition" title="Tambah / Ubah Bentuk Rintangan" type="button">
+<span class="material-symbols-outlined text-[20px]">crop_square</span>
+</button>
+<button onclick="setCadTool('measure', this)" id="cad-tool-measure" class="cad-tool-btn w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition" title="Ukur Jarak &amp; Dimensi CAD" type="button">
+<span class="material-symbols-outlined text-[20px]">straighten</span>
+</button>
+<div class="w-8 h-px bg-slate-200 my-1"></div>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition" onclick="zoomCanvas(1.1)" title="Perbesar (Zoom In)" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition" onclick="zoomCanvas(0.9)" title="Perkecil (Zoom Out)" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+</div>
+
+<!-- Map Controls End -->
+</div>
+<!-- ===================================== -->
+<!-- RIGHT: INSPECTOR & PARAMETER STUDIO   -->
+<!-- ===================================== -->
+<div id="right-panel-wrapper" class="relative w-full lg:w-[380px] h-[45vh] lg:h-full shrink-0 bg-white border-l border-slate-200 shadow-[-4px_0_16px_rgba(15,23,42,0.03)] z-30 transition-all duration-300 overflow-visible flex flex-col">
+  <!-- Toggle Button for Desktop -->
+  <button onclick="toggleRightPanel()" class="absolute -left-7 top-1/2 -translate-y-1/2 w-7 h-14 bg-white border border-slate-200 border-r-0 rounded-l-lg shadow-[-2px_0_8px_rgba(0,0,0,0.04)] hidden lg:flex items-center justify-center text-slate-400 hover:text-amber-600 transition-colors z-40" aria-label="Toggle Panel">
+    <span id="panel-toggle-icon" class="material-symbols-outlined text-[20px]">chevron_right</span>
+  </button>
+  
+  <div class="w-full lg:w-[380px] shrink-0 h-full flex flex-col overflow-hidden bg-white">
+<!-- Panel Header & Calibration Mode Switch -->
+<div class="px-5 py-3.5 bg-white border-b border-slate-200 flex items-center justify-between">
+<div>
+<h2 class="font-title text-[15px] font-bold text-slate-900 leading-tight">Kalibrasi Panel Surya</h2>
+<p class="text-[11px] text-slate-500 mt-0.5">Parameter CAD &amp; Simulasi Finansial</p>
+</div>
+</div>
+<!-- Global Metrics Summary (Refined Ribbon Card) -->
+<div class="px-4 py-2.5 bg-slate-50/70 border-b border-slate-200">
+<div class="grid grid-cols-4 divide-x divide-slate-200 bg-white rounded-xl border border-slate-200 shadow-sm py-2 px-0.5">
+  <div class="flex flex-col items-center text-center px-1">
+    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kapasitas</span>
+    <div class="flex items-baseline justify-center gap-0.5">
+      <span class="text-[13px] font-extrabold text-slate-900 tracking-tight" id="metric-capacity">12.6</span>
+      <span class="text-[10px] font-bold text-amber-600">kWp</span>
+    </div>
+  </div>
+  <div class="flex flex-col items-center text-center px-1">
+    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Produksi</span>
+    <div class="flex items-baseline justify-center gap-0.5">
+      <span class="text-[13px] font-extrabold text-slate-900 tracking-tight" id="metric-prod">20.7</span>
+      <span class="text-[10px] font-bold text-slate-500">MWh</span>
+    </div>
+  </div>
+  <div class="flex flex-col items-center text-center px-1">
+    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Hemat/Bln</span>
+    <div class="flex items-baseline justify-center gap-0.5">
+      <span class="text-[13px] font-extrabold text-emerald-600 tracking-tight" id="metric-saving">2.45M</span>
+    </div>
+  </div>
+  <div class="flex flex-col items-center text-center px-1">
+    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Payback</span>
+    <div class="flex items-baseline justify-center gap-0.5">
+      <span class="text-[13px] font-extrabold text-amber-600 tracking-tight" id="metric-payback">4.8</span>
+      <span class="text-[10px] font-bold text-slate-500">Thn</span>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Navigation Tabs (Symmetrical 3 Columns) -->
+<div class="grid grid-cols-3 bg-white border-b border-slate-200 px-3 pt-2">
+<button class="studio-tab-btn pb-2.5 text-center text-amber-600 font-title text-xs font-bold border-b-2 border-amber-600 flex items-center justify-center gap-1.5 transition-all" onclick="switchTab('pane-geometry', this)">
+<span class="tab-badge w-4 h-4 rounded-full bg-amber-100 text-amber-800 text-[10px] flex items-center justify-center font-bold transition-all">1</span>
+<span>Geometri</span>
+</button>
+<button class="studio-tab-btn pb-2.5 text-center text-slate-500 hover:text-slate-800 font-title text-xs font-medium border-b-2 border-transparent flex items-center justify-center gap-1.5 transition-all" onclick="switchTab('pane-pvarray', this)">
+<span class="tab-badge w-4 h-4 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold transition-all">2</span>
+<span>Modul Surya</span>
+</button>
+<button class="studio-tab-btn pb-2.5 text-center text-slate-500 hover:text-slate-800 font-title text-xs font-medium border-b-2 border-transparent flex items-center justify-center gap-1.5 transition-all" onclick="switchTab('pane-financials', this)">
+<span class="tab-badge w-4 h-4 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold transition-all">3</span>
+<span>Finansial</span>
+</button>
+</div>
+<!-- TAB PANES CONTAINER -->
+<div class="flex-1 overflow-y-auto">
+<!-- ----------------------------------------- -->
+<!-- PANE 1: GEOMETRI                          -->
+<!-- ----------------------------------------- -->
+<div class="tab-pane p-4 space-y-4 block" id="pane-geometry">
+<!-- ======================================================= -->
+<!-- ALAT EDIT POLIGON ATAP & RINTANGAN (INTERAKTIF)         -->
+<!-- ======================================================= -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3.5">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-amber-600 text-[18px]">polyline</span>
+      <span class="font-title text-xs font-bold text-slate-900">Alat Edit Poligon &amp; Bentuk Atap</span>
+    </div>
+    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 font-code-metric text-[10px] font-bold" id="polygonStatusBadge">Gable Standar</span>
+  </div>
+
+  <!-- 1. Pilihan Bentuk Poligon (Roof Shape Presets) -->
+  <div class="space-y-1.5">
+    <label class="text-[11px] font-medium text-slate-500">Bentuk Geometri Bidang Atap</label>
+    <div class="grid grid-cols-3 gap-1.5">
+      <button type="button" id="btn-shape-rect" onclick="setRoofShape('rectangle')" class="roof-shape-btn py-2 px-1 rounded-lg bg-slate-900 text-white border border-slate-900 text-center shadow-xs transition-all flex flex-col items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">crop_landscape</span>
+        <span class="text-[10px] font-bold">Persegi (Gable)</span>
+      </button>
+      <button type="button" id="btn-shape-lshape" onclick="setRoofShape('l-shape')" class="roof-shape-btn py-2 px-1 rounded-lg bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 text-center transition-all flex flex-col items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">rounded_corner</span>
+        <span class="text-[10px] font-medium">Bentuk L (Corner)</span>
+      </button>
+      <button type="button" id="btn-shape-trapezoid" onclick="setRoofShape('trapezoid')" class="roof-shape-btn py-2 px-1 rounded-lg bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 text-center transition-all flex flex-col items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">change_history</span>
+        <span class="text-[10px] font-medium">Limasan (Hip)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. Rotasi & Kemiringan Arah (Puter Poligon) -->
+  <div class="space-y-1.5 pt-1 border-t border-slate-200/70">
+    <div class="flex items-center justify-between text-[11px]">
+      <span class="font-medium text-slate-600 flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px] text-amber-600">rotate_right</span>
+        Rotasi Poligon (Puter Sudut)
+      </span>
+      <span class="font-code-metric font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded text-[11px]" id="polygonRotationDisplay">-4°</span>
+    </div>
+    <input type="range" min="-180" max="180" step="1" value="-4" id="polygonRotationSlider" oninput="setPolygonRotation(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"/>
+    <div class="grid grid-cols-4 gap-1 font-code-metric text-[9.5px]">
+      <button type="button" onclick="setPolygonRotation(-4)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">-4° (AI Satelit)</button>
+      <button type="button" onclick="setPolygonRotation(0)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">0° Datar</button>
+      <button type="button" onclick="setPolygonRotation(45)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">45° Serong</button>
+      <button type="button" onclick="setPolygonRotation(90)" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center">90° Tegak</button>
+    </div>
+  </div>
+
+  <!-- 3. Posisi & Geser (Pindahin Poligon) -->
+  <div class="space-y-1.5 pt-1 border-t border-slate-200/70">
+    <div class="flex items-center justify-between text-[11px]">
+      <span class="font-medium text-slate-600 flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px] text-sky-600">open_with</span>
+        Posisi Koordinat Poligon
+      </span>
+      <span class="font-code-metric text-[10px] text-slate-500" id="polygonOffsetDisplay">X: 0px, Y: 0px</span>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <!-- Mini Nudge D-Pad -->
+      <div class="flex items-center gap-1 bg-white p-1 rounded-lg border border-slate-200">
+        <button type="button" onclick="nudgePolygon(-10, 0)" class="w-6 h-6 rounded flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" title="Geser Kiri"><span class="material-symbols-outlined text-[14px]">arrow_left</span></button>
+        <div class="flex flex-col gap-0.5">
+          <button type="button" onclick="nudgePolygon(0, -10)" class="w-6 h-3 rounded flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" title="Geser Atas"><span class="material-symbols-outlined text-[12px]">arrow_drop_up</span></button>
+          <button type="button" onclick="nudgePolygon(0, 10)" class="w-6 h-3 rounded flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" title="Geser Bawah"><span class="material-symbols-outlined text-[12px]">arrow_drop_down</span></button>
+        </div>
+        <button type="button" onclick="nudgePolygon(10, 0)" class="w-6 h-6 rounded flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" title="Geser Kanan"><span class="material-symbols-outlined text-[14px]">arrow_right</span></button>
+      </div>
+      <button type="button" onclick="centerPolygonPosition()" class="flex-1 py-1.5 px-2.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 text-xs font-semibold flex items-center justify-center gap-1 transition">
+        <span class="material-symbols-outlined text-[14px]">filter_center_focus</span>
+        <span>Pusatkan ke Atap</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. Tambah Bentuk & Rintangan (Add Shapes / Obstacle Keepout) -->
+  <div class="space-y-1.5 pt-1 border-t border-slate-200/70">
+    <div class="flex items-center justify-between text-[11px]">
+      <span class="font-medium text-slate-600 flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px] text-rose-500">ac_unit</span>
+        Rintangan &amp; Bentuk Objek Atap
+      </span>
+      <span class="font-code-metric text-[10px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded" id="obstacleCountBadge">1 Rintangan Aktif</span>
+    </div>
+    <div class="grid grid-cols-2 gap-2">
+      <button type="button" id="btn-toggle-hvac" onclick="toggleObstacle('hvac')" class="py-1.5 px-2 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+        <span class="material-symbols-outlined text-[15px]">ac_unit</span>
+        <span id="hvacBtnLabel">HVAC Chiller (Aktif)</span>
+      </button>
+      <button type="button" id="btn-toggle-skylight" onclick="toggleObstacle('skylight')" class="py-1.5 px-2 rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 text-xs font-medium flex items-center justify-center gap-1.5 transition">
+        <span class="material-symbols-outlined text-[15px]">grid_4x4</span>
+        <span id="skylightBtnLabel">+ Skylight Kaca</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Surface Dimensions Section -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-title text-xs font-bold text-slate-900">Dimensi Permukaan Atap</span>
+<span class="px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-code-metric text-[10px] font-semibold">Bidang Atap #1 (Utara-Selatan)</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5 pt-1">
+<div class="space-y-1">
+<label class="text-[11px] font-medium text-slate-500">Panjang Atap / Bubungan (Ridge)</label>
+<div class="flex items-center rounded-lg bg-white border border-slate-200 px-2.5 py-1.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 transition-all">
+<input class="seamless-input w-full bg-transparent font-code-metric text-xs font-bold text-slate-900 border-0 p-0" id="input-ridge" onchange="updateDimensions()" type="text" value="12.48"/>
+<span class="font-code-metric text-xs text-slate-400">m</span>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-[11px] font-medium text-slate-500">Lebar Kemiringan Bidang (Slope)</label>
+<div class="flex items-center rounded-lg bg-white border border-slate-200 px-2.5 py-1.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 transition-all">
+<input class="seamless-input w-full bg-transparent font-code-metric text-xs font-bold text-slate-900 border-0 p-0" id="input-slope" onchange="updateDimensions()" type="text" value="7.28"/>
+<span class="font-code-metric text-xs text-slate-400">m</span>
+</div>
+</div>
+<div class="rounded-lg bg-sky-50 border border-sky-200 p-2 space-y-0.5">
+<span class="text-[10px] text-sky-800 font-semibold block">Luas Efektif Panel</span>
+<p class="font-title text-sm font-extrabold text-sky-700"><span id="netAreaDisplay">84.50</span> <span class="text-xs font-normal">m²</span></p>
+</div>
+<div class="rounded-lg bg-slate-100 border border-slate-200 p-2 space-y-0.5">
+<span class="text-[10px] text-slate-600 font-semibold block">Luas Total Bidang Atap</span>
+<p class="font-title text-sm font-extrabold text-slate-800"><span id="grossAreaDisplay">91.20</span> <span class="text-xs font-normal text-slate-500">m²</span></p>
+</div>
+</div>
+</div>
+<!-- Pitch & Tilt Calibration -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-amber-600 text-[18px]">architecture</span>
+<span class="font-title text-xs font-bold text-slate-900">Kemiringan Bidang Atap</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-code-metric text-xs font-bold" id="pitchBadge">22° Kemiringan</span>
+</div>
+<!-- Range Slider with Mathematically Synchronized Ticks -->
+<div class="space-y-1.5">
+<div class="relative flex items-center">
+<input class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600 focus:outline-none" id="pitchSlider" max="45" min="0" oninput="setPitchValue(this.value)" type="range" value="22"/>
+</div>
+<div class="relative w-full h-4 font-code-metric text-[10px] text-slate-400 select-none">
+<span class="absolute left-0 cursor-pointer hover:text-amber-600" onclick="setPitchValue(0)" title="Datar Murni 0°">0°</span>
+<span class="absolute -translate-x-1/2 cursor-pointer hover:text-amber-600 font-medium" style="left: 11.11%" onclick="setPitchValue(5)" title="Datar 5°">5°</span>
+<span class="absolute -translate-x-1/2 cursor-pointer hover:text-amber-600 font-bold text-slate-800" style="left: 33.33%" onclick="setPitchValue(15)" title="Landai 15°">15°</span>
+<span class="absolute -translate-x-1/2 cursor-pointer hover:text-amber-600 font-bold text-amber-700" style="left: 48.89%" onclick="setPitchValue(22)" title="Standar 22°">22°</span>
+<span class="absolute -translate-x-1/2 cursor-pointer hover:text-amber-600 font-medium" style="left: 66.67%" onclick="setPitchValue(30)" title="Curam 30°">30°</span>
+<span class="absolute -translate-x-1/2 cursor-pointer hover:text-amber-600 font-bold text-slate-800" style="left: 88.89%" onclick="setPitchValue(40)" title="Curam 40°">40°</span>
+<span class="absolute right-0 cursor-pointer hover:text-amber-600" onclick="setPitchValue(45)" title="Maksimal 45°">45°</span>
+</div>
+</div>
+<!-- Preset Buttons with Strict Data-Pitch Alignment -->
+<div class="grid grid-cols-4 gap-1.5 pt-1">
+<button data-pitch="5" class="pitch-preset-btn py-1.5 px-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 text-[11px] font-medium text-center transition-all" onclick="setPitchValue(5)" type="button">Datar 5°</button>
+<button data-pitch="15" class="pitch-preset-btn py-1.5 px-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 text-[11px] font-medium text-center transition-all" onclick="setPitchValue(15)" type="button">Landai 15°</button>
+<button data-pitch="22" class="pitch-preset-btn py-1.5 px-1.5 rounded-lg bg-slate-900 text-white border border-slate-900 text-[11px] font-bold text-center shadow-sm transition-all" onclick="setPitchValue(22)" type="button">Standar 22°</button>
+<button data-pitch="40" class="pitch-preset-btn py-1.5 px-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 text-[11px] font-medium text-center transition-all" onclick="setPitchValue(40)" type="button">Curam 40°</button>
+</div>
+<!-- Interactive Profile Vector Diagram (Rich Architectural CAD Simulation) -->
+<div class="rounded-xl bg-white border border-slate-200 p-3 space-y-2 shadow-xs">
+  <div class="flex items-center justify-between text-xs">
+    <span class="text-[11px] font-bold text-slate-800 flex items-center gap-1.5">
+      <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+      Visualisasi Sudut Datang Sinar Surya
+    </span>
+    <span class="font-code-metric text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded" id="pitchAngleValue">Kemiringan: 22°</span>
+  </div>
+  <div class="flex items-center gap-3 bg-gradient-to-br from-slate-50 to-amber-50/20 p-2.5 rounded-lg border border-slate-200/90">
+    <!-- SVG Technical Vector -->
+    <div class="relative w-36 h-22 shrink-0 bg-white rounded-lg border border-slate-200/60 p-1 shadow-2xs overflow-hidden">
+      <svg class="w-full h-full" viewBox="0 0 145 85">
+        <defs>
+          <pattern id="cad-grid-pitch" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#f1f5f9" stroke-width="0.8"/>
+          </pattern>
+          <linearGradient id="solarGlassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0284c7"/>
+            <stop offset="50%" stop-color="#0369a1"/>
+            <stop offset="100%" stop-color="#0284c7"/>
+          </linearGradient>
+          <linearGradient id="amberWedgeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background grid -->
+        <rect width="145" height="85" fill="url(#cad-grid-pitch)"/>
+
+        <!-- Concrete wall support under pivot -->
+        <polygon points="12,70 24,70 24,82 12,82" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="12" y1="74" x2="24" y2="74" stroke="#94a3b8" stroke-width="0.5"/>
+        <line x1="12" y1="78" x2="24" y2="78" stroke="#94a3b8" stroke-width="0.5"/>
+
+        <!-- Horizontal Ground Baseline -->
+        <line x1="8" y1="70" x2="138" y2="70" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="135" y="73" font-size="7.5" fill="#94a3b8" font-family="Inter" font-weight="600">0°</text>
+        
+        <!-- Shaded Angle Wedge Sector (Dynamic) -->
+        <path id="svg-angle-wedge" d="M 20 70 L 52 70 A 32 32 0 0 0 49.6 57.9 Z" fill="url(#amberWedgeGrad)"/>
+
+        <!-- Rotating Roof & Solar PV Assembly -->
+        <g id="svg-roof-group" transform="rotate(-22, 20, 70)" style="transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">
+          <!-- Roof Rafter Structure -->
+          <line x1="18" y1="70" x2="118" y2="70" stroke="#475569" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- Solar Panel Mounting Brackets -->
+          <line x1="36" y1="70" x2="36" y2="63" stroke="#64748b" stroke-width="2"/>
+          <line x1="74" y1="70" x2="74" y2="63" stroke="#64748b" stroke-width="2"/>
+          <line x1="106" y1="70" x2="106" y2="63" stroke="#64748b" stroke-width="2"/>
+          <!-- Solar Panel Module (Blue Glass) -->
+          <rect x="26" y="58" width="88" height="5.5" rx="1.5" fill="url(#solarGlassGrad)" stroke="#0284c7" stroke-width="1"/>
+          <!-- Metallic framing -->
+          <rect x="25" y="57.5" width="90" height="6.5" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="0.6" opacity="0.8"/>
+          <!-- Silicon cell grid busbars -->
+          <line x1="48" y1="58.5" x2="48" y2="63" stroke="#ffffff" stroke-width="0.75" opacity="0.7"/>
+          <line x1="70" y1="58.5" x2="70" y2="63" stroke="#ffffff" stroke-width="0.75" opacity="0.7"/>
+          <line x1="92" y1="58.5" x2="92" y2="63" stroke="#ffffff" stroke-width="0.75" opacity="0.7"/>
+          <!-- Surface Normal Vector (Perpendicular incident indicator) -->
+          <line x1="70" y1="58" x2="70" y2="34" stroke="#d97706" stroke-width="1.5" stroke-dasharray="2 2"/>
+          <polygon points="70,30 67.5,35 72.5,35" fill="#d97706"/>
+        </g>
+
+        <!-- Dynamic Arc Angle Indicator -->
+        <path id="svg-angle-arc" d="M 52 70 A 32 32 0 0 0 49.6 57.9" fill="none" stroke="#d97706" stroke-width="2"/>
+        <circle cx="20" cy="70" r="3.5" fill="#d97706" stroke="#ffffff" stroke-width="1"/>
+
+        <!-- Sun Vector with Radiant Glow -->
+        <g transform="translate(108, 16)">
+          <circle cx="0" cy="0" r="10" fill="#f59e0b" opacity="0.15"/>
+          <circle cx="0" cy="0" r="7" fill="#f59e0b" opacity="0.3"/>
+          <circle cx="0" cy="0" r="4.5" fill="#f59e0b"/>
+          <!-- Primary Sunlight Ray with Arrow targeting solar surface -->
+          <line x1="-7" y1="7" x2="-26" y2="28" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round"/>
+          <polygon points="-29,32 -22,27 -25,24" fill="#f59e0b"/>
+          <!-- Secondary subtle rays -->
+          <line x1="-3" y1="9" x2="-14" y2="24" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>
+        </g>
+      </svg>
+    </div>
+    
+    <!-- Real-time HUD stats -->
+    <div class="flex-1 space-y-1">
+      <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Faktor Sudut Datang Sinar</span>
+      <div class="flex items-baseline gap-1.5">
+        <span class="font-title text-sm font-extrabold text-slate-900" id="pitchCosineDisplay">Cos 22° = 0.93</span>
+      </div>
+      <div id="pitchEfficiencyBadge" class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
+        <span class="material-symbols-outlined text-[13px]">check_circle</span>
+        <span>Tangkapan Surya Optimal (99%)</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Azimuth Dial Section -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">explore</span>
+<span class="font-title text-xs font-bold text-slate-900">Orientasi Arah Hadap (Azimuth)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold">98.4% Efisiensi Sinar</span>
+</div>
+<div class="flex items-center gap-4 pt-1">
+<!-- Compass Dial Widget -->
+<div class="relative w-20 h-20 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 shadow-inner">
+<span class="absolute top-1 font-code-metric text-[9px] font-bold text-slate-400">N</span>
+<span class="absolute bottom-1 font-code-metric text-[9px] font-bold text-amber-600">S</span>
+<span class="absolute left-1.5 font-code-metric text-[9px] font-bold text-slate-400">W</span>
+<span class="absolute right-1.5 font-code-metric text-[9px] font-bold text-slate-400">E</span>
+<div class="w-12 h-12 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center">
+<div class="w-full h-full relative" style="transform: rotate(188deg);">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-5 bg-amber-600 rounded-t-sm shadow-sm"></div>
+<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-5 bg-slate-300 rounded-b-sm"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow-md"></div>
+</div>
+</div>
+</div>
+<!-- Compass Readout Details -->
+<div class="flex-1 space-y-0.5">
+<div class="flex items-baseline gap-1">
+<span class="text-lg font-extrabold text-slate-900 font-headline-sm">188°</span>
+<span class="text-xs font-bold text-amber-700">SSW (Selatan Daya)</span>
+</div>
+<p class="text-[11px] text-slate-500 leading-snug">Menghadap garis khatulistiwa. Deviasi 8° dari arah Selatan Sejati.</p>
+<div class="pt-0.5 flex items-center gap-1 text-emerald-700 text-[10px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+<span>Bebas bayangan pohon &amp; rintangan sekitar</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Batas Keamanan Keliling & Jalur Talang Air (Setback & Gutter) -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-sky-600 text-[18px]">crop_free</span>
+      <span class="font-title text-xs font-bold text-slate-900">Batas Keamanan &amp; Jalur Talang</span>
+    </div>
+    <span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 text-[10px] font-bold" id="safetyStatusBadge">Zonasi Aman PLN</span>
+  </div>
+
+  <!-- 1. Perimeter Setback (Batas Tepi Atap) -->
+  <div class="space-y-1.5">
+    <div class="flex items-center justify-between text-[11px]">
+      <span class="font-medium text-slate-600">Batas Keamanan Tepi (Setback Keliling)</span>
+      <span class="font-code-metric font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded text-[11px]" id="setbackDisplay">0.50 m</span>
+    </div>
+    <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" id="setbackSlider" max="1.0" min="0.2" oninput="onSetbackChange(this.value)" step="0.05" type="range" value="0.50"/>
+    <div class="flex justify-between font-code-metric text-[9.5px] text-slate-400">
+      <span class="cursor-pointer hover:text-sky-600" onclick="onSetbackChange(0.3)">Min (0.3m)</span>
+      <span class="cursor-pointer hover:text-sky-600 font-semibold text-slate-700" onclick="onSetbackChange(0.5)">Standar PLN (0.5m)</span>
+      <span class="cursor-pointer hover:text-sky-600" onclick="onSetbackChange(0.8)">Aman (0.8m)</span>
+    </div>
+  </div>
+
+  <!-- 2. Gutter / Walkway Margin (Jalur Talang & Akses Servis) -->
+  <div class="space-y-1.5 pt-1 border-t border-slate-200/80">
+    <div class="flex items-center justify-between text-[11px]">
+      <span class="font-medium text-slate-600">Jalur Talang Air &amp; Akses Pemeliharaan (Bawah)</span>
+      <span class="font-code-metric font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded text-[11px]" id="gutterDisplay">0.60 m</span>
+    </div>
+    <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" id="gutterSlider" max="1.2" min="0.3" oninput="onGutterChange(this.value)" step="0.05" type="range" value="0.60"/>
+    <div class="flex justify-between font-code-metric text-[9.5px] text-slate-400">
+      <span class="cursor-pointer hover:text-amber-600" onclick="onGutterChange(0.4)">Ringkas (0.4m)</span>
+      <span class="cursor-pointer hover:text-amber-600 font-semibold text-slate-700" onclick="onGutterChange(0.6)">Standar Talang (0.6m)</span>
+      <span class="cursor-pointer hover:text-amber-600" onclick="onGutterChange(1.0)">Walkway (1.0m)</span>
+    </div>
+  </div>
+
+  <!-- Area Breakdown Info -->
+  <div class="p-2 rounded-lg bg-white border border-slate-200 text-[10px] text-slate-600 flex justify-between items-center">
+    <span>Area Bebas Penghalang Bersih:</span>
+    <span class="font-bold text-slate-900 font-code-metric"><span id="netAreaDisplay2">70.95</span> m² (<span id="netAreaPctDisplay">78%</span>)</span>
+  </div>
+</div>
+<!-- Re-calculate Action -->
+<div class="pt-1">
+<button class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-title text-sm font-bold shadow-md transition flex items-center justify-center gap-2 transform hover:-translate-y-0.5" onclick="generatePanels()">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<span>Susun Tata Letak Panel Otomatis</span>
+</button>
+</div>
+</div>
+<!-- ----------------------------------------- -->
+<!-- PANE 2: PV ARRAY                          -->
+<!-- ----------------------------------------- -->
+<div class="tab-pane p-4 space-y-4 hidden" id="pane-pvarray">
+<!-- Module Selection Card -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-title text-xs font-bold text-slate-900">Pilihan Modul Surya</span>
+<span class="material-symbols-outlined text-amber-600 text-[18px]">solar_power</span>
+</div>
+<div class="relative">
+<select class="w-full pl-3 pr-8 py-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 appearance-none cursor-pointer transition-all" id="moduleSelect" onchange="onModuleChange(this.value)">
+<option selected="" value="550">Tier-1 550W Mono PERC (Bifacial) — 2.27m x 1.13m</option>
+<option value="450">Tier-1 450W Compact All-Black — 1.76m x 1.04m</option>
+<option value="580">Bifacial 580W Dual-Glass — 2.38m x 1.13m</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-[18px]">expand_more</span>
+</div>
+<!-- Spec Badges -->
+<div class="flex flex-wrap gap-1.5 pt-0.5">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-code-metric text-[10px] font-bold" id="moduleEffBadge">21.5% Efisiensi</span>
+<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 font-code-metric text-[10px] font-medium" id="moduleDimBadge">2.27m × 1.13m</span>
+<span class="px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 font-code-metric text-[10px] font-semibold" id="moduleTechBadge">Mono PERC Bifacial</span>
+</div>
+</div>
+
+<!-- Penyesuaian Jumlah Modul Surya & Status Pemasangan -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-amber-600 text-[18px]">tune</span>
+      <span class="font-title text-xs font-bold text-slate-900">Penyesuaian Jumlah Panel Surya</span>
+    </div>
+    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 font-code-metric text-[10px] font-bold" id="customCountBadge">24 Terpasang</span>
+  </div>
+
+  <!-- Stepper & Direct Range Slider -->
+  <div class="space-y-2">
+    <div class="flex items-center justify-between gap-3 bg-white p-2 rounded-lg border border-slate-200">
+      <button type="button" onclick="adjustModuleCount(-1)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-all shadow-2xs">
+        <span class="material-symbols-outlined text-[18px]">remove</span>
+      </button>
+      <div class="text-center">
+        <span class="font-title text-base font-extrabold text-slate-900 block" id="manualModuleCountDisplay">24 Modul</span>
+        <span class="text-[9.5px] text-slate-400 font-code-metric" id="manualMaxCountDisplay">dari maks 28 slot</span>
+      </div>
+      <button type="button" onclick="adjustModuleCount(1)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-all shadow-2xs">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+      </button>
+    </div>
+    <input type="range" id="moduleCountSlider" min="1" max="30" value="24" oninput="setCustomModuleCount(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"/>
+    <div class="grid grid-cols-3 gap-1.5 font-code-metric text-[9.5px]">
+      <button type="button" onclick="setCountPreset('max')" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center font-semibold transition-all">Maksimal (Full)</button>
+      <button type="button" onclick="setCountPreset('opt')" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center font-semibold transition-all">Rekomendasi</button>
+      <button type="button" onclick="setCountPreset('min')" class="py-1 px-1 rounded bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 text-center font-semibold transition-all">Ekonomis</button>
+    </div>
+  </div>
+
+  <!-- Interactive Polygon Tap Guidance -->
+  <div class="p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/80 text-[10px] text-amber-900 space-y-1">
+    <div class="flex items-center gap-1.5 font-bold text-amber-800">
+      <span class="material-symbols-outlined text-[14px]">touch_app</span>
+      <span>Interaksi Tap Langsung di Poligon:</span>
+    </div>
+    <p class="leading-relaxed text-slate-600">
+      Klik kotak modul pada poligon atap untuk mengganti status: 
+      <span class="font-semibold text-slate-900">Panel Surya</span> ➜ 
+      <span class="font-semibold text-sky-700">Skylight Kaca</span> ➜ 
+      <span class="font-semibold text-rose-700">Rintangan HVAC</span> ➜ 
+      <span class="font-semibold text-slate-500">Slot Kosong</span>.
+    </p>
+  </div>
+</div>
+
+<!-- Module Layout Settings -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3.5">
+<span class="font-title text-xs font-bold text-slate-900 block">Pengaturan Tata Letak Modul</span>
+<!-- Orientation Toggle -->
+<div class="space-y-1">
+<label class="text-[11px] font-medium text-slate-500">Orientasi Panel</label>
+<div class="grid grid-cols-2 gap-2 p-1 rounded-lg bg-white border border-slate-200">
+<button class="py-1.5 px-3 rounded-md bg-slate-900 text-white shadow-sm text-xs font-semibold flex items-center justify-center gap-1.5 transition-all" id="btn-layout-portrait" onclick="setLayoutOrientation('portrait')" type="button">
+<span class="material-symbols-outlined text-[15px]">crop_portrait</span>
+<span>Potret (Aktif)</span>
+</button>
+<button class="py-1.5 px-3 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-all" id="btn-layout-landscape" onclick="setLayoutOrientation('landscape')" type="button">
+<span class="material-symbols-outlined text-[15px]">crop_landscape</span>
+<span>Lanskap</span>
+</button>
+</div>
+</div>
+<!-- Spacing Slider -->
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<label class="text-[11px] font-medium text-slate-500">Jarak Antar Panel (Clearance Gap)</label>
+<span class="font-code-metric text-xs font-bold text-slate-800" id="gapValDisplay">3 cm</span>
+</div>
+<input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" id="gapSlider" max="10" min="2" oninput="onGapChange(this.value)" step="1" type="range" value="3"/>
+<div class="flex justify-between font-code-metric text-[10px] text-slate-400">
+<span class="cursor-pointer hover:text-sky-600" onclick="onGapChange(2)">2 cm (Rapat)</span>
+<span class="cursor-pointer hover:text-sky-600 font-semibold text-slate-700" onclick="onGapChange(3)">Standar 3 cm</span>
+<span class="cursor-pointer hover:text-sky-600" onclick="onGapChange(10)">10 cm (Lebar)</span>
+</div>
+</div>
+<!-- Extra Mounting Tilt Slider -->
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<label class="text-[11px] font-medium text-slate-500">Racking Extra Tilt (Air Hujan &amp; Pembersihan Mandiri)</label>
+<span class="font-code-metric text-xs font-bold text-slate-800" id="rackValDisplay">10°</span>
+</div>
+<input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" id="rackSlider" max="20" min="0" oninput="onExtraTiltChange(this.value)" step="1" type="range" value="10"/>
+<div class="flex justify-between font-code-metric text-[10px] text-slate-400">
+<span class="cursor-pointer hover:text-amber-600" onclick="onExtraTiltChange(0)">0° Flush (Rata Atap)</span>
+<span class="cursor-pointer hover:text-amber-600 font-semibold text-slate-700" onclick="onExtraTiltChange(10)">10° Aliran Air Hujan</span>
+<span class="cursor-pointer hover:text-amber-600" onclick="onExtraTiltChange(20)">20° Max</span>
+</div>
+</div>
+</div>
+<!-- Inverter System Selection -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<span class="font-title text-xs font-bold text-slate-900 block">Arsitektur Inverter</span>
+<div class="grid grid-cols-2 gap-2 p-1 rounded-lg bg-white border border-slate-200">
+<button class="py-1.5 px-2 rounded-md bg-slate-900 text-white shadow-sm text-xs font-semibold text-center transition" id="btn-string-inv" onclick="setInverterType('string')" type="button">
+String Inverter (Aktif)
+</button>
+<button class="py-1.5 px-2 rounded-md text-slate-500 hover:text-slate-900 text-xs font-medium text-center transition" id="btn-micro-inv" onclick="setInverterType('micro')" type="button">
+Mikroinverter Modular
+</button>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-0.5">
+<div class="rounded-lg bg-white border border-slate-200 p-2">
+<span class="text-[10px] text-slate-500 block">Sizing Ratio</span>
+<span class="text-xs font-bold text-slate-900 block mt-0.5" id="invSizingRatio">DC/AC: 1.22</span>
+<span class="text-[10px] text-emerald-700 font-semibold" id="invSizingDesc">Optimal Sizing</span>
+</div>
+<div class="rounded-lg bg-white border border-slate-200 p-2">
+<span class="text-[10px] text-slate-500 block">Efisiensi Inverter</span>
+<span class="text-xs font-bold text-slate-900 block mt-0.5" id="invEffDisplay">98.4%</span>
+<span class="text-[10px] text-sky-700 font-semibold" id="invRatingDesc">CEC Rating</span>
+</div>
+</div>
+</div>
+
+<!-- Real-time Array Layout Summary Card -->
+<div class="rounded-xl bg-slate-900 text-white p-3.5 space-y-2 shadow-sm border border-slate-800">
+  <div class="flex items-center justify-between text-xs">
+    <span class="font-bold flex items-center gap-1.5 text-amber-400">
+      <span class="material-symbols-outlined text-[16px]">grid_view</span>
+      Ringkasan Tata Letak Poligon
+    </span>
+    <span class="px-2 py-0.5 rounded-full bg-slate-800 text-emerald-400 text-[10px] font-bold" id="arrayDensityBadge">Kerapatan 86%</span>
+  </div>
+  <div class="grid grid-cols-2 gap-2 pt-1 text-xs">
+    <div class="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60">
+      <span class="text-[10px] text-slate-400 block">Total Modul Terpasang</span>
+      <span class="font-title font-extrabold text-white text-sm" id="pvarray-module-count">24 Modul</span>
+      <span class="text-[9px] text-slate-400 block mt-0.5" id="pvarray-grid-dim">3 Baris × 8 Kolom</span>
+    </div>
+    <div class="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60">
+      <span class="text-[10px] text-slate-400 block">Total Kapasitas Surya</span>
+      <span class="font-title font-extrabold text-amber-400 text-sm" id="pvarray-kwp">13.20 kWp</span>
+      <span class="text-[9px] text-slate-400 block mt-0.5" id="pvarray-area">61.7 m² / 70.9 m²</span>
+    </div>
+  </div>
+</div>
+<!-- PV Array Actions -->
+<div class="pt-1 space-y-2">
+<button class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-title text-xs font-bold shadow-sm transition flex items-center justify-center gap-2" onclick="autoPackModules()" type="button">
+<span class="material-symbols-outlined text-[17px] text-amber-600">auto_fix_high</span>
+<span>Tata Otomatis Modul</span>
+</button>
+<button class="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-title text-xs font-bold shadow-md transition flex items-center justify-center gap-2" onclick="triggerSimulationFlash()" type="button">
+<span class="material-symbols-outlined text-[17px]">check_circle</span>
+<span>Terapkan Konfigurasi</span>
+</button>
+</div>
+</div>
+<!-- ----------------------------------------- -->
+<!-- PANE 3: FINANSIAL                         -->
+<!-- ----------------------------------------- -->
+<div class="tab-pane p-4 space-y-4 hidden" id="pane-financials">
+<!-- PLN Electricity Tariff Config -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-title text-xs font-bold text-slate-900">Tarif PLN &amp; Konsumsi Listrik</span>
+<span class="material-symbols-outlined text-amber-600 text-[18px]">electric_meter</span>
+</div>
+<div class="space-y-1">
+<label class="text-[11px] font-medium text-slate-500">Golongan Tarif Pelanggan</label>
+<div class="relative">
+<select class="w-full pl-3 pr-8 py-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 appearance-none cursor-pointer transition-all" id="plnTariffSelect" onchange="calculateFinancials()">
+<option value="1444">R-1 / 1300 VA (Rp 1.444/kWh)</option>
+<option selected="" value="1700">R-2 / 3.500–5.500 VA (Rp 1.700/kWh - Terpilih)</option>
+<option value="1444.7">B-2 / Bisnis Komersial &gt; 6600 VA (Rp 1.444,70/kWh)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Monthly Bill Slider -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between items-center">
+<label class="text-[11px] font-medium text-slate-500">Rerata Tagihan Listrik Bulanan</label>
+<span class="font-code-metric text-xs font-extrabold text-slate-900" id="billValueDisplay">Rp 2.800.000</span>
+</div>
+<input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" id="billSlider" max="15000000" min="500000" oninput="onBillSliderChange(this.value)" step="100000" type="range" value="2800000"/>
+<div class="flex justify-between font-code-metric text-[10px] text-slate-400">
+<span>Rp 500rb</span>
+<span class="text-slate-600 font-semibold" id="billYearlyText">Rp 33.6M / tahun</span>
+<span>Rp 15jt</span>
+</div>
+</div>
+</div>
+<!-- Eco Impact (Dynamic Environmental Calculation with Sprouting Tree Graphic) -->
+<div class="rounded-xl bg-slate-50 border border-slate-200 overflow-hidden mb-3 shadow-xs">
+  <div class="p-3 bg-emerald-50/90 border-b border-emerald-100 flex items-center justify-between">
+    <div class="flex items-center gap-2 text-emerald-800">
+      <span class="material-symbols-outlined text-[18px]">eco</span>
+      <span class="font-title text-xs font-bold">Dampak Lingkungan &amp; Penyerapan Karbon</span>
+    </div>
+    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Standar ESDM 2024</span>
+  </div>
+
+  <!-- Key Statistics Row -->
+  <div class="p-3 grid grid-cols-2 gap-3 divide-x divide-slate-200 bg-white">
+    <div class="flex flex-col items-center text-center gap-0.5">
+      <p class="text-[10px] text-slate-500 font-semibold">Reduksi Emisi CO2</p>
+      <p class="text-sm font-extrabold text-emerald-700"><span id="ecoCo2Display">14.2</span> <span class="text-xs font-normal text-slate-500">Ton / thn</span></p>
+      <span class="text-[9px] text-emerald-600 font-medium">Berdasarkan 0.80 kg/kWh</span>
+    </div>
+    <div class="flex flex-col items-center text-center gap-0.5">
+      <p class="text-[10px] text-slate-500 font-semibold">Ekivalen Penanaman Pohon</p>
+      <p class="text-sm font-extrabold text-sky-700"><span id="ecoTreesDisplay">645</span> <span class="text-xs font-normal text-slate-500">Pohon</span></p>
+      <span class="text-[9px] text-sky-600 font-medium">Serapan ~22 kg/pohon/thn</span>
+    </div>
+  </div>
+
+  <!-- Interactive Sprouting Eco-Forest Landscape (Polished Layered Diorama) -->
+  <div class="p-3 pt-0 bg-white">
+    <div class="relative w-full h-36 rounded-xl bg-gradient-to-b from-sky-100/70 via-emerald-50/50 to-emerald-100/80 border border-emerald-200/90 overflow-hidden shadow-inner flex flex-col justify-between p-2.5">
+      <!-- Sky HUD Header -->
+      <div class="relative z-10 flex items-center justify-between">
+        <div class="flex items-center gap-1.5 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full border border-emerald-200/80 text-[10px] font-bold text-emerald-950 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="ecoForestLabel">Hutan Lestari: 645 Pohon</span>
+        </div>
+        <div class="flex items-center gap-1.5 bg-emerald-700 text-white px-2.5 py-0.5 rounded-full text-[9px] font-bold shadow-2xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-ping"></span>
+          <span id="ecoTreeArea">~0.71 Ha Lestari</span>
+        </div>
+      </div>
+
+      <!-- SVG Nature Landscape with 3-Layered Rolling Hills & Tree Canopies -->
+      <div class="absolute inset-x-0 bottom-0 h-28 pointer-events-none">
+        <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 340 95">
+          <defs>
+            <linearGradient id="hillGradBack" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#bbf7d0"/>
+              <stop offset="100%" stop-color="#86efac"/>
+            </linearGradient>
+            <linearGradient id="hillGradMid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4ade80"/>
+              <stop offset="100%" stop-color="#16a34a"/>
+            </linearGradient>
+            <linearGradient id="hillGradFront" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10b981"/>
+              <stop offset="100%" stop-color="#047857"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Sky Clouds -->
+          <g opacity="0.6">
+            <path d="M 28 14 Q 34 8, 42 10 Q 50 6, 58 11 Q 65 10, 68 16 L 22 16 Q 22 14, 28 14 Z" fill="#ffffff"/>
+            <path d="M 160 11 Q 165 7, 172 9 Q 179 5, 185 10 Q 192 9, 194 14 L 155 14 Q 155 11, 160 11 Z" fill="#ffffff" opacity="0.75"/>
+          </g>
+
+          <!-- Glowing Sun in Sky -->
+          <g transform="translate(305, 16)">
+            <circle cx="0" cy="0" r="13" fill="#fef08a" opacity="0.35"/>
+            <circle cx="0" cy="0" r="7.5" fill="#fde047" opacity="0.85"/>
+            <circle cx="0" cy="0" r="5" fill="#f59e0b"/>
+          </g>
+          
+          <!-- Back Rolling Hill (Layer 1) -->
+          <path d="M 0 52 Q 85 36, 170 46 T 340 40 L 340 95 L 0 95 Z" fill="url(#hillGradBack)" opacity="0.85"/>
+          <!-- Back Trees Container -->
+          <g id="eco-trees-back-container"></g>
+
+          <!-- Mid Rolling Hill (Layer 2) -->
+          <path d="M 0 64 Q 80 48, 165 58 T 340 52 L 340 95 L 0 95 Z" fill="url(#hillGradMid)" opacity="0.95"/>
+          <!-- Mid Trees Container -->
+          <g id="eco-trees-mid-container"></g>
+
+          <!-- Foreground Meadow Hill (Layer 3) -->
+          <path d="M 0 76 Q 95 64, 190 72 T 340 68 L 340 95 L 0 95 Z" fill="url(#hillGradFront)"/>
+          <!-- Foreground Trees Container -->
+          <g id="eco-trees-front-container"></g>
+
+          <!-- Wild Flower Accents on Foreground -->
+          <g opacity="0.75">
+            <circle cx="45" cy="84" r="1.5" fill="#fef08a"/>
+            <circle cx="115" cy="87" r="1.5" fill="#ffffff"/>
+            <circle cx="215" cy="85" r="1.5" fill="#fef08a"/>
+            <circle cx="285" cy="83" r="1.5" fill="#ffffff"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Ground HUD Footer -->
+      <div class="relative z-10 flex items-center justify-between text-[9px] text-emerald-950 font-semibold px-1 pt-1 mt-auto">
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-[13px] text-emerald-700">forest</span>
+          <span>Dampak Positif Lingkungan Hidup</span>
+        </span>
+        <span class="font-code-metric font-extrabold text-emerald-800 bg-white/85 border border-emerald-200 px-2 py-0.5 rounded shadow-2xs">Emisi Bersih Rendah Karbon</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ROI & Savings Card -->
+<div class="rounded-xl bg-slate-50 p-3.5 border border-slate-200 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-title text-xs font-bold text-slate-900">Performa Finansial &amp; ROI</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold">-84% Beban PLN</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5 pt-0.5">
+<div class="rounded-lg bg-emerald-50 border border-emerald-200 p-2.5">
+<span class="text-[10px] text-emerald-800 font-semibold block">Penghematan Bulanan</span>
+<span class="font-title text-sm font-extrabold text-emerald-700 block mt-0.5" id="monthlySavingDisplay">Rp 2.450.000</span>
+<span class="font-code-metric text-[9px] text-emerald-800">/ bulan rata-rata</span>
+</div>
+<div class="rounded-lg bg-amber-50 border border-amber-200 p-2.5">
+<span class="text-[10px] text-amber-800 font-semibold block">Payback Period</span>
+<span class="font-title text-sm font-extrabold text-amber-700 block mt-0.5"><span id="paybackDisplay">4.8</span> Tahun</span>
+<span class="font-code-metric text-[9px] text-amber-800" id="irrDisplay">IRR 21.4%</span>
+</div>
+</div>
+<!-- 25-Year Cumulative Savings -->
+<div class="rounded-lg bg-white border border-slate-200 p-2.5 flex justify-between items-center">
+<div>
+<span class="text-[10px] text-slate-500 block font-medium">Estimasi Hemat 25 Tahun</span>
+<span class="font-title text-sm font-extrabold text-slate-900" id="cumulativeSavingsDisplay">Rp 735.000.000</span>
+</div>
+<span class="material-symbols-outlined text-emerald-600 text-[24px]">savings</span>
+</div>
+<!-- Interactive Cumulative Cash Flow & ROI Chart -->
+<div class="rounded-xl bg-white border border-slate-200 p-3.5 space-y-3 shadow-2xs">
+  <div class="flex items-center justify-between">
+    <div>
+      <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-emerald-600 text-[17px]">trending_up</span>
+        Proyeksi Arus Kas Bersih Kumulatif
+      </span>
+      <span class="text-[10px] text-slate-400 block mt-0.5">Analisis Finansial 25 Tahun &amp; Titik Impas (BEP)</span>
+    </div>
+    <div class="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-full text-emerald-800 text-[10px] font-bold shadow-2xs">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span id="bepLabel">BEP: Thn 4.8</span>
+    </div>
+  </div>
+
+  <!-- Real-time Inspector Stat Strip -->
+  <div class="grid grid-cols-3 gap-1.5 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-center">
+    <div>
+      <span class="text-[9px] text-slate-400 font-semibold block uppercase tracking-wider">Tahun Terpilih</span>
+      <span class="font-title text-xs font-extrabold text-slate-900 block" id="roi-inspect-year">Thn 4.8 (BEP)</span>
+    </div>
+    <div>
+      <span class="text-[9px] text-slate-400 font-semibold block uppercase tracking-wider">Arus Kas Bersih</span>
+      <span class="font-title text-xs font-extrabold text-emerald-600 block" id="roi-inspect-val">Rp 0 (Impas)</span>
+    </div>
+    <div>
+      <span class="text-[9px] text-slate-400 font-semibold block uppercase tracking-wider">Total Hemat Listrik</span>
+      <span class="font-code-metric text-xs font-bold text-slate-700 block" id="roi-inspect-savings">Rp 117.600.000</span>
+    </div>
+  </div>
+
+  <!-- Interactive Chart Area with Live Scrubbing -->
+  <div class="relative w-full h-40 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 rounded-xl border border-slate-800 p-2 overflow-hidden select-none cursor-crosshair shadow-inner" id="roi-chart-wrapper" onmousemove="onRoiChartHover(event)" onmouseleave="onRoiChartLeave()">
+    <svg class="w-full h-full overflow-visible" id="svg-roi-chart" viewBox="0 0 340 125">
+      <defs>
+        <!-- Profit Green Gradient (Above Zero Line) -->
+        <linearGradient id="roiProfitGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#10b981" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#10b981" stop-opacity="0.03"/>
+        </linearGradient>
+        <!-- Deficit Red/Amber Gradient (Below Zero Line) -->
+        <linearGradient id="roiDeficitGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="#ef4444" stop-opacity="0.35"/>
+        </linearGradient>
+        <!-- Dynamic Multi-stop Curve Gradient (Amber -> Emerald) -->
+        <linearGradient id="roiCurveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop id="roiGradStop0" offset="0%" stop-color="#f87171"/>
+          <stop id="roiGradStop1" offset="18%" stop-color="#fbbf24"/>
+          <stop id="roiGradStop2" offset="22%" stop-color="#34d399"/>
+          <stop id="roiGradStop3" offset="100%" stop-color="#10b981"/>
+        </linearGradient>
+        <!-- Filter for Glowing Curve -->
+        <filter id="roiGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+
+      <!-- Background Grid Lines -->
+      <line x1="28" y1="20" x2="320" y2="20" stroke="#334155" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+      <line x1="28" y1="46" x2="320" y2="46" stroke="#334155" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+      <line x1="28" y1="72" x2="320" y2="72" stroke="#334155" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+
+      <!-- Vertical Year Grid Lines -->
+      <line x1="86.4" y1="14" x2="86.4" y2="108" stroke="#334155" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.4"/>
+      <line x1="144.8" y1="14" x2="144.8" y2="108" stroke="#334155" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.4"/>
+      <line x1="203.2" y1="14" x2="203.2" y2="108" stroke="#334155" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.4"/>
+      <line x1="261.6" y1="14" x2="261.6" y2="108" stroke="#334155" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.4"/>
+
+      <!-- Zero Baseline (Titik Impas Rp 0) -->
+      <line id="svg-roi-zero-line" x1="28" y1="84" x2="320" y2="84" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3 3"/>
+      <rect id="svg-roi-zero-badge-rect" x="290" y="77" width="30" height="12" rx="3" fill="#1e293b" stroke="#475569" stroke-width="0.6"/>
+      <text id="svg-roi-zero-badge-text" x="305" y="86" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="Inter" font-weight="700">Rp 0</text>
+
+      <!-- Deficit Shaded Polygon (Below Zero) -->
+      <path id="svg-roi-deficit-fill" d="" fill="url(#roiDeficitGrad)"/>
+
+      <!-- Profit Shaded Polygon (Above Zero) -->
+      <path id="svg-roi-profit-fill" d="" fill="url(#roiProfitGrad)"/>
+
+      <!-- Inverter Replacement Indicator at Year 12 -->
+      <g id="svg-roi-inverter-group" transform="translate(168, 20)">
+        <line x1="0" y1="0" x2="0" y2="88" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.5"/>
+        <circle cx="0" cy="10" r="3" fill="#fbbf24" opacity="0.8"/>
+        <text x="3" y="9" font-size="6.5" fill="#fde68a" font-family="Inter" font-weight="600">⚡ Thn 12 (Inverter)</text>
+      </g>
+
+      <!-- Main Cumulative Cash Flow Stroke Line -->
+      <path id="svg-roi-curve" d="" fill="none" stroke="url(#roiCurveGrad)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#roiGlow)"/>
+
+      <!-- Break-Even Point (BEP) Intersection Marker -->
+      <g id="svg-roi-bep-group" transform="translate(84, 84)">
+        <circle cx="0" cy="0" r="7" fill="#fbbf24" opacity="0.35" class="animate-ping"/>
+        <circle cx="0" cy="0" r="4" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
+        <rect x="-26" y="-23" width="52" height="15" rx="3.5" fill="#0f172a" stroke="#d97706" stroke-width="0.8"/>
+        <text x="0" y="-13" text-anchor="middle" font-size="7.5" fill="#fef08a" font-family="Inter" font-weight="800" id="svg-bep-text">★ BEP: 4.8 Thn</text>
+        <polygon points="-3,-8 3,-8 0,-5" fill="#0f172a"/>
+      </g>
+
+      <!-- Hover Crosshair Tracking Line -->
+      <line id="svg-roi-crosshair" x1="0" y1="12" x2="0" y2="108" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2 2" opacity="0"/>
+      <!-- Active Tracking Dot -->
+      <circle id="svg-roi-track-dot" cx="0" cy="0" r="5" fill="#38bdf8" stroke="#ffffff" stroke-width="2" opacity="0" filter="url(#roiGlow)"/>
+
+      <!-- X-Axis Timeline Markers -->
+      <text x="28" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600">Thn 0</text>
+      <text x="86.4" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600" text-anchor="middle">Thn 5</text>
+      <text x="144.8" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600" text-anchor="middle">Thn 10</text>
+      <text x="203.2" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600" text-anchor="middle">Thn 15</text>
+      <text x="261.6" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600" text-anchor="middle">Thn 20</text>
+      <text x="320" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600" text-anchor="end">Thn 25</text>
+    </svg>
+
+    <!-- Floating Interactive Glassmorphic Tooltip -->
+    <div id="roi-tooltip" class="absolute pointer-events-none hidden bg-slate-900/95 backdrop-blur-md text-white px-2.5 py-1.5 rounded-lg shadow-xl border border-slate-700/80 text-left z-20 transition-all duration-75">
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-[9px] text-slate-400 font-semibold" id="roi-tip-year">Tahun 5</span>
+        <span class="text-[8px] font-bold px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800" id="roi-tip-status">Profit</span>
+      </div>
+      <p class="text-xs font-bold font-title tracking-tight mt-0.5" id="roi-tip-val">+Rp 12.400.000</p>
+      <p class="text-[8px] text-slate-300" id="roi-tip-savings">Akumulasi Hemat: Rp 147.000.000</p>
+    </div>
+  </div>
+
+  <!-- Interactive Timeline Range Scrubber -->
+  <div class="space-y-1 pt-0.5">
+    <div class="flex items-center justify-between text-[10px] font-semibold text-slate-600">
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px] text-amber-500">tune</span>
+        Geser Timeline Proyeksi:
+      </span>
+      <span id="roi-slider-label" class="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">Tahun 4.8 / 25</span>
+    </div>
+    <input type="range" id="roi-year-slider" min="0" max="25" step="0.1" value="4.8" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-ew-resize accent-emerald-600" oninput="onRoiSliderInput(this.value)">
+    <div class="flex justify-between text-[8.5px] text-slate-400 font-medium px-0.5">
+      <span>Thn 0 (Investasi)</span>
+      <span>Thn 5</span>
+      <span>Thn 10</span>
+      <span>Thn 15</span>
+      <span>Thn 20</span>
+      <span>Thn 25 (Puncak)</span>
+    </div>
+  </div>
+
+  <!-- Interactive Milestone Quick Buttons -->
+  <div class="grid grid-cols-4 gap-1.5 pt-0.5" id="roi-milestone-buttons">
+    <button type="button" id="roi-btn-0" class="roi-ms-btn py-1.5 px-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[10px] font-semibold text-center transition flex flex-col items-center gap-0.5" onclick="snapRoiChartToYear(0)">
+      <span class="font-bold">Thn 0</span>
+      <span class="text-[8px] text-slate-500">CAPEX Awal</span>
+    </button>
+    <button type="button" id="roi-btn-bep" class="roi-ms-btn py-1.5 px-1 rounded-lg bg-amber-500 text-white border border-amber-600 shadow-sm text-[10px] font-bold text-center transition flex flex-col items-center gap-0.5" onclick="snapRoiChartToBep()">
+      <span class="font-bold">⭐ BEP</span>
+      <span class="text-[8px] text-amber-100" id="roi-btn-bep-sub">Thn 4.8</span>
+    </button>
+    <button type="button" id="roi-btn-12" class="roi-ms-btn py-1.5 px-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[10px] font-semibold text-center transition flex flex-col items-center gap-0.5" onclick="snapRoiChartToYear(12)">
+      <span class="font-bold">Thn 12</span>
+      <span class="text-[8px] text-slate-500">Inverter</span>
+    </button>
+    <button type="button" id="roi-btn-25" class="roi-ms-btn py-1.5 px-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[10px] font-semibold text-center transition flex flex-col items-center gap-0.5" onclick="snapRoiChartToYear(25)">
+      <span class="font-bold">Thn 25</span>
+      <span class="text-[8px] text-slate-500">Puncak ROI</span>
+    </button>
+  </div>
+</div>
+</div>
+<!-- Collapsible CAPEX Cost Breakdown -->
+<div class="rounded-xl bg-slate-50 border border-slate-200 overflow-hidden">
+<button class="w-full p-3.5 flex items-center justify-between text-left hover:bg-slate-100 transition-colors" onclick="document.getElementById('capexContent2').classList.toggle('hidden'); document.getElementById('capexIcon2').classList.toggle('rotate-180')" type="button">
+<div>
+<span class="font-title text-xs font-bold text-slate-900 block">Rincian Investasi CAPEX</span>
+<span class="font-code-metric text-[11px] text-slate-500 font-semibold" id="capexTotalDisplay">Total: Rp 103.300.000</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 transition-transform duration-200 text-[20px]" id="capexIcon2">expand_more</span>
+</button>
+<div class="px-3.5 pb-3.5 space-y-1.5 border-t border-slate-200/80 hidden" id="capexContent2">
+<div class="pt-2 divide-y divide-slate-200/70 text-xs">
+<div class="py-1 flex justify-between items-center">
+<span class="text-slate-600" id="capex-module-desc">Modul Surya (28x 550W)</span>
+<span class="font-code-metric font-semibold text-slate-900" id="costModules">Rp 51.800.000</span>
+</div>
+<div class="py-1 flex justify-between items-center">
+<span class="text-slate-600">Inverter &amp; Kelistrikan AC/DC</span>
+<span class="font-code-metric font-semibold text-slate-900" id="costInverter">Rp 24.500.000</span>
+</div>
+<div class="py-1 flex justify-between items-center">
+<span class="text-slate-600">Sistem Racking Aluminium</span>
+<span class="font-code-metric font-semibold text-slate-900" id="costRacking">Rp 12.000.000</span>
+</div>
+<div class="py-1 flex justify-between items-center">
+<span class="text-slate-600">Instalasi, Net-Metering &amp; SLO</span>
+<span class="font-code-metric font-semibold text-slate-900" id="costInstall">Rp 15.000.000</span>
+</div>
+<div class="pt-2 mt-1 flex justify-between items-center bg-white p-2 rounded-lg border border-slate-200 font-bold">
+<span class="text-slate-900">Total Investasi</span>
+<span class="font-code-metric text-amber-700">Rp 103.300.000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action CTAs -->
+<div class="pt-1 space-y-2">
+<button class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-title text-xs font-bold shadow-md transition flex items-center justify-center gap-2" onclick="openPdfModal()" type="button">
+<span class="material-symbols-outlined text-[17px]">file_download</span>
+<span>Unduh Proposal PDF</span>
+</button>
+<button class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-title text-xs font-bold shadow-sm transition flex items-center justify-center gap-2" onclick="openInstallerModal()" type="button">
+<span class="material-symbols-outlined text-[17px] text-amber-600">verified</span>
+<span>Ajukan Penawaran Mitra EPC</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</section>
+<!-- ========================================== -->
+<!-- 4. MODAL 1: EXPORT PDF PROPOSAL REPORT     -->
+<!-- ========================================== -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200" id="modal-pdf">
+<div class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+<!-- Modal Header -->
+<div class="p-4 px-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-amber-600 text-[22px]">picture_as_pdf</span>
+<h3 class="font-title font-bold text-slate-900 text-base">Pratinjau Proposal Studi Kelayakan PLTS</h3>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition" onclick="closePdfModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Realistic A4 Paper Preview Container -->
+<div class="p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-100/80 flex justify-center items-start">
+<div class="w-full max-w-lg bg-white shadow-xl border border-slate-200 p-5 sm:p-7 rounded-lg text-slate-900 text-xs space-y-4 font-body-sm">
+<!-- Document Header -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b pb-4 border-slate-200 gap-2">
+<div>
+<div class="flex items-center gap-1.5">
+<img src="./logo.svg" alt="SunSight Logo" class="h-6 w-auto"/>
+<span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-bold">LAPORAN RESMI</span>
+</div>
+<p class="text-[11px] text-slate-500 mt-1">Studi Kelayakan Teknis &amp; Finansial PLTS Atap</p>
+</div>
+<div class="sm:text-right">
+<span class="font-code-metric font-semibold text-slate-700">REF: SS-2024-JKT-006</span>
+<p class="text-[10px] text-slate-400">Tanggal: 24 Oktober 2024</p>
+</div>
+</div>
+<!-- Project & Location Details -->
+<div class="rounded-lg bg-slate-50 p-3 border border-slate-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-semibold">Proyek Residensi</span>
+<p class="font-bold text-slate-800 text-xs mt-0.5">Menteng Residence #06</p>
+<p class="text-[11px] text-slate-500">Jl. Diponegoro No. 24, Menteng, Jakarta Pusat</p>
+</div>
+<div class="sm:text-right font-code-metric text-[10px] text-slate-600">
+<p>-6.2088° S, 106.8456° E</p>
+<p class="text-amber-700 font-semibold">Tarif PLN: R-2 / 5.500 VA</p>
+</div>
+</div>
+<!-- Thumbnail Cad Blueprint Snapshot -->
+<div class="relative h-32 rounded-lg overflow-hidden border border-slate-200">
+<img alt="Snapshot Atap" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WoMTUXCGJ2Eeg06cTMtnUHYLFinAzTNAaKTXly_1ckfAZCTGzCXJg36p2V3C0WnuGei_Jyutg1biogKh1owCVQ6ZYD2Uto7tSOmHerNwNBqAVu874Q5a_nFFEuAaZSZy2AinZ9HNiJjAaw5HojV0juJbscoDv-1z8NH1yTf25DQ5gKr2hOAo3-T79xrK7R3o_dzu8fGrhw5AzSrLrgQU3nCZtwqZmcoyBAC4wU5DQbuLX1u6w6XAdY83A"/>
+<div class="absolute inset-0 bg-sky-950/20 flex items-center justify-center">
+<span class="px-2.5 py-1 rounded bg-black/70 text-white font-code-metric text-[10px] font-medium backdrop-blur-sm">
+                28x Modul Surya • Orientasi SSW 188° • Tilt 22°
+              </span>
+</div>
+</div>
+<!-- Technical Specs Table -->
+<div>
+<h4 class="font-title font-bold text-slate-900 text-xs mb-1.5">Spesifikasi Sistem Fotovoltaik</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+<div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between">
+<span class="text-slate-500">Kapasitas Puncak</span>
+<span class="font-bold text-slate-900" id="pdfKwpDisplay">12.60 kWp (28x 450W)</span>
+</div>
+<div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between">
+<span class="text-slate-500">Produksi Tahunan</span>
+<span class="font-bold text-slate-900" id="pdfYearlyProdDisplay">17.850 kWh/thn</span>
+</div>
+<div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between">
+<span class="text-slate-500">Luas Area Efektif</span>
+<span class="font-bold text-slate-900" id="pdfAreaDisplay">84.5 m²</span>
+</div>
+<div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between">
+<span class="text-slate-500">Efisiensi Inverter</span>
+<span class="font-bold text-slate-900" id="pdfInverterEffDisplay">98.4% (DC/AC 1.22)</span>
+</div>
+</div>
+</div>
+<!-- Financial Summary Table -->
+<div>
+<h4 class="font-title font-bold text-slate-900 text-xs mb-1.5">Ringkasan Kelayakan Investasi</h4>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-[11px] text-left border border-slate-200 rounded min-w-[300px]">
+<thead class="bg-slate-100 text-slate-700">
+<tr>
+<th class="p-2">Item Parameter</th>
+<th class="p-2 text-right">Nilai Estimasi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr>
+<td class="p-2 text-slate-600">Total CAPEX Investasi</td>
+<td class="p-2 text-right font-bold text-slate-900" id="pdfCapexDisplay">Rp 103.300.000</td>
+</tr>
+<tr>
+<td class="p-2 text-slate-600">Penghematan Listrik / Tahun</td>
+<td class="p-2 text-right font-bold text-emerald-700" id="pdfYearlySavingDisplay">Rp 29.400.000</td>
+</tr>
+<tr>
+<td class="p-2 text-slate-600">Payback Period (Balik Modal)</td>
+<td class="p-2 text-right font-bold text-amber-700" id="pdfPaybackDisplay">4.8 Tahun</td>
+</tr>
+<tr>
+<td class="p-2 text-slate-600">Internal Rate of Return (IRR)</td>
+<td class="p-2 text-right font-bold text-slate-900" id="pdfIrrDisplay">21.4%</td>
+</tr>
+<tr>
+<td class="p-2 text-slate-600">Reduksi Emisi Karbon (CO2)</td>
+<td class="p-2 text-right font-bold text-emerald-700" id="pdfEcoCo2Display">14.2 Ton / tahun</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Certification Stamp & Sign -->
+<div class="pt-2 border-t border-slate-200 flex justify-between items-end text-[10px] text-slate-400">
+<div>
+<p class="font-semibold text-slate-600">Verifikasi Sistem:</p>
+<p>Simulasi Helios Cad Engine v2.4</p>
+<p>Standar SNI &amp; Permen ESDM No. 2/2024</p>
+</div>
+<div class="text-right">
+<div class="w-20 h-6 border-b border-slate-300 mx-auto"></div>
+<p class="font-bold text-slate-700 mt-1">Lead Solar Engineer</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-4 px-6 border-t border-slate-200 bg-white flex items-center justify-between">
+<span class="text-xs font-semibold text-emerald-600 hidden" id="pdf-download-toast">
+          ✓ File SunSight-Proposal-Menteng06.pdf siap diunduh!
+        </span>
+<div class="flex items-center gap-2 ml-auto">
+<button class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold transition" onclick="closePdfModal()">
+            Tutup
+          </button>
+<button class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-title text-xs font-bold shadow-md transition flex items-center gap-1.5" onclick="simulatePdfDownload()">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Unduh PDF (A4)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- 5. MODAL 2: REQUEST EPC INSTALLER QUOTE   -->
+<!-- ========================================== -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200" id="modal-installer">
+<div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+<!-- Modal Header -->
+<div class="p-4 px-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-600 text-[22px]">verified</span>
+<h3 class="font-title font-bold text-slate-900 text-base">Ajukan Penawaran Kontraktor EPC</h3>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition" onclick="closeInstallerModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Form Body / Success State -->
+<div class="p-6">
+<!-- Form Fields State -->
+<div class="space-y-4" id="installer-form-fields">
+<!-- Info Callout -->
+<div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-900 text-xs flex items-start gap-2.5">
+<span class="material-symbols-outlined text-amber-600 text-[18px] shrink-0 mt-0.5">info</span>
+<p class="leading-relaxed">
+<strong>3 Kontraktor EPC terverifikasi PLN &amp; bersertifikat ESDM</strong> di area Jabodetabek akan menerima spesifikasi atap Anda dan menghubungi Anda dalam 1x24 jam dengan proposal resmi.
+            </p>
+</div>
+<!-- Inputs -->
+<div class="space-y-1">
+<label class="text-xs font-semibold text-slate-700">Nama Lengkap</label>
+<input class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all" placeholder="Contoh: Budi Santoso" type="text" value="Budi Santoso"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-slate-700">Nomor WhatsApp / Telepon</label>
+<input class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all" placeholder="Contoh: 081234567890" type="tel" value="0812-8899-7722"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-slate-700">Alamat Pemasangan</label>
+<input class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 bg-slate-50 transition-all" readonly="" type="text" value="Jl. Diponegoro No. 24, Menteng, Jakarta Pusat"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-slate-700">Catatan Tambahan (Kapasitas PLN Terpasang, Jadwal Survei)</label>
+<textarea class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all" placeholder="Tuliskan daya PLN saat ini atau waktu yang diinginkan untuk survey atap..." rows="2">Daya meteran PLN saat ini 5.500 VA. Mohon jadwalkan survey fisik akhir pekan.</textarea>
+</div>
+<div class="pt-2">
+<button class="w-full py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-title text-xs font-bold shadow-md transition flex items-center justify-center gap-2" onclick="submitInstallerQuote()">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Kirim Permintaan Penawaran</span>
+</button>
+</div>
+</div>
+<!-- Instant Success State -->
+<div class="hidden py-8 flex flex-col items-center text-center space-y-3" id="installer-form-success">
+<div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[32px]">check_circle</span>
+</div>
+<h4 class="font-title text-lg font-bold text-slate-900">Permintaan Berhasil Terkirim!</h4>
+<p class="text-xs text-slate-600 max-w-xs leading-relaxed">
+            Data spesifikasi PLTS 12.6 kWp telah diteruskan ke partner installer resmi PT SunPower Indo &amp; Menteng Solar Energy.
+          </p>
+<div class="pt-4">
+<button class="px-6 py-2 rounded-xl bg-slate-900 text-white font-title text-xs font-bold" onclick="closeInstallerModal()">
+              Kembali ke Studio
+            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- CLIENT-SIDE STATE MACHINE & INTERACTIVITY -->
+<!-- ========================================== -->
+<script>
+    const MODULE_SPECS = {
+      450: {
+        name: 'Tier-1 450W Compact All-Black',
+        w: 1.04,
+        l: 1.76,
+        eff: '20.9%',
+        tech: 'Compact All-Black Mono',
+        price: 1600000,
+        desc: 'Compact All-Black'
+      },
+      550: {
+        name: 'Tier-1 550W Mono PERC Bifacial',
+        w: 1.13,
+        l: 2.27,
+        eff: '21.5%',
+        tech: 'Half-Cut Mono PERC',
+        price: 1850000,
+        desc: 'Mono PERC Bifacial'
+      },
+      580: {
+        name: 'Bifacial 580W Dual-Glass',
+        w: 1.13,
+        l: 2.38,
+        eff: '22.4%',
+        tech: 'Dual-Glass Bifacial',
+        price: 2150000,
+        desc: 'Bifacial Dual-Glass'
+      }
+    };
+
+    // Global State
+    const simState = {
+      bill: 2800000,
+      tariff: 1700,
+      modulePower: 550,
+      inverterType: 'string', // 'string' or 'micro'
+      pitch: 22,
+      ridge: 12.48,
+      slope: 7.28,
+      setback: 0.50, // in meters
+      gutter: 0.60, // in meters (jalur talang air)
+      orientation: 'portrait', // 'portrait' or 'landscape'
+      panelGap: 3, // in cm (2 to 10 cm)
+      extraTilt: 10, // in degrees (0 to 20 deg)
+      moduleCount: 24,
+      maxAvailableSlots: 24,
+      customCount: null,
+      cols: 8,
+      rows: 3,
+      roofShape: 'rectangle', // 'rectangle', 'l-shape', 'trapezoid'
+      hasObstacle: true, // HVAC chiller
+      hasSkylight: true, // Skylight kaca
+      slotOverrides: {} // dynamic slot states ('active', 'skylight', 'hvac', 'empty')
+    };
+
+    function formatRp(val) {
+      return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+    }
+
+    function toggleRightPanel() {
+      const panel = document.getElementById('right-panel-wrapper');
+      const icon = document.getElementById('panel-toggle-icon');
+      
+      const isCollapsed = panel.classList.contains('lg:w-0');
+      
+      if (isCollapsed) {
+        panel.classList.remove('lg:w-0');
+        panel.classList.add('lg:w-[380px]');
+        icon.textContent = 'chevron_right';
+      } else {
+        panel.classList.remove('lg:w-[380px]');
+        panel.classList.add('lg:w-0');
+        icon.textContent = 'chevron_left';
+      }
+    }
+
+    // Eco-Forest Layered Diorama Tree Configurations
+    const ecoTreeConfigs = [
+      // Layer 1: Back Hill (y ~ 44-50, scale ~0.65-0.72)
+      { id: 0, layer: 'back', x: 38, y: 50, scale: 0.72, type: 'pine', delay: 0 },
+      { id: 1, layer: 'back', x: 92, y: 44, scale: 0.68, type: 'oak', delay: 40 },
+      { id: 2, layer: 'back', x: 162, y: 48, scale: 0.72, type: 'poplar', delay: 80 },
+      { id: 3, layer: 'back', x: 232, y: 44, scale: 0.65, type: 'pine', delay: 120 },
+      { id: 4, layer: 'back', x: 292, y: 46, scale: 0.70, type: 'oak', delay: 160 },
+
+      // Layer 2: Mid Hill (y ~ 56-62, scale ~0.88-0.92)
+      { id: 5, layer: 'mid', x: 65, y: 62, scale: 0.90, type: 'oak', delay: 200 },
+      { id: 6, layer: 'mid', x: 128, y: 58, scale: 0.88, type: 'pine', delay: 240 },
+      { id: 7, layer: 'mid', x: 198, y: 58, scale: 0.92, type: 'poplar', delay: 280 },
+      { id: 8, layer: 'mid', x: 265, y: 56, scale: 0.88, type: 'oak', delay: 320 },
+
+      // Layer 3: Foreground Meadow (y ~ 74, scale ~1.15)
+      { id: 9, layer: 'front', x: 165, y: 74, scale: 1.15, type: 'oak', delay: 360 }
+    ];
+
+    function getTreeSvgGeometry(type) {
+      if (type === 'pine') {
+        return `
+          <ellipse cx="0" cy="0.5" rx="4" ry="1.2" fill="#047857" opacity="0.35"/>
+          <rect x="-1" y="-6" width="2" height="6.5" rx="0.5" fill="#78350f"/>
+          <polygon points="0,-11 -7,-1 7,-1" fill="#059669"/>
+          <polygon points="0,-15 -6,-5 6,-5" fill="#047857"/>
+          <polygon points="0,-20 -5,-10 5,-10" fill="#065f46"/>
+          <polygon points="0,-20 0,-10 5,-10" fill="#10b981" opacity="0.35"/>
+        `;
+      } else if (type === 'oak') {
+        return `
+          <ellipse cx="0" cy="0.5" rx="4.5" ry="1.5" fill="#047857" opacity="0.35"/>
+          <rect x="-1.2" y="-7" width="2.4" height="7.5" rx="0.5" fill="#78350f"/>
+          <circle cx="0" cy="-13" r="8" fill="#047857"/>
+          <circle cx="-4" cy="-12" r="5.5" fill="#059669"/>
+          <circle cx="4" cy="-12" r="5.5" fill="#10b981"/>
+          <circle cx="0" cy="-16" r="6" fill="#34d399"/>
+        `;
+      } else {
+        return `
+          <ellipse cx="0" cy="0.5" rx="3.5" ry="1.2" fill="#047857" opacity="0.35"/>
+          <rect x="-1" y="-7" width="2" height="7.5" rx="0.5" fill="#a16207"/>
+          <ellipse cx="0" cy="-15" rx="5.5" ry="9.5" fill="#0f766e"/>
+          <ellipse cx="-1.5" cy="-15" rx="4" ry="8" fill="#14b8a6"/>
+          <circle cx="1" cy="-18" r="3.5" fill="#5eead4"/>
+        `;
+      }
+    }
+
+    function initEcoForest() {
+      const backContainer = document.getElementById('eco-trees-back-container');
+      const midContainer = document.getElementById('eco-trees-mid-container');
+      const frontContainer = document.getElementById('eco-trees-front-container');
+      if (!backContainer || !midContainer || !frontContainer) return;
+
+      backContainer.innerHTML = '';
+      midContainer.innerHTML = '';
+      frontContainer.innerHTML = '';
+
+      ecoTreeConfigs.forEach((cfg) => {
+        const treeSvg = getTreeSvgGeometry(cfg.type);
+        // Outer G: Sets exact fixed coordinates (x, y) and proportional scale
+        // Inner G: Handles vertical pop-up ("poing") strictly from bottom center
+        const html = `
+          <g transform="translate(${cfg.x}, ${cfg.y}) scale(${cfg.scale})">
+            <g id="eco-tree-${cfg.id}" class="eco-tree-stem dormant" style="transition-delay: ${cfg.delay}ms;">
+              ${treeSvg}
+            </g>
+          </g>
+        `;
+
+        if (cfg.layer === 'back') backContainer.insertAdjacentHTML('beforeend', html);
+        else if (cfg.layer === 'mid') midContainer.insertAdjacentHTML('beforeend', html);
+        else frontContainer.insertAdjacentHTML('beforeend', html);
+      });
+    }
+
+    function updateEcoTrees(treesCount) {
+      const backContainer = document.getElementById('eco-trees-back-container');
+      if (!backContainer || !backContainer.children.length) {
+        initEcoForest();
+      }
+
+      const count = Number(treesCount) || 0;
+      // Active trees scale from 2 (minimum) up to 10 based on tree count
+      let activeCount = Math.min(10, Math.max(2, Math.round((count / 800) * 10)));
+      if (count > 0 && activeCount < 2) activeCount = 2;
+
+      for (let i = 0; i < ecoTreeConfigs.length; i++) {
+        const treeEl = document.getElementById(`eco-tree-${i}`);
+        if (treeEl) {
+          if (i < activeCount) {
+            treeEl.classList.remove('dormant');
+            treeEl.classList.add('sprouted');
+          } else {
+            treeEl.classList.remove('sprouted');
+            treeEl.classList.add('dormant');
+          }
+        }
+      }
+
+      // Update forest badge and equivalent green area
+      const forestLabel = document.getElementById('ecoForestLabel');
+      if (forestLabel) {
+        forestLabel.textContent = `Hutan Lestari: ${count.toLocaleString('id-ID')} Pohon`;
+      }
+      const treeAreaEl = document.getElementById('ecoTreeArea');
+      if (treeAreaEl) {
+        const ha = (count * 0.0011).toFixed(2);
+        treeAreaEl.textContent = `~${ha} Ha Lestari`;
+      }
+    }
+
+    function updateSimulation() {
+      const monthlyKwh = simState.bill / simState.tariff;
+      const dailyKwh = monthlyKwh / 30;
+      const peakSunHours = 4.5;
+      
+      let efficiency = 1.0;
+      if (simState.pitch < 10) efficiency = 0.92;
+      else if (simState.pitch > 30) efficiency = 0.95;
+
+      let neededKwp = (dailyKwh / peakSunHours) / efficiency;
+      
+      // 1. Usable Dimensions & Setback Margin Calculations
+      const usableRidge = Math.max(1, simState.ridge - 2 * simState.setback);
+      const usableSlope = Math.max(1, simState.slope - simState.setback - simState.gutter);
+      const netArea = usableRidge * usableSlope;
+      const area = simState.ridge * simState.slope;
+
+      if (document.getElementById('grossAreaDisplay')) document.getElementById('grossAreaDisplay').textContent = area.toFixed(2);
+      if (document.getElementById('netAreaDisplay')) document.getElementById('netAreaDisplay').textContent = netArea.toFixed(2);
+      if (document.getElementById('netAreaDisplay2')) document.getElementById('netAreaDisplay2').textContent = netArea.toFixed(2);
+      if (document.getElementById('netAreaPctDisplay')) document.getElementById('netAreaPctDisplay').textContent = Math.round((netArea / area) * 100) + '%';
+
+      // 2. Module Specifications & Geometric Packing
+      const currentSpec = MODULE_SPECS[simState.modulePower] || MODULE_SPECS[550];
+      const panelW = simState.orientation === 'portrait' ? currentSpec.w : currentSpec.l;
+      const panelL = simState.orientation === 'portrait' ? currentSpec.l : currentSpec.w;
+      const gapM = (simState.panelGap || 3) / 100;
+
+      // Calculate how many columns & rows physically fit
+      let cols = Math.floor((usableRidge + gapM) / (panelW + gapM));
+      let rows = Math.floor((usableSlope + gapM) / (panelL + gapM));
+      if (cols < 1) cols = 1;
+      if (rows < 1) rows = 1;
+
+      // Identify valid roof slots within geometric boundary
+      function isOutOfBounds(r, c) {
+        if (simState.roofShape === 'l-shape') {
+          return c >= Math.ceil(cols * 0.65) && r < Math.floor(rows * 0.42);
+        } else if (simState.roofShape === 'trapezoid') {
+          return r === 0 && (c === 0 || c === cols - 1);
+        }
+        return false;
+      }
+
+      const validSlots = [];
+      const obstacleRow = Math.min(rows - 1, 1);
+      const obstacleCol = Math.max(1, Math.floor((cols - 2) / 2));
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (!isOutOfBounds(r, c)) {
+            validSlots.push({ r, c, key: `${r}_${c}` });
+          }
+        }
+      }
+
+      const totalValidSlots = validSlots.length;
+      simState.maxAvailableSlots = totalValidSlots;
+
+      // Count active modules from dynamic slot states
+      let activeCount = 0;
+      validSlots.forEach(slot => {
+        let state = simState.slotOverrides[slot.key];
+        if (!state) {
+          if (simState.hasObstacle && slot.r === obstacleRow && (slot.c === obstacleCol || slot.c === obstacleCol + 1)) {
+            state = 'hvac';
+          } else if (simState.hasSkylight && slot.r === 0 && slot.c === Math.min(1, cols - 1)) {
+            state = 'skylight';
+          } else {
+            state = 'active';
+          }
+        }
+        if (state === 'active') activeCount++;
+      });
+
+      let modulesFitted = Math.max(0, activeCount);
+      simState.cols = cols;
+      simState.rows = rows;
+      simState.moduleCount = modulesFitted;
+
+      // Sync Tab 2 Manual Module Count controls
+      const manualDisplay = document.getElementById('manualModuleCountDisplay');
+      if (manualDisplay) manualDisplay.textContent = `${modulesFitted} Modul`;
+
+      const maxDisplay = document.getElementById('manualMaxCountDisplay');
+      if (maxDisplay) maxDisplay.textContent = `dari maks ${totalValidSlots} slot`;
+
+      const countSlider = document.getElementById('moduleCountSlider');
+      if (countSlider) {
+        countSlider.max = Math.max(1, totalValidSlots);
+        countSlider.value = modulesFitted;
+      }
+
+      const countBadge = document.getElementById('customCountBadge');
+      if (countBadge) {
+        countBadge.textContent = `${modulesFitted} Terpasang`;
+      }
+
+      const actualKwp = (modulesFitted * (simState.modulePower / 1000));
+      const actualYearlyProd = actualKwp * peakSunHours * 365 * efficiency;
+      
+      const capEl = document.getElementById('metric-capacity');
+      if (capEl) capEl.textContent = actualKwp.toFixed(1);
+      
+      const prodEl = document.getElementById('metric-prod');
+      if (prodEl) prodEl.textContent = (actualYearlyProd / 1000).toFixed(1);
+      
+      const descText = `${modulesFitted} Modul (${simState.modulePower}W ${currentSpec.desc})`;
+      const moduleDescEl = document.getElementById('metric-module-desc');
+      if (moduleDescEl) moduleDescEl.textContent = descText;
+      const capexModule = document.getElementById('capex-module-desc');
+      if (capexModule) capexModule.textContent = descText;
+      
+      const costOfModules = modulesFitted * currentSpec.price;
+      const inverterPrice = (simState.inverterType === 'string') ? (actualKwp * 1200000) : (modulesFitted * 1100000);
+      const rackingPrice = modulesFitted * 350000;
+      const installPrice = 15000000;
+      
+      const totalCapex = costOfModules + inverterPrice + rackingPrice + installPrice;
+      
+      if(document.getElementById('costModules')) document.getElementById('costModules').textContent = formatRp(costOfModules);
+      if(document.getElementById('costInverter')) document.getElementById('costInverter').textContent = formatRp(inverterPrice);
+      if(document.getElementById('costRacking')) document.getElementById('costRacking').textContent = formatRp(rackingPrice);
+      if(document.getElementById('costInstall')) document.getElementById('costInstall').textContent = formatRp(installPrice);
+      if(document.getElementById('capexTotalDisplay')) document.getElementById('capexTotalDisplay').textContent = 'Total: ' + formatRp(totalCapex);
+      
+      const monthlySaving = (actualYearlyProd / 12) * simState.tariff;
+      const cappedSaving = Math.min(monthlySaving, simState.bill); 
+      
+      if(document.getElementById('monthlySavingDisplay')) document.getElementById('monthlySavingDisplay').textContent = formatRp(cappedSaving);
+      const savingEl = document.getElementById('metric-saving');
+      if(savingEl) savingEl.innerHTML = `${(cappedSaving/1000000).toFixed(2)}M`;
+      
+      const cumulative25 = (cappedSaving * 12) * 25;
+      if(document.getElementById('cumulativeSavingsDisplay')) document.getElementById('cumulativeSavingsDisplay').textContent = formatRp(cumulative25);
+
+      // Financial ROI Math
+      const yearlySaving = cappedSaving * 12;
+      const payback = yearlySaving > 0 ? (totalCapex / yearlySaving).toFixed(1) : 0;
+      const irr = yearlySaving > 0 ? (100 * Math.pow(yearlySaving / totalCapex, 1/15)).toFixed(1) : 0; // rough estimation
+      
+      if(document.getElementById('paybackDisplay')) document.getElementById('paybackDisplay').textContent = payback;
+      if(document.getElementById('irrDisplay')) document.getElementById('irrDisplay').textContent = `IRR ${irr}%`;
+      if(document.getElementById('metric-payback')) document.getElementById('metric-payback').textContent = payback;
+      if(document.getElementById('metric-irr')) document.getElementById('metric-irr').textContent = `IRR ${irr}%`;
+      if(document.getElementById('metric-bep')) document.getElementById('metric-bep').textContent = Math.ceil(payback);
+      if(document.getElementById('bepLabel')) document.getElementById('bepLabel').textContent = `BEP: Thn ${payback}`;
+
+      // Eco Impact (Environmental Calculation)
+      // Standard ESDM 2024 grid factor: ~0.80 kg CO2 / kWh
+      const co2ReductionTon = (actualYearlyProd * 0.8) / 1000;
+      // 1 mature urban tree absorbs ~22 kg CO2 / year
+      const treesEquivalent = Math.round((co2ReductionTon * 1000) / 22);
+
+      const ecoCo2El = document.getElementById('ecoCo2Display');
+      if (ecoCo2El) ecoCo2El.textContent = co2ReductionTon.toFixed(1);
+
+      const ecoTreesEl = document.getElementById('ecoTreesDisplay');
+      if (ecoTreesEl) ecoTreesEl.textContent = treesEquivalent.toLocaleString('id-ID');
+
+      // Update Sprouting Tree Visualizer
+      updateEcoTrees(treesEquivalent);
+
+      // Sync with PDF Proposal Export Modal
+      const pdfEcoCo2El = document.getElementById('pdfEcoCo2Display');
+      if (pdfEcoCo2El) pdfEcoCo2El.textContent = `${co2ReductionTon.toFixed(1)} Ton / tahun`;
+
+      const pdfKwpEl = document.getElementById('pdfKwpDisplay');
+      if (pdfKwpEl) pdfKwpEl.textContent = `${actualKwp.toFixed(2)} kWp (${descText})`;
+
+      const pdfYearlyProdEl = document.getElementById('pdfYearlyProdDisplay');
+      if (pdfYearlyProdEl) pdfYearlyProdEl.textContent = `${Math.round(actualYearlyProd).toLocaleString('id-ID')} kWh/thn`;
+
+      const pdfAreaEl = document.getElementById('pdfAreaDisplay');
+      if (pdfAreaEl) pdfAreaEl.textContent = `${netArea.toFixed(1)} m²`;
+
+      const pdfCapexEl = document.getElementById('pdfCapexDisplay');
+      if (pdfCapexEl) pdfCapexEl.textContent = formatRp(totalCapex);
+
+      const pdfYearlySavingEl = document.getElementById('pdfYearlySavingDisplay');
+      if (pdfYearlySavingEl) pdfYearlySavingEl.textContent = formatRp(yearlySaving);
+
+      const pdfPaybackEl = document.getElementById('pdfPaybackDisplay');
+      if (pdfPaybackEl) pdfPaybackEl.textContent = `${payback} Tahun`;
+
+      const pdfIrrEl = document.getElementById('pdfIrrDisplay');
+      if (pdfIrrEl) pdfIrrEl.textContent = `${irr}%`;
+      
+      // Store current financial state on simState for ROI Chart
+      simState.totalCapex = totalCapex;
+      simState.yearlySaving = yearlySaving;
+      simState.payback = Number(payback);
+      simState.irr = Number(irr);
+      simState.inverterPrice = inverterPrice;
+
+      // Update Interactive ROI & Cumulative Cash Flow Chart
+      updateRoiChart();
+
+      // Render Dynamic Module Grid on Polygon Canvas
+      renderPolygonModules();
+    }
+
+    // ========================================================
+    // INTERACTIVE CUMULATIVE CASH FLOW & ROI CHART LOGIC
+    // ========================================================
+    let currentRoiYear = null;
+
+    function getRoiCashFlowAtYear(t) {
+      const capex = simState.totalCapex || 103300000;
+      const yearly = simState.yearlySaving || 29400000;
+      const invPrice = simState.inverterPrice || 15120000;
+      // Inverter replacement at Year 12 (standard PV life-cycle, ~75% of inverter capex)
+      const inverterMaintenance = (t >= 12) ? Math.round(invPrice * 0.75) : 0;
+      return -capex + (yearly * t) - inverterMaintenance;
+    }
+
+    function formatRpWithSign(val) {
+      const rounded = Math.round(val);
+      const absVal = Math.abs(rounded);
+      const sign = rounded > 0 ? '+' : (rounded < 0 ? '-' : '');
+      return `${sign}Rp ${absVal.toLocaleString('id-ID')}`;
+    }
+
+    function updateRoiChart() {
+      const capex = simState.totalCapex || 103300000;
+      const yearly = simState.yearlySaving || 29400000;
+      const payback = simState.payback || (yearly > 0 ? capex / yearly : 4.8);
+      const max25Profit = getRoiCashFlowAtYear(25);
+
+      const xMin = 28;
+      const xMax = 320;
+      const yTop = 14;
+      const yBottom = 106;
+
+      // Ensure coordinate bounds
+      const minVal = -capex * 1.05;
+      const maxVal = Math.max(capex * 0.5, max25Profit * 1.05);
+      const valRange = maxVal - minVal;
+
+      function mapX(t) {
+        return xMin + (Math.max(0, Math.min(25, t)) / 25) * (xMax - xMin);
+      }
+
+      function mapY(v) {
+        return yBottom - ((v - minVal) / valRange) * (yBottom - yTop);
+      }
+
+      const yZero = mapY(0);
+      const bepYearClamped = Math.max(0, Math.min(25, payback));
+      const xBep = mapX(bepYearClamped);
+
+      // 1. Update Zero Baseline & Badge
+      const zeroLine = document.getElementById('svg-roi-zero-line');
+      if (zeroLine) {
+        zeroLine.setAttribute('y1', yZero);
+        zeroLine.setAttribute('y2', yZero);
+      }
+      const zeroBadgeRect = document.getElementById('svg-roi-zero-badge-rect');
+      if (zeroBadgeRect) zeroBadgeRect.setAttribute('y', yZero - 6);
+      const zeroBadgeText = document.getElementById('svg-roi-zero-badge-text');
+      if (zeroBadgeText) zeroBadgeText.setAttribute('y', yZero + 3);
+
+      // 2. Generate Dense Sampling Points (0 to 25 years with 0.5 year step)
+      const points = [];
+      for (let t = 0; t <= 25; t += 0.5) {
+        points.push({ t, x: mapX(t), y: mapY(getRoiCashFlowAtYear(t)), cf: getRoiCashFlowAtYear(t) });
+      }
+
+      // 3. Build Full Continuous Line Path
+      let pathCurve = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 1; i < points.length; i++) {
+        pathCurve += ` L ${points[i].x} ${points[i].y}`;
+      }
+      const curveEl = document.getElementById('svg-roi-curve');
+      if (curveEl) curveEl.setAttribute('d', pathCurve);
+
+      // 4. Build Deficit Polygon (from t=0 to t=bep, below zero line)
+      let pathDeficit = `M ${points[0].x} ${yZero}`;
+      for (let i = 0; i < points.length; i++) {
+        if (points[i].t <= bepYearClamped) {
+          pathDeficit += ` L ${points[i].x} ${points[i].y}`;
+        }
+      }
+      pathDeficit += ` L ${xBep} ${yZero} Z`;
+      const deficitFill = document.getElementById('svg-roi-deficit-fill');
+      if (deficitFill) deficitFill.setAttribute('d', pathDeficit);
+
+      // 5. Build Profit Polygon (from t=bep to t=25, above zero line)
+      let pathProfit = `M ${xBep} ${yZero}`;
+      for (let i = 0; i < points.length; i++) {
+        if (points[i].t >= bepYearClamped) {
+          pathProfit += ` L ${points[i].x} ${points[i].y}`;
+        }
+      }
+      pathProfit += ` L ${points[points.length - 1].x} ${yZero} Z`;
+      const profitFill = document.getElementById('svg-roi-profit-fill');
+      if (profitFill) profitFill.setAttribute('d', pathProfit);
+
+      // 6. Update Dynamic Gradient Stops based on BEP percentage along X axis
+      const bepPct = Math.max(5, Math.min(95, ((xBep - xMin) / (xMax - xMin)) * 100));
+      const stop1 = document.getElementById('roiGradStop1');
+      const stop2 = document.getElementById('roiGradStop2');
+      if (stop1 && stop2) {
+        stop1.setAttribute('offset', `${Math.max(0, bepPct - 3).toFixed(1)}%`);
+        stop2.setAttribute('offset', `${Math.min(100, bepPct + 3).toFixed(1)}%`);
+      }
+
+      // 7. Update BEP Group Marker
+      const bepGroup = document.getElementById('svg-roi-bep-group');
+      if (bepGroup) {
+        bepGroup.setAttribute('transform', `translate(${xBep}, ${yZero})`);
+      }
+      const bepText = document.getElementById('svg-bep-text');
+      if (bepText) bepText.textContent = `★ BEP: ${payback.toFixed(1)} Thn`;
+      const bepLabel = document.getElementById('bepLabel');
+      if (bepLabel) bepLabel.textContent = `BEP: Thn ${payback.toFixed(1)}`;
+      const bepSub = document.getElementById('roi-btn-bep-sub');
+      if (bepSub) bepSub.textContent = `Thn ${payback.toFixed(1)}`;
+
+      // 8. Update Inverter Maintenance Marker at Year 12
+      const xInv = mapX(12);
+      const invGroup = document.getElementById('svg-roi-inverter-group');
+      if (invGroup) {
+        invGroup.setAttribute('transform', `translate(${xInv}, 14)`);
+      }
+
+      // 9. Synchronize or initialize active inspected year (default to BEP)
+      if (currentRoiYear === null) {
+        currentRoiYear = payback;
+      }
+      renderRoiInspection(currentRoiYear);
+    }
+
+    function renderRoiInspection(year) {
+      const capex = simState.totalCapex || 103300000;
+      const yearly = simState.yearlySaving || 29400000;
+      const payback = simState.payback || (yearly > 0 ? capex / yearly : 4.8);
+      const max25Profit = getRoiCashFlowAtYear(25);
+
+      const t = Math.max(0, Math.min(25, Number(year)));
+      currentRoiYear = t;
+
+      const xMin = 28;
+      const xMax = 320;
+      const yTop = 14;
+      const yBottom = 106;
+      const minVal = -capex * 1.05;
+      const maxVal = Math.max(capex * 0.5, max25Profit * 1.05);
+      const valRange = maxVal - minVal;
+
+      const x = xMin + (t / 25) * (xMax - xMin);
+      const cf = getRoiCashFlowAtYear(t);
+      const y = yBottom - ((cf - minVal) / valRange) * (yBottom - yTop);
+      const totalSavings = yearly * t;
+
+      // A. Update Crosshair & Tracking Dot
+      const crosshair = document.getElementById('svg-roi-crosshair');
+      if (crosshair) {
+        crosshair.setAttribute('x1', x);
+        crosshair.setAttribute('x2', x);
+        crosshair.setAttribute('opacity', '1');
+      }
+      const dot = document.getElementById('svg-roi-track-dot');
+      if (dot) {
+        dot.setAttribute('cx', x);
+        dot.setAttribute('cy', y);
+        dot.setAttribute('opacity', '1');
+      }
+
+      // B. Update Top Real-time Inspector Stat Strip
+      const isBepYear = Math.abs(t - payback) < 0.2;
+      const inspectYear = document.getElementById('roi-inspect-year');
+      if (inspectYear) {
+        inspectYear.textContent = isBepYear ? `Thn ${t.toFixed(1)} (BEP)` : `Tahun ${t.toFixed(1)}`;
+      }
+
+      const inspectVal = document.getElementById('roi-inspect-val');
+      if (inspectVal) {
+        if (Math.abs(cf) < 500000) {
+          inspectVal.textContent = 'Rp 0 (Impas)';
+          inspectVal.className = 'font-title text-xs font-extrabold text-amber-500 block';
+        } else if (cf > 0) {
+          inspectVal.textContent = formatRpWithSign(cf);
+          inspectVal.className = 'font-title text-xs font-extrabold text-emerald-600 block';
+        } else {
+          inspectVal.textContent = formatRpWithSign(cf);
+          inspectVal.className = 'font-title text-xs font-extrabold text-rose-500 block';
+        }
+      }
+
+      const inspectSavings = document.getElementById('roi-inspect-savings');
+      if (inspectSavings) {
+        inspectSavings.textContent = formatRp(totalSavings);
+      }
+
+      // C. Update Slider & Slider Label
+      const slider = document.getElementById('roi-year-slider');
+      if (slider && Number(slider.value) !== Number(t.toFixed(1))) {
+        slider.value = t.toFixed(1);
+      }
+      const sliderLabel = document.getElementById('roi-slider-label');
+      if (sliderLabel) {
+        sliderLabel.textContent = `Tahun ${t.toFixed(1)} / 25`;
+      }
+
+      // D. Update Floating Glassmorphic Tooltip
+      const tooltip = document.getElementById('roi-tooltip');
+      const wrapper = document.getElementById('roi-chart-wrapper');
+      if (tooltip && wrapper) {
+        tooltip.classList.remove('hidden');
+        const tipYear = document.getElementById('roi-tip-year');
+        if (tipYear) tipYear.textContent = `Tahun ${t.toFixed(1)}`;
+        
+        const tipStatus = document.getElementById('roi-tip-status');
+        if (tipStatus) {
+          if (Math.abs(cf) < 500000) {
+            tipStatus.textContent = 'Titik Impas (BEP)';
+            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800';
+          } else if (cf > 0) {
+            tipStatus.textContent = 'Profit Bersih';
+            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800';
+          } else {
+            tipStatus.textContent = 'Pemulihan Modal';
+            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800';
+          }
+        }
+
+        const tipVal = document.getElementById('roi-tip-val');
+        if (tipVal) {
+          tipVal.textContent = formatRpWithSign(cf);
+          tipVal.className = cf >= 0 ? 'text-xs font-bold font-title text-emerald-400 tracking-tight mt-0.5' : 'text-xs font-bold font-title text-rose-400 tracking-tight mt-0.5';
+        }
+
+        const tipSavings = document.getElementById('roi-tip-savings');
+        if (tipSavings) {
+          tipSavings.textContent = `Hemat Listrik: ${formatRp(totalSavings)}`;
+        }
+
+        // Position tooltip smoothly avoiding container edges
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const pctX = (x / 340);
+        let leftPx = pctX * wrapperRect.width;
+        let topPx = (y / 125) * wrapperRect.height - 58;
+
+        if (leftPx < 65) leftPx = 65;
+        if (leftPx > wrapperRect.width - 95) leftPx = wrapperRect.width - 95;
+        if (topPx < 8) topPx = (y / 125) * wrapperRect.height + 14;
+
+        tooltip.style.left = `${leftPx}px`;
+        tooltip.style.top = `${topPx}px`;
+        tooltip.style.transform = 'translateX(-50%)';
+      }
+    }
+
+    function onRoiChartHover(e) {
+      const wrapper = document.getElementById('roi-chart-wrapper');
+      if (!wrapper) return;
+      const rect = wrapper.getBoundingClientRect();
+      const clientX = e.clientX;
+      const offsetX = clientX - rect.left;
+      const svgX = (offsetX / rect.width) * 340;
+
+      const xMin = 28;
+      const xMax = 320;
+      const clampedX = Math.max(xMin, Math.min(xMax, svgX));
+      const year = ((clampedX - xMin) / (xMax - xMin)) * 25;
+      
+      clearMilestoneSelection();
+      renderRoiInspection(year);
+    }
+
+    function onRoiChartLeave() {
+      // Revert cleanly to snapping to BEP point so the chart is always informative
+      if (simState.payback) {
+        snapRoiChartToBep();
+      }
+    }
+
+    function onRoiSliderInput(val) {
+      clearMilestoneSelection();
+      renderRoiInspection(val);
+    }
+
+    function clearMilestoneSelection() {
+      document.querySelectorAll('.roi-ms-btn').forEach(btn => {
+        btn.className = 'roi-ms-btn py-1.5 px-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[10px] font-semibold text-center transition flex flex-col items-center gap-0.5';
+      });
+    }
+
+    function setMilestoneActive(btnId) {
+      clearMilestoneSelection();
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        if (btnId === 'roi-btn-bep') {
+          btn.className = 'roi-ms-btn py-1.5 px-1 rounded-lg bg-amber-500 text-white border border-amber-600 shadow-sm text-[10px] font-bold text-center transition flex flex-col items-center gap-0.5';
+        } else {
+          btn.className = 'roi-ms-btn py-1.5 px-1 rounded-lg bg-slate-900 text-white border border-slate-900 shadow-sm text-[10px] font-bold text-center transition flex flex-col items-center gap-0.5';
+        }
+      }
+    }
+
+    function snapRoiChartToYear(year) {
+      setMilestoneActive(year === 0 ? 'roi-btn-0' : (year === 12 ? 'roi-btn-12' : (year === 25 ? 'roi-btn-25' : '')));
+      renderRoiInspection(year);
+    }
+
+    function snapRoiChartToBep() {
+      const bep = simState.payback || 4.8;
+      setMilestoneActive('roi-btn-bep');
+      renderRoiInspection(bep);
+    }
+
+    // State machine router
+    function switchState(stateName) {
+      const landing = document.getElementById('state-landing');
+      const scanning = document.getElementById('state-scanning');
+      const studio = document.getElementById('state-studio');
+
+      landing.classList.add('hidden');
+      scanning.classList.add('hidden');
+      studio.classList.add('hidden');
+
+      if (stateName === 'landing') {
+        landing.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (stateName === 'scanning') {
+        scanning.classList.remove('hidden');
+      } else if (stateName === 'studio') {
+        studio.classList.remove('hidden');
+      }
+    }
+
+    function goToLandingState() {
+      switchState('landing');
+    }
+
+    function goToStudioDirect() {
+      switchState('studio');
+      updateSimulation();
+    }
+
+    // Scanning transition
+    function startScanningSequence() {
+      switchState('scanning');
+      
+      const step1Icon = document.getElementById('scan-icon-1');
+      const step2Icon = document.getElementById('scan-icon-2');
+      const step3Icon = document.getElementById('scan-icon-3');
+
+      step1Icon.className = "material-symbols-outlined text-emerald-400 text-[18px]";
+      step1Icon.textContent = "check_circle";
+
+      step2Icon.className = "material-symbols-outlined text-amber-400 text-[18px] animate-spin";
+      step2Icon.textContent = "refresh";
+
+      step3Icon.className = "material-symbols-outlined text-slate-500 text-[18px]";
+      step3Icon.textContent = "hourglass_empty";
+
+      setTimeout(() => {
+        step2Icon.className = "material-symbols-outlined text-emerald-400 text-[18px]";
+        step2Icon.textContent = "check_circle";
+
+        step3Icon.className = "material-symbols-outlined text-amber-400 text-[18px] animate-spin";
+        step3Icon.textContent = "refresh";
+      }, 1000);
+
+      setTimeout(() => {
+        step3Icon.className = "material-symbols-outlined text-emerald-400 text-[18px]";
+        step3Icon.textContent = "check_circle";
+      }, 1800);
+
+      setTimeout(() => {
+        goToStudioDirect();
+      }, 2300);
+    }
+
+    function triggerQuickDemo() {
+      const addr = document.getElementById('landing-address-input');
+      if(addr) addr.value = "Jl. Diponegoro No. 24, Menteng, Jakarta Pusat";
+      startScanningSequence();
+    }
+
+    // Studio Tabs Switching
+    function switchTab(targetPaneId, clickedBtn) {
+      const allPanes = document.querySelectorAll('.tab-pane');
+      allPanes.forEach(pane => {
+        pane.classList.add('hidden');
+        pane.classList.remove('block');
+      });
+
+      const activePane = document.getElementById(targetPaneId);
+      if (activePane) {
+        activePane.classList.remove('hidden');
+        activePane.classList.add('block');
+        if (targetPaneId === 'tab-pane-financial') {
+          setTimeout(updateRoiChart, 20);
+        }
+      }
+
+      const allTabs = document.querySelectorAll('.studio-tab-btn');
+      allTabs.forEach(tab => {
+        tab.className = 'studio-tab-btn pb-2.5 text-center text-slate-500 hover:text-slate-800 font-title text-xs font-medium border-b-2 border-transparent flex items-center justify-center gap-1.5 transition-all';
+        const badge = tab.querySelector('.tab-badge');
+        if (badge) badge.className = 'tab-badge w-4 h-4 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold transition-all';
+      });
+
+      clickedBtn.className = 'studio-tab-btn pb-2.5 text-center text-amber-600 font-title text-xs font-bold border-b-2 border-amber-600 flex items-center justify-center gap-1.5 transition-all';
+      const activeBadge = clickedBtn.querySelector('.tab-badge');
+      if (activeBadge) activeBadge.className = 'tab-badge w-4 h-4 rounded-full bg-amber-100 text-amber-800 text-[10px] flex items-center justify-center font-bold transition-all';
+    }
+
+    // Pitch & Geometry logic
+    function setPitchValue(val) {
+      simState.pitch = Number(val);
+      const slider = document.getElementById('pitchSlider');
+      if (slider) slider.value = val;
+      
+      const badge = document.getElementById('pitchBadge');
+      if (badge) badge.textContent = val + '° Kemiringan';
+      
+      // Animate SVG Roof Rafter & PV Assembly around pivot (20, 70)
+      const roofGroup = document.getElementById('svg-roof-group');
+      if (roofGroup) {
+        roofGroup.setAttribute('transform', `rotate(-${val}, 20, 70)`);
+      }
+      
+      // Dynamically calculate and update angle arc & shaded wedge
+      const arc = document.getElementById('svg-angle-arc');
+      const wedge = document.getElementById('svg-angle-wedge');
+      if (arc || wedge) {
+        const radius = 32;
+        const rad = val * Math.PI / 180;
+        const arcX = 20 + radius * Math.cos(rad);
+        const arcY = 70 - radius * Math.sin(rad);
+        
+        if (val <= 0.5) {
+          if (arc) arc.setAttribute('d', '');
+          if (wedge) wedge.setAttribute('d', '');
+        } else {
+          if (arc) arc.setAttribute('d', `M ${20 + radius} 70 A ${radius} ${radius} 0 0 0 ${arcX.toFixed(1)} ${arcY.toFixed(1)}`);
+          if (wedge) wedge.setAttribute('d', `M 20 70 L ${20 + radius} 70 A ${radius} ${radius} 0 0 0 ${arcX.toFixed(1)} ${arcY.toFixed(1)} Z`);
+        }
+      }
+      
+      // Real-time Cosine Calculation
+      const cosVal = Math.cos(val * Math.PI / 180).toFixed(2);
+      const cosineEl = document.getElementById('pitchCosineDisplay');
+      if (cosineEl) cosineEl.textContent = `Cos ${val}° = ${cosVal}`;
+
+      const angleValEl = document.getElementById('pitchAngleValue');
+      if (angleValEl) angleValEl.textContent = `Kemiringan: ${val}°`;
+
+      // Efficiency status badge in Indonesian
+      const badgeEl = document.getElementById('pitchEfficiencyBadge');
+      if (badgeEl) {
+        if (val >= 15 && val <= 25) {
+          badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md';
+          badgeEl.innerHTML = '<span class="material-symbols-outlined text-[13px]">check_circle</span><span>Tangkapan Surya Optimal (99%)</span>';
+        } else if (val < 15) {
+          badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md';
+          badgeEl.innerHTML = '<span class="material-symbols-outlined text-[13px]">warning</span><span>Sudut Landai: Disarankan Racking 10°</span>';
+        } else {
+          badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-bold text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-md';
+          badgeEl.innerHTML = '<span class="material-symbols-outlined text-[13px]">info</span><span>Sudut Curam: Tangkapan Surya Baik (95%)</span>';
+        }
+      }
+
+      // FIX PRESET BUTTON SELECTION: Exact numeric comparison using data-pitch!
+      const presetBtns = document.querySelectorAll('.pitch-preset-btn');
+      presetBtns.forEach(btn => {
+        const btnPitch = Number(btn.getAttribute('data-pitch') || 0);
+        if (btnPitch === Number(val)) {
+          btn.className = 'pitch-preset-btn py-1.5 px-1.5 rounded-lg bg-slate-900 text-white border border-slate-900 text-[11px] font-bold text-center shadow-sm transition-all';
+        } else {
+          btn.className = 'pitch-preset-btn py-1.5 px-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 text-[11px] font-medium text-center transition-all';
+        }
+      });
+      updateSimulation();
+    }
+
+    let currentOffsetX = 0, currentOffsetY = 0;
+    let currentRotation = -4;
+
+    function updateDimensions() {
+      const r = document.getElementById('input-ridge').value;
+      const s = document.getElementById('input-slope').value;
+      simState.ridge = Number(r);
+      simState.slope = Number(s);
+      document.getElementById('canvas-ridge-val').textContent = Number(r).toFixed(2) + ' m';
+      document.getElementById('canvas-slope-val').textContent = Number(s).toFixed(2) + ' m';
+      
+      const box = document.getElementById('cad-array-box');
+      if(box) {
+        // 1 meter = approx 20px on the canvas
+        box.style.width = (simState.ridge * 20) + 'px';
+        box.style.height = (simState.slope * 20) + 'px';
+        box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg)`;
+      }
+      
+      updateSimulation();
+    }
+
+    function generatePanels() {
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.classList.add('brightness-150');
+        setTimeout(() => box.classList.remove('brightness-150'), 300);
+      }
+      
+      const grid = document.getElementById('pv-module-grid');
+      if (grid) {
+        grid.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      }
+      
+      // Auto switch to PV Array tab
+      const pvTabBtn = document.querySelectorAll('.studio-tab-btn')[1];
+      if(pvTabBtn) pvTabBtn.click();
+    }
+
+    // ========================================================
+    // CAD POLYGON & PV MODULE ARRAY DYNAMIC RENDERING
+    // ========================================================
+    function renderPolygonModules() {
+      const box = document.getElementById('cad-array-box');
+      const roofSurface = document.getElementById('cad-roof-surface');
+      const setbackBox = document.getElementById('canvas-setback-box');
+      const gutterStrip = document.getElementById('canvas-gutter-strip');
+      const grid = document.getElementById('pv-module-grid');
+      if (!box || !setbackBox || !grid) return;
+
+      const currentSpec = MODULE_SPECS[simState.modulePower] || MODULE_SPECS[550];
+      const usableRidge = Math.max(1, simState.ridge - 2 * simState.setback);
+      const usableSlope = Math.max(1, simState.slope - simState.setback - simState.gutter);
+      const netArea = usableRidge * usableSlope;
+
+      // 1. Update Box & Setback Margins (20px per meter)
+      const setbackPx = Math.round(simState.setback * 20);
+      const gutterPx = Math.round(simState.gutter * 20);
+
+      setbackBox.style.top = setbackPx + 'px';
+      setbackBox.style.left = setbackPx + 'px';
+      setbackBox.style.right = setbackPx + 'px';
+      setbackBox.style.bottom = gutterPx + 'px';
+
+      const setbackLabel = document.getElementById('canvas-setback-label');
+      if (setbackLabel) setbackLabel.textContent = simState.setback.toFixed(2) + 'm';
+
+      // 2. Update Gutter Waterway Strip
+      if (gutterStrip) {
+        gutterStrip.style.height = gutterPx + 'px';
+      }
+      const gutterLabel = document.getElementById('canvas-gutter-label');
+      if (gutterLabel) gutterLabel.textContent = simState.gutter.toFixed(2) + 'm';
+
+      // 3. Apply Roof Shape Clipping (Rectangle, L-Shape, or Trapezoid)
+      if (roofSurface) {
+        if (simState.roofShape === 'l-shape') {
+          const lClip = 'polygon(0% 0%, 65% 0%, 65% 42%, 100% 42%, 100% 100%, 0% 100%)';
+          roofSurface.style.clipPath = lClip;
+          setbackBox.style.clipPath = lClip;
+          roofSurface.style.borderRadius = '0px';
+        } else if (simState.roofShape === 'trapezoid') {
+          const trapClip = 'polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)';
+          roofSurface.style.clipPath = trapClip;
+          setbackBox.style.clipPath = trapClip;
+          roofSurface.style.borderRadius = '0px';
+        } else {
+          roofSurface.style.clipPath = 'none';
+          setbackBox.style.clipPath = 'none';
+          roofSurface.style.borderRadius = '8px';
+        }
+      }
+
+      // 4. Physical Dimensions Calculation for Selected Module
+      const isPortrait = simState.orientation === 'portrait';
+      const panelW_m = isPortrait ? currentSpec.w : currentSpec.l;
+      const panelL_m = isPortrait ? currentSpec.l : currentSpec.w;
+      const panelW_px = Math.round(panelW_m * 20);
+      const panelH_px = Math.round(panelL_m * 20);
+      const visualGap = Math.max(1, Math.min(6, Math.round((simState.panelGap / 100) * 20)));
+
+      // Position PV Module Grid inside Usable Area with Centered Alignment
+      grid.style.top = (setbackPx + 2) + 'px';
+      grid.style.left = (setbackPx + 2) + 'px';
+      grid.style.right = (setbackPx + 2) + 'px';
+      grid.style.bottom = (gutterPx + 2) + 'px';
+      grid.style.display = 'grid';
+      grid.style.gridTemplateColumns = `repeat(${simState.cols}, ${panelW_px}px)`;
+      grid.style.gridTemplateRows = `repeat(${simState.rows}, ${panelH_px}px)`;
+      grid.style.gap = visualGap + 'px';
+      grid.style.justifyContent = 'center';
+      grid.style.alignContent = 'center';
+
+      // 5. Render Individual Interactive Slots
+      grid.innerHTML = '';
+      let panelCounter = 1;
+      const obstacleRow = Math.min(simState.rows - 1, 1);
+      const obstacleCol = Math.max(1, Math.floor((simState.cols - 2) / 2));
+
+      for (let r = 0; r < simState.rows; r++) {
+        for (let c = 0; c < simState.cols; c++) {
+          const key = `${r}_${c}`;
+
+          // Check Roof Geometric Boundary (Out-of-bounds)
+          if (simState.roofShape === 'l-shape' && c >= Math.ceil(simState.cols * 0.65) && r < Math.floor(simState.rows * 0.42)) {
+            grid.insertAdjacentHTML('beforeend', `<div style="width:${panelW_px}px; height:${panelH_px}px;" class="rounded border border-dashed border-sky-400/20 bg-sky-950/10 pointer-events-none"></div>`);
+            continue;
+          }
+          if (simState.roofShape === 'trapezoid' && r === 0 && (c === 0 || c === simState.cols - 1)) {
+            grid.insertAdjacentHTML('beforeend', `<div style="width:${panelW_px}px; height:${panelH_px}px;" class="rounded border border-dashed border-amber-400/20 bg-amber-950/10 pointer-events-none"></div>`);
+            continue;
+          }
+
+          // Determine Slot State
+          let slotState = simState.slotOverrides[key];
+          if (!slotState) {
+            if (simState.hasObstacle && r === obstacleRow && (c === obstacleCol || c === obstacleCol + 1)) {
+              slotState = 'hvac';
+            } else if (simState.hasSkylight && r === 0 && c === Math.min(1, simState.cols - 1)) {
+              slotState = 'skylight';
+            } else {
+              slotState = 'active';
+            }
+          }
+
+          // Render Slot by State
+          if (slotState === 'skylight') {
+            const skylightHtml = `
+              <div style="width:${panelW_px}px; height:${panelH_px}px;"
+                   onclick="toggleSlotState(${r}, ${c})"
+                   class="group relative rounded-xs bg-sky-400/30 border border-sky-400/90 flex flex-col items-center justify-center text-center backdrop-blur-xs select-none shadow-xs cursor-pointer transition-all hover:scale-105 hover:ring-2 hover:ring-sky-300"
+                   title="Slot [${r+1},${c+1}]: Skylight Kaca Atap • Klik untuk ganti ke Rintangan HVAC">
+                <span class="material-symbols-outlined text-sky-200 text-[11px] leading-none">grid_view</span>
+                <span class="text-[6.5px] font-bold text-sky-100 tracking-tight leading-none mt-0.5">Skylight</span>
+                <span class="text-[5.5px] text-sky-200/80 leading-none">Kaca</span>
+              </div>
+            `;
+            grid.insertAdjacentHTML('beforeend', skylightHtml);
+          } else if (slotState === 'hvac') {
+            const hvacHtml = `
+              <div style="width:${panelW_px}px; height:${panelH_px}px;"
+                   onclick="toggleSlotState(${r}, ${c})"
+                   class="group relative rounded-xs bg-rose-500/25 border border-rose-500/80 flex flex-col items-center justify-center text-center backdrop-blur-xs select-none shadow-xs cursor-pointer transition-all hover:scale-105 hover:ring-2 hover:ring-rose-400"
+                   title="Slot [${r+1},${c+1}]: Rintangan HVAC Chiller • Klik untuk ganti ke Slot Kosong">
+                <div class="flex items-center gap-0.5">
+                  <span class="w-1 h-1 rounded-full bg-rose-400 animate-ping"></span>
+                  <span class="material-symbols-outlined text-rose-300 text-[11px] leading-none">ac_unit</span>
+                </div>
+                <span class="text-[6.5px] font-bold text-rose-100 tracking-tight leading-none mt-0.5">HVAC</span>
+                <span class="text-[5.5px] text-rose-200/80 leading-none">Chiller</span>
+              </div>
+            `;
+            grid.insertAdjacentHTML('beforeend', hvacHtml);
+          } else if (slotState === 'empty') {
+            const emptyHtml = `
+              <div style="width:${panelW_px}px; height:${panelH_px}px;"
+                   onclick="toggleSlotState(${r}, ${c})"
+                   class="group relative rounded-xs bg-slate-900/40 border border-dashed border-slate-600/70 hover:border-amber-400/80 flex flex-col items-center justify-center text-center backdrop-blur-xs select-none cursor-pointer transition-all hover:scale-105 hover:bg-slate-800/60"
+                   title="Slot [${r+1},${c+1}]: Slot Racking Kosong • Klik untuk pasang Panel Surya">
+                <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-300 text-[12px] leading-none transition-colors">add</span>
+                <span class="text-[6px] font-medium text-slate-400 group-hover:text-amber-200 leading-none">Kosong</span>
+              </div>
+            `;
+            grid.insertAdjacentHTML('beforeend', emptyHtml);
+          } else {
+            // Active Solar Panel
+            const pId = panelCounter++;
+            const isStringA = r < Math.ceil(simState.rows / 2);
+            const stringName = isStringA ? 'Str A' : 'Str B';
+            const stringBorder = isStringA ? 'border-sky-400/80 hover:border-sky-300' : 'border-amber-400/80 hover:border-amber-300';
+            const stringBadgeColor = isStringA ? 'bg-sky-500/90 text-white' : 'bg-amber-500/90 text-white';
+
+            let bgGrad = 'bg-gradient-to-b from-slate-800 via-slate-900 to-blue-950';
+            let cellLineColor = 'bg-sky-200/20';
+            if (simState.modulePower === 450) {
+              bgGrad = 'bg-gradient-to-b from-slate-950 via-neutral-900 to-black';
+              cellLineColor = 'bg-white/10';
+            } else if (simState.modulePower === 580) {
+              bgGrad = 'bg-gradient-to-b from-slate-900 via-sky-950 to-slate-950';
+              cellLineColor = 'bg-cyan-200/25';
+            }
+
+            const tiltX = (simState.extraTilt || 0) * 0.4;
+            const tiltShadow = (simState.extraTilt || 0) * 0.5 + 1;
+            const transformStyle = `transform: perspective(300px) rotateX(${tiltX}deg); box-shadow: 0 ${tiltShadow}px ${tiltShadow * 1.5}px rgba(0,0,0,0.6);`;
+
+            let invBadge = '';
+            if (simState.inverterType === 'string') {
+              invBadge = `<span class="absolute top-0.5 right-0.5 px-0.5 py-0.2 rounded-xs ${stringBadgeColor} font-code-metric text-[5.5px] font-extrabold leading-none shadow-2xs">${stringName}</span>`;
+            } else {
+              invBadge = `
+                <div class="absolute -top-1 left-1/2 -translate-x-1/2 px-0.5 rounded-xs bg-slate-950/95 border border-emerald-400 text-[5px] font-extrabold text-emerald-300 flex items-center gap-0.5 shadow-xs">
+                  <span class="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>μ</span>
+                </div>
+              `;
+            }
+
+            const cellDivisions = isPortrait
+              ? `<div class="w-full h-px ${cellLineColor}"></div><div class="w-full h-px ${cellLineColor}"></div><div class="w-full h-px ${cellLineColor}"></div>`
+              : `<div class="h-full w-px ${cellLineColor}"></div><div class="h-full w-px ${cellLineColor}"></div><div class="h-full w-px ${cellLineColor}"></div>`;
+
+            const flexDir = isPortrait ? 'flex-col' : 'flex-row';
+
+            const panelHtml = `
+              <div style="width:${panelW_px}px; height:${panelH_px}px; ${transformStyle}"
+                   onclick="toggleSlotState(${r}, ${c})"
+                   class="pv-module group relative rounded-xs ${bgGrad} border ${stringBorder} p-0.5 flex ${flexDir} justify-between transition-all duration-200 hover:ring-2 hover:ring-amber-400 hover:scale-105 cursor-pointer overflow-hidden"
+                   title="Slot [${r+1},${c+1}] • Modul #${pId} • ${simState.modulePower}W (${simState.orientation.toUpperCase()}) • Klik untuk ganti ke Skylight">
+                ${invBadge}
+                ${cellDivisions}
+              </div>
+            `;
+            grid.insertAdjacentHTML('beforeend', panelHtml);
+          }
+        }
+      }
+
+      // 6. Update Tab 2 Summary Cards & Badges
+      const pvarrayCountEl = document.getElementById('pvarray-module-count');
+      if (pvarrayCountEl) pvarrayCountEl.textContent = `${simState.moduleCount} Modul`;
+
+      const pvarrayDimEl = document.getElementById('pvarray-grid-dim');
+      if (pvarrayDimEl) pvarrayDimEl.textContent = `${simState.rows} Baris × ${simState.cols} Kolom`;
+
+      const pvarrayKwpEl = document.getElementById('pvarray-kwp');
+      if (pvarrayKwpEl) pvarrayKwpEl.textContent = `${((simState.moduleCount * simState.modulePower) / 1000).toFixed(2)} kWp`;
+
+      const pvarrayAreaEl = document.getElementById('pvarray-area');
+      if (pvarrayAreaEl) {
+        const modAreaTotal = (simState.moduleCount * currentSpec.w * currentSpec.l).toFixed(1);
+        pvarrayAreaEl.textContent = `${modAreaTotal} m² / ${netArea.toFixed(1)} m²`;
+      }
+
+      const densityBadge = document.getElementById('arrayDensityBadge');
+      if (densityBadge) {
+        const pct = Math.min(100, Math.round(((simState.moduleCount * currentSpec.w * currentSpec.l) / netArea) * 100)) || 0;
+        densityBadge.textContent = `Kerapatan ${pct}%`;
+      }
+
+      // 7. Update Measurement Overlay if active
+      const measureDiag = document.getElementById('measure-diag-val');
+      if (measureDiag) {
+        const diagM = Math.sqrt(Math.pow(simState.ridge, 2) + Math.pow(simState.slope, 2)).toFixed(2);
+        measureDiag.textContent = `Diag: ${diagM}m`;
+      }
+    }
+
+    function highlightPanel(el, id) {
+      el.classList.add('ring-2', 'ring-amber-400', 'scale-105');
+      setTimeout(() => el.classList.remove('ring-2', 'ring-amber-400', 'scale-105'), 500);
+    }
+
+    // Dynamic Slot Query & State Toggle (Active -> Skylight -> HVAC -> Empty -> Active)
+    function getSlotCurrentState(r, c) {
+      const key = `${r}_${c}`;
+      if (simState.slotOverrides[key]) return simState.slotOverrides[key];
+      const obstacleRow = Math.min(simState.rows - 1, 1);
+      const obstacleCol = Math.max(1, Math.floor((simState.cols - 2) / 2));
+      if (simState.hasObstacle && r === obstacleRow && (c === obstacleCol || c === obstacleCol + 1)) {
+        return 'hvac';
+      }
+      if (simState.hasSkylight && r === 0 && c === Math.min(1, simState.cols - 1)) {
+        return 'skylight';
+      }
+      return 'active';
+    }
+
+    function toggleSlotState(r, c) {
+      const current = getSlotCurrentState(r, c);
+      let next;
+      let labelText = '';
+      if (current === 'active') {
+        next = 'skylight';
+        labelText = 'Skylight Kaca Atap (Zona Bebas)';
+      } else if (current === 'skylight') {
+        next = 'hvac';
+        labelText = 'Rintangan HVAC Chiller (Keepout)';
+      } else if (current === 'hvac') {
+        next = 'empty';
+        labelText = 'Slot Kosong / Racking Dilepas';
+      } else {
+        next = 'active';
+        labelText = `Panel Surya Aktif (${simState.modulePower}W)`;
+      }
+
+      simState.slotOverrides[`${r}_${c}`] = next;
+      updateSimulation();
+      showCadToast(`Slot [Baris ${r+1}, Kolom ${c+1}]: ${labelText}`);
+    }
+
+    function adjustModuleCount(delta) {
+      const validSlots = [];
+      for (let r = 0; r < simState.rows; r++) {
+        for (let c = 0; c < simState.cols; c++) {
+          if (simState.roofShape === 'l-shape' && c >= Math.ceil(simState.cols * 0.65) && r < Math.floor(simState.rows * 0.42)) continue;
+          if (simState.roofShape === 'trapezoid' && r === 0 && (c === 0 || c === simState.cols - 1)) continue;
+          validSlots.push({ r, c, key: `${r}_${c}` });
+        }
+      }
+
+      if (delta < 0) {
+        for (let i = validSlots.length - 1; i >= 0; i--) {
+          const slot = validSlots[i];
+          const st = getSlotCurrentState(slot.r, slot.c);
+          if (st === 'active') {
+            simState.slotOverrides[slot.key] = 'empty';
+            break;
+          }
+        }
+      } else if (delta > 0) {
+        for (let i = 0; i < validSlots.length; i++) {
+          const slot = validSlots[i];
+          const st = getSlotCurrentState(slot.r, slot.c);
+          if (st === 'empty') {
+            simState.slotOverrides[slot.key] = 'active';
+            break;
+          }
+        }
+      }
+
+      updateSimulation();
+      showCadToast(`Jumlah modul disesuaikan: ${simState.moduleCount} Modul terpasang`);
+    }
+
+    function setCustomModuleCount(targetVal) {
+      targetVal = Math.max(0, Math.min(simState.maxAvailableSlots, Number(targetVal)));
+      const validSlots = [];
+      for (let r = 0; r < simState.rows; r++) {
+        for (let c = 0; c < simState.cols; c++) {
+          if (simState.roofShape === 'l-shape' && c >= Math.ceil(simState.cols * 0.65) && r < Math.floor(simState.rows * 0.42)) continue;
+          if (simState.roofShape === 'trapezoid' && r === 0 && (c === 0 || c === simState.cols - 1)) continue;
+          validSlots.push({ r, c, key: `${r}_${c}` });
+        }
+      }
+
+      let allocatedActive = 0;
+      validSlots.forEach(slot => {
+        const cur = getSlotCurrentState(slot.r, slot.c);
+        if (cur === 'skylight' || cur === 'hvac') {
+          return;
+        }
+        if (allocatedActive < targetVal) {
+          simState.slotOverrides[slot.key] = 'active';
+          allocatedActive++;
+        } else {
+          simState.slotOverrides[slot.key] = 'empty';
+        }
+      });
+
+      updateSimulation();
+      showCadToast(`Kapasitas diset: ${simState.moduleCount} Modul aktif`);
+    }
+
+    function setCountPreset(preset) {
+      const validSlots = [];
+      for (let r = 0; r < simState.rows; r++) {
+        for (let c = 0; c < simState.cols; c++) {
+          if (simState.roofShape === 'l-shape' && c >= Math.ceil(simState.cols * 0.65) && r < Math.floor(simState.rows * 0.42)) continue;
+          if (simState.roofShape === 'trapezoid' && r === 0 && (c === 0 || c === simState.cols - 1)) continue;
+          validSlots.push({ r, c, key: `${r}_${c}` });
+        }
+      }
+
+      if (preset === 'max') {
+        validSlots.forEach(slot => {
+          const cur = getSlotCurrentState(slot.r, slot.c);
+          if (cur === 'empty') {
+            simState.slotOverrides[slot.key] = 'active';
+          }
+        });
+        updateSimulation();
+        showCadToast(`Preset Maksimal: ${simState.moduleCount} Modul terpasang`);
+      } else if (preset === 'opt') {
+        const optCount = Math.max(4, Math.round(simState.maxAvailableSlots * 0.8));
+        setCustomModuleCount(optCount);
+        showCadToast(`Preset Rekomendasi: ${optCount} Modul (Optimal ROI)`);
+      } else if (preset === 'min') {
+        const minCount = Math.max(2, Math.round(simState.maxAvailableSlots * 0.5));
+        setCustomModuleCount(minCount);
+        showCadToast(`Preset Ekonomis: ${minCount} Modul`);
+      }
+    }
+
+    // Handlers for Geometry & PV Array Parameters
+    function onSetbackChange(val) {
+      simState.setback = Number(val);
+      const disp = document.getElementById('setbackDisplay');
+      if (disp) disp.textContent = Number(val).toFixed(2) + ' m';
+      const slider = document.getElementById('setbackSlider');
+      if (slider && Number(slider.value) !== Number(val)) slider.value = val;
+      updateSimulation();
+    }
+
+    function onGutterChange(val) {
+      simState.gutter = Number(val);
+      const disp = document.getElementById('gutterDisplay');
+      if (disp) disp.textContent = Number(val).toFixed(2) + ' m';
+      const slider = document.getElementById('gutterSlider');
+      if (slider && Number(slider.value) !== Number(val)) slider.value = val;
+      updateSimulation();
+    }
+
+    function setLayoutOrientation(type) {
+      simState.orientation = type;
+      const btnPort = document.getElementById('btn-layout-portrait');
+      const btnLand = document.getElementById('btn-layout-landscape');
+
+      if (type === 'portrait') {
+        if (btnPort) btnPort.className = 'py-1.5 px-3 rounded-md bg-slate-900 text-white shadow-sm text-xs font-semibold flex items-center justify-center gap-1.5 transition-all';
+        if (btnLand) btnLand.className = 'py-1.5 px-3 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-all';
+      } else {
+        if (btnLand) btnLand.className = 'py-1.5 px-3 rounded-md bg-slate-900 text-white shadow-sm text-xs font-semibold flex items-center justify-center gap-1.5 transition-all';
+        if (btnPort) btnPort.className = 'py-1.5 px-3 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-all';
+      }
+
+      // Reset slot overrides on orientation swap for clean repacking
+      simState.slotOverrides = {};
+      simState.customCount = null;
+
+      updateSimulation();
+      showCadToast(`Orientasi Modul: ${type.toUpperCase()}`);
+    }
+
+    function onGapChange(val) {
+      simState.panelGap = Number(val);
+      const disp = document.getElementById('gapValDisplay');
+      if (disp) disp.textContent = val + ' cm';
+      const slider = document.getElementById('gapSlider');
+      if (slider && Number(slider.value) !== Number(val)) slider.value = val;
+      updateSimulation();
+    }
+
+    function onExtraTiltChange(val) {
+      simState.extraTilt = Number(val);
+      const disp = document.getElementById('rackValDisplay');
+      if (disp) disp.textContent = val + '°';
+      const slider = document.getElementById('rackSlider');
+      if (slider && Number(slider.value) !== Number(val)) slider.value = val;
+      updateSimulation();
+    }
+
+    function onModuleChange(val) {
+      simState.modulePower = Number(val);
+      const spec = MODULE_SPECS[val] || MODULE_SPECS[550];
+      const effBadge = document.getElementById('moduleEffBadge');
+      if (effBadge) effBadge.textContent = spec.eff + ' Efisiensi';
+      const dimBadge = document.getElementById('moduleDimBadge');
+      if (dimBadge) dimBadge.textContent = `${spec.l}m × ${spec.w}m`;
+      const techBadge = document.getElementById('moduleTechBadge');
+      if (techBadge) techBadge.textContent = spec.desc;
+
+      // Reset slot overrides so grid cleanly repacks with new physical dimensions
+      simState.slotOverrides = {};
+      simState.customCount = null;
+
+      updateSimulation();
+      showCadToast(`Tipe Modul: ${spec.name} (${spec.l}m × ${spec.w}m)`);
+    }
+
+    function setInverterType(type) {
+      simState.inverterType = type;
+      const btnString = document.getElementById('btn-string-inv');
+      const btnMicro = document.getElementById('btn-micro-inv');
+      const sizingRatio = document.getElementById('invSizingRatio');
+      const sizingDesc = document.getElementById('invSizingDesc');
+      const effDisplay = document.getElementById('invEffDisplay');
+      const ratingDesc = document.getElementById('invRatingDesc');
+
+      if (type === 'string') {
+        if (btnString) btnString.className = 'py-1.5 px-2 rounded-md bg-slate-900 text-white shadow-sm text-xs font-semibold text-center transition';
+        if (btnMicro) btnMicro.className = 'py-1.5 px-2 rounded-md text-slate-500 hover:text-slate-900 text-xs font-medium text-center transition';
+        if (sizingRatio) sizingRatio.textContent = 'DC/AC: 1.22';
+        if (sizingDesc) sizingDesc.textContent = 'Optimal Sizing';
+        if (effDisplay) effDisplay.textContent = '98.4%';
+        if (ratingDesc) ratingDesc.textContent = 'CEC Rating';
+      } else {
+        if (btnMicro) btnMicro.className = 'py-1.5 px-2 rounded-md bg-slate-900 text-white shadow-sm text-xs font-semibold text-center transition';
+        if (btnString) btnString.className = 'py-1.5 px-2 rounded-md text-slate-500 hover:text-slate-900 text-xs font-medium text-center transition';
+        if (sizingRatio) sizingRatio.textContent = 'DC/AC: 1.15';
+        if (sizingDesc) sizingDesc.textContent = 'Per-Module MPPT';
+        if (effDisplay) effDisplay.textContent = '97.2%';
+        if (ratingDesc) ratingDesc.textContent = 'Rapid Shutdown Ready';
+      }
+      updateSimulation();
+    }
+
+    function autoPackModules() {
+      const modules = document.querySelectorAll('.pv-module');
+      modules.forEach(m => {
+        m.classList.add('ring-2', 'ring-amber-400');
+        setTimeout(() => m.classList.remove('ring-2', 'ring-amber-400'), 600);
+      });
+      // Toggle orientation or optimal fit
+      const nextOri = simState.orientation === 'portrait' ? 'landscape' : 'portrait';
+      setLayoutOrientation(nextOri);
+      showCadToast(`Tata letak diatur ulang: Orientasi ${nextOri.toUpperCase()}`);
+    }
+
+    function triggerSimulationFlash() {
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.classList.add('scale-[1.01]', 'filter', 'brightness-110');
+        setTimeout(() => box.classList.remove('scale-[1.01]', 'filter', 'brightness-110'), 300);
+      }
+      calculateFinancials();
+      showCadToast('Konfigurasi tata letak berhasil diterapkan!');
+    }
+
+    // ========================================================
+    // ADVANCED POLYGON EDITING, ROTATION, MOVE & SHAPES
+    // ========================================================
+    function setRoofShape(shape) {
+      simState.roofShape = shape;
+      simState.slotOverrides = {};
+      simState.customCount = null;
+
+      document.querySelectorAll('.roof-shape-btn').forEach(btn => {
+        btn.className = 'roof-shape-btn py-2 px-1 rounded-lg bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 text-center transition-all flex flex-col items-center gap-1';
+      });
+      const activeBtn = document.getElementById('btn-shape-' + (shape === 'l-shape' ? 'lshape' : shape));
+      if (activeBtn) {
+        activeBtn.className = 'roof-shape-btn py-2 px-1 rounded-lg bg-slate-900 text-white border border-slate-900 text-center shadow-xs transition-all flex flex-col items-center gap-1';
+      }
+      const badge = document.getElementById('polygonStatusBadge');
+      if (badge) {
+        if (shape === 'rectangle') badge.textContent = 'Gable Standar';
+        else if (shape === 'l-shape') badge.textContent = 'Bentuk L Corner';
+        else badge.textContent = 'Limasan (Hip)';
+      }
+      updateSimulation();
+      showCadToast(`Bentuk atap: ${shape === 'l-shape' ? 'Bentuk L (Corner)' : shape === 'trapezoid' ? 'Limasan (Hip)' : 'Persegi (Gable)'}`);
+    }
+
+    function setPolygonRotation(deg) {
+      currentRotation = Number(deg);
+      const disp = document.getElementById('polygonRotationDisplay');
+      if (disp) disp.textContent = deg + '°';
+      const slider = document.getElementById('polygonRotationSlider');
+      if (slider && Number(slider.value) !== Number(deg)) slider.value = deg;
+      
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+      }
+      const badge = document.getElementById('rotate-hud-badge');
+      if (badge) badge.textContent = `${deg}°`;
+    }
+
+    function nudgePolygon(dx, dy) {
+      currentOffsetX += dx;
+      currentOffsetY += dy;
+      const disp = document.getElementById('polygonOffsetDisplay');
+      if (disp) disp.textContent = `X: ${currentOffsetX >= 0 ? '+' : ''}${currentOffsetX}px, Y: ${currentOffsetY >= 0 ? '+' : ''}${currentOffsetY}px`;
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+      }
+    }
+
+    function centerPolygonPosition() {
+      currentOffsetX = 0;
+      currentOffsetY = 0;
+      const disp = document.getElementById('polygonOffsetDisplay');
+      if (disp) disp.textContent = 'X: 0px, Y: 0px';
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+      }
+      showCadToast('📍 Posisi poligon dipusatkan kembali ke tengah atap.');
+    }
+
+    function toggleObstacle(type) {
+      if (type === 'hvac') {
+        simState.hasObstacle = !simState.hasObstacle;
+        const obstacleRow = Math.min(simState.rows - 1, 1);
+        const obstacleCol = Math.max(1, Math.floor((simState.cols - 2) / 2));
+        delete simState.slotOverrides[`${obstacleRow}_${obstacleCol}`];
+        delete simState.slotOverrides[`${obstacleRow}_${obstacleCol + 1}`];
+
+        const btn = document.getElementById('btn-toggle-hvac');
+        const label = document.getElementById('hvacBtnLabel');
+        if (simState.hasObstacle) {
+          if (btn) btn.className = 'py-1.5 px-2 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition';
+          if (label) label.textContent = 'HVAC Chiller (Aktif)';
+          showCadToast('Rintangan HVAC Chiller diaktifkan (Keepout 2 slot panel)');
+        } else {
+          if (btn) btn.className = 'py-1.5 px-2 rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 text-xs font-medium flex items-center justify-center gap-1.5 transition';
+          if (label) label.textContent = '+ HVAC Chiller';
+          showCadToast('Rintangan HVAC Chiller dinonaktifkan (Slot panel dipulihkan)');
+        }
+      } else if (type === 'skylight') {
+        simState.hasSkylight = !simState.hasSkylight;
+        delete simState.slotOverrides[`0_${Math.min(1, simState.cols - 1)}`];
+
+        const btn = document.getElementById('btn-toggle-skylight');
+        const label = document.getElementById('skylightBtnLabel');
+        if (simState.hasSkylight) {
+          if (btn) btn.className = 'py-1.5 px-2 rounded-lg bg-sky-50 text-sky-700 border border-sky-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition';
+          if (label) label.textContent = 'Skylight (Aktif)';
+          showCadToast('Rintangan Skylight Kaca diaktifkan');
+        } else {
+          if (btn) btn.className = 'py-1.5 px-2 rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 text-xs font-medium flex items-center justify-center gap-1.5 transition';
+          if (label) label.textContent = '+ Skylight Kaca';
+          showCadToast('Rintangan Skylight Kaca dinonaktifkan');
+        }
+      }
+      const badge = document.getElementById('obstacleCountBadge');
+      if (badge) {
+        const count = (simState.hasObstacle ? 1 : 0) + (simState.hasSkylight ? 1 : 0);
+        badge.textContent = `${count} Rintangan Aktif`;
+      }
+      updateSimulation();
+    }
+
+    let toastTimer = null;
+    function showCadToast(msg) {
+      const toast = document.getElementById('cad-tool-toast');
+      const toastMsg = document.getElementById('cad-tool-toast-msg');
+      if (!toast) return;
+      if (toastMsg) toastMsg.textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 2600);
+    }
+
+    let activeCadTool = 'select';
+    function setCadTool(tool, btn) {
+      activeCadTool = tool;
+      document.querySelectorAll('.cad-tool-btn').forEach(b => {
+        b.classList.remove('bg-amber-500', 'text-white', 'shadow-sm');
+        b.classList.add('text-slate-500', 'hover:text-slate-900', 'hover:bg-slate-100');
+      });
+      if (btn) {
+        btn.classList.remove('text-slate-500', 'hover:text-slate-900', 'hover:bg-slate-100');
+        btn.classList.add('bg-amber-500', 'text-white', 'shadow-sm');
+      }
+
+      const box = document.getElementById('cad-array-box');
+      const handles = document.querySelectorAll('.cad-handle');
+      const measureOverlay = document.getElementById('measure-overlay');
+
+      if (tool === 'select') {
+        if (box) box.style.cursor = 'grab';
+        handles.forEach(h => h.classList.remove('scale-125', 'ring-4', 'ring-amber-400', 'animate-pulse'));
+        if (measureOverlay) measureOverlay.classList.add('hidden');
+        showCadToast('Mode Geser: Seret poligon atap secara bebas di atas citra satelit.');
+      } else if (tool === 'edit_polygon') {
+        if (box) box.style.cursor = 'crosshair';
+        handles.forEach(h => h.classList.add('scale-125', 'ring-4', 'ring-amber-400', 'animate-pulse'));
+        if (measureOverlay) measureOverlay.classList.add('hidden');
+        showCadToast('Mode Edit Simpul: Tarik titik sudut untuk merubah geometri atap.');
+      } else if (tool === 'add_obstacle') {
+        toggleObstacle('skylight');
+      } else if (tool === 'measure') {
+        if (measureOverlay) measureOverlay.classList.toggle('hidden');
+        const isShown = measureOverlay && !measureOverlay.classList.contains('hidden');
+        showCadToast(isShown ? `Penggaris CAD: Bubungan ${simState.ridge.toFixed(2)}m • Kemiringan ${simState.slope.toFixed(2)}m` : 'Penggaris CAD Dinonaktifkan');
+      }
+    }
+
+    // Reset Defaults Function (Restores AI Automatic Baseline)
+    function resetCanvasDefaults() {
+      currentOffsetX = 0;
+      currentOffsetY = 0;
+      currentRotation = -4;
+      zoomLevel = 1;
+      simState.ridge = 12.48;
+      simState.slope = 7.28;
+      simState.pitch = 22;
+      simState.roofShape = 'rectangle';
+      simState.hasObstacle = true;
+      simState.hasSkylight = false;
+      simState.setback = 0.50;
+      simState.gutter = 0.60;
+      simState.modulePower = 550;
+      simState.orientation = 'portrait';
+      simState.panelGap = 3;
+      simState.extraTilt = 10;
+      simState.inverterType = 'string';
+      simState.slotOverrides = {};
+      simState.customCount = null;
+
+      const inputR = document.getElementById('input-ridge');
+      if (inputR) inputR.value = "12.48";
+      const inputS = document.getElementById('input-slope');
+      if (inputS) inputS.value = "7.28";
+
+      setPitchValue(22);
+      onSetbackChange(0.50);
+      onGutterChange(0.60);
+      onGapChange(3);
+      onExtraTiltChange(10);
+      setLayoutOrientation('portrait');
+      setInverterType('string');
+      setRoofShape('rectangle');
+      setPolygonRotation(-4);
+
+      const moduleSelect = document.getElementById('moduleSelect');
+      if (moduleSelect) moduleSelect.value = "550";
+      onModuleChange(550);
+
+      const offsetDisp = document.getElementById('polygonOffsetDisplay');
+      if (offsetDisp) offsetDisp.textContent = 'X: 0px, Y: 0px';
+
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.style.width = (simState.ridge * 20) + 'px';
+        box.style.height = (simState.slope * 20) + 'px';
+        box.style.transform = `translate(-50%, -50%) rotate(-4deg) scale(1)`;
+        box.classList.add('ring-4', 'ring-emerald-400');
+        setTimeout(() => box.classList.remove('ring-4', 'ring-emerald-400'), 600);
+      }
+
+      showCadToast('↺ Poligon & geometri berhasil direset ke deteksi otomatis!');
+    }
+
+    let zoomLevel = 1;
+    function zoomCanvas(factor) {
+      zoomLevel *= factor;
+      if (zoomLevel < 0.7) zoomLevel = 0.7;
+      if (zoomLevel > 1.6) zoomLevel = 1.6;
+      const box = document.getElementById('cad-array-box');
+      if (box) {
+        box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+      }
+      showCadToast(`Zoom CAD: ${Math.round(zoomLevel * 100)}%`);
+    }
+
+    // Financial Calculation Logic
+    function onBillSliderChange(val) {
+      simState.bill = Number(val);
+      
+      const formatted = 'Rp ' + simState.bill.toLocaleString('id-ID');
+      const billDisplay = document.getElementById('billValueDisplay');
+      if(billDisplay) billDisplay.textContent = formatted;
+      
+      const yearly = simState.bill * 12;
+      const billYearly = document.getElementById('billYearlyText');
+      if(billYearly) billYearly.textContent = 'Rp ' + (yearly / 1000000).toFixed(1) + 'M / tahun';
+      
+      updateSimulation();
+    }
+
+    function calculateFinancials() {
+      const tariffSelect = document.getElementById('plnTariffSelect');
+      if (tariffSelect) simState.tariff = Number(tariffSelect.value);
+      
+      const bill = document.getElementById('billSlider').value;
+      onBillSliderChange(bill);
+    }
+
+    // Modals Handling
+    function openPdfModal() {
+      document.getElementById('modal-pdf').classList.remove('hidden');
+    }
+    function closePdfModal() {
+      document.getElementById('modal-pdf').classList.add('hidden');
+      document.getElementById('pdf-download-toast').classList.add('hidden');
+    }
+    function simulatePdfDownload() {
+      const toast = document.getElementById('pdf-download-toast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        closePdfModal();
+      }, 1400);
+    }
+
+    function openInstallerModal() {
+      document.getElementById('modal-installer').classList.remove('hidden');
+      document.getElementById('installer-form-fields').classList.remove('hidden');
+      document.getElementById('installer-form-success').classList.add('hidden');
+    }
+    function closeInstallerModal() {
+      document.getElementById('modal-installer').classList.add('hidden');
+    }
+    function submitInstallerQuote() {
+      document.getElementById('installer-form-fields').classList.add('hidden');
+      document.getElementById('installer-form-success').classList.remove('hidden');
+    }
+
+    function setMapLayer(type) {
+      const btnSat = document.getElementById('map-btn-satellite');
+      const btnHeat = document.getElementById('map-btn-heatmap');
+
+      if (type === 'satellite') {
+        if (btnSat) {
+          btnSat.className = 'map-layer-btn map-layer-btn-satellite px-3 py-1.5 rounded-lg bg-white shadow-xs text-sky-700 border border-sky-200/80 text-xs font-bold flex items-center gap-1.5 transition-all';
+        }
+        if (btnHeat) {
+          btnHeat.className = 'map-layer-btn map-layer-btn-heatmap px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 text-xs font-medium flex items-center gap-1.5 transition-all';
+        }
+      } else {
+        if (btnHeat) {
+          btnHeat.className = 'map-layer-btn map-layer-btn-heatmap px-3 py-1.5 rounded-lg bg-white shadow-xs text-amber-700 border border-amber-200/80 text-xs font-bold flex items-center gap-1.5 transition-all';
+        }
+        if (btnSat) {
+          btnSat.className = 'map-layer-btn map-layer-btn-satellite px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 text-xs font-medium flex items-center gap-1.5 transition-all';
+        }
+      }
+
+      // Apply View Effects
+      const mapBg = document.getElementById('map-bg');
+      const heatmap = document.getElementById('heatmap-overlay');
+
+      if (type === 'heatmap') {
+        mapBg.style.filter = 'grayscale(100%) contrast(150%) brightness(30%)';
+        heatmap.classList.remove('opacity-0');
+      } else {
+        mapBg.style.filter = 'none';
+        heatmap.classList.add('opacity-0');
+      }
+    }
+
+    // Initialize on load & DOM Event Listeners
+    window.addEventListener('DOMContentLoaded', () => {
+      initEcoForest();
+      setPitchValue(22);
+      calculateFinancials();
+      updateDimensions();
+      
+      // Interactivity State for CAD Box
+      const box = document.getElementById('cad-array-box');
+      const rotateBadge = document.getElementById('rotate-hud-badge');
+      let isResizing = false, isDragging = false, isRotating = false;
+      let activeHandle = null;
+      let startX, startY, startR, startS, dragStartX, dragStartY;
+      let centerX = 0, centerY = 0;
+
+      // 1. Resizing (Corner & Edge Handles with directional awareness)
+      document.querySelectorAll('.cad-handle').forEach(handle => {
+        handle.addEventListener('mousedown', function(e) {
+          isResizing = true;
+          activeHandle = this.getAttribute('data-handle');
+          startX = e.clientX;
+          startY = e.clientY;
+          startR = simState.ridge;
+          startS = simState.slope;
+          box.style.transition = 'none';
+          e.preventDefault();
+          e.stopPropagation();
+        });
+      });
+
+      // 2. Dragging (Move Box over map)
+      box.addEventListener('mousedown', function(e) {
+        if (e.target.closest('.cad-handle, #rotate-handle, .pv-module button, .pv-module input')) return;
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        box.style.cursor = 'grabbing';
+        box.style.transition = 'none';
+        e.preventDefault();
+      });
+
+      // 3. Rotating (Angle around box center)
+      const rotateHandle = document.getElementById('rotate-handle');
+      if (rotateHandle) {
+        rotateHandle.addEventListener('mousedown', function(e) {
+          isRotating = true;
+          const rect = box.getBoundingClientRect();
+          centerX = rect.left + rect.width / 2;
+          centerY = rect.top + rect.height / 2;
+          if (rotateBadge) rotateBadge.classList.remove('hidden');
+          box.style.transition = 'none';
+          e.preventDefault();
+          e.stopPropagation();
+        });
+      }
+
+      // Mouse Move Dispatcher
+      document.addEventListener('mousemove', function(e) {
+        if (isResizing) {
+          let dx = e.clientX - startX;
+          let dy = e.clientY - startY;
+          let newR = startR;
+          let newS = startS;
+
+          if (activeHandle === 'tr') {
+            newR = startR + (dx * 0.05);
+            newS = startS - (dy * 0.05);
+          } else if (activeHandle === 'tl') {
+            newR = startR - (dx * 0.05);
+            newS = startS - (dy * 0.05);
+          } else if (activeHandle === 'br') {
+            newR = startR + (dx * 0.05);
+            newS = startS + (dy * 0.05);
+          } else if (activeHandle === 'bl') {
+            newR = startR - (dx * 0.05);
+            newS = startS + (dy * 0.05);
+          } else if (activeHandle === 'right') {
+            newR = startR + (dx * 0.05);
+          } else if (activeHandle === 'left') {
+            newR = startR - (dx * 0.05);
+          } else if (activeHandle === 'bottom') {
+            newS = startS + (dy * 0.05);
+          } else if (activeHandle === 'top') {
+            newS = startS - (dy * 0.05);
+          }
+
+          newR = Math.max(5, Math.min(30, newR));
+          newS = Math.max(3, Math.min(20, newS));
+
+          simState.ridge = newR;
+          simState.slope = newS;
+
+          const rInput = document.getElementById('input-ridge');
+          const sInput = document.getElementById('input-slope');
+          if (rInput) rInput.value = newR.toFixed(2);
+          if (sInput) sInput.value = newS.toFixed(2);
+
+          const rDisp = document.getElementById('canvas-ridge-val');
+          const sDisp = document.getElementById('canvas-slope-val');
+          if (rDisp) rDisp.textContent = newR.toFixed(2) + ' m';
+          if (sDisp) sDisp.textContent = newS.toFixed(2) + ' m';
+
+          box.style.width = (newR * 20) + 'px';
+          box.style.height = (newS * 20) + 'px';
+          box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+        } else if (isDragging) {
+          let dx = e.clientX - dragStartX;
+          let dy = e.clientY - dragStartY;
+          dragStartX = e.clientX;
+          dragStartY = e.clientY;
+          currentOffsetX += dx;
+          currentOffsetY += dy;
+          box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+
+          const disp = document.getElementById('polygonOffsetDisplay');
+          if (disp) disp.textContent = `X: ${currentOffsetX >= 0 ? '+' : ''}${currentOffsetX}px, Y: ${currentOffsetY >= 0 ? '+' : ''}${currentOffsetY}px`;
+        } else if (isRotating) {
+          const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * 180 / Math.PI;
+          let rot = Math.round(angle + 90);
+          if (rot > 180) rot -= 360;
+          if (rot < -180) rot += 360;
+          currentRotation = rot;
+
+          box.style.transform = `translate(calc(-50% + ${currentOffsetX}px), calc(-50% + ${currentOffsetY}px)) rotate(${currentRotation}deg) scale(${zoomLevel})`;
+
+          if (rotateBadge) rotateBadge.textContent = `${rot}°`;
+          const disp = document.getElementById('polygonRotationDisplay');
+          if (disp) disp.textContent = `${rot}°`;
+          const slider = document.getElementById('polygonRotationSlider');
+          if (slider && Number(slider.value) !== rot) slider.value = rot;
+        }
+      });
+
+      // Mouse Up Dispatcher (Commits changes smoothly)
+      document.addEventListener('mouseup', function() {
+        if (isResizing) {
+          isResizing = false;
+          box.style.transition = 'width 0.1s, height 0.1s';
+          updateSimulation();
+        }
+        if (isDragging) {
+          isDragging = false;
+          box.style.cursor = 'grab';
+          box.style.transition = 'width 0.1s, height 0.1s';
+        }
+        if (isRotating) {
+          isRotating = false;
+          if (rotateBadge) rotateBadge.classList.add('hidden');
+          box.style.transition = 'width 0.1s, height 0.1s';
+          updateSimulation();
+        }
+      });
+    });
+  </script>
+</body></html>
