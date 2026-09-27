@@ -1264,34 +1264,44 @@ Mikroinverter Modular
       </span>
       <span class="text-[10px] text-slate-400 block mt-0.5">Analisis Finansial 25 Tahun &amp; Titik Impas (BEP)</span>
     </div>
-    <div class="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-full text-emerald-800 text-[10px] font-bold shadow-2xs">
+    <div class="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-full text-emerald-800 text-[10px] font-bold shadow-2xs whitespace-nowrap shrink-0">
       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
       <span id="bepLabel">BEP: Thn 4.8</span>
     </div>
   </div>
 
-  <!-- Real-time Inspector Stat Strip (Integrated Financial & Ecological Analysis) -->
-  <div class="grid grid-cols-4 gap-1 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-center">
-    <div>
-      <span class="text-[8.5px] text-slate-400 font-semibold block uppercase tracking-wider">Tahun</span>
-      <span class="font-title text-[11px] font-extrabold text-slate-900 block truncate" id="roi-inspect-year">Thn 4.8 (BEP)</span>
+  <!-- Real-time Inspector Stat Strip (Integrated Financial & Ecological Analysis - Spacious 2x2 Grid) -->
+  <div class="grid grid-cols-2 gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200/90 text-left">
+    <!-- Card 1: Year & Milestone -->
+    <div class="bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs">
+      <div class="flex items-center justify-between">
+        <span class="text-[8.5px] text-slate-400 font-bold uppercase tracking-wider">Tahun Proyeksi</span>
+        <span id="roi-status-pill" class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200">BEP</span>
+      </div>
+      <span class="font-title text-xs font-extrabold text-slate-900 block mt-1" id="roi-inspect-year">Tahun 4.8 (BEP)</span>
     </div>
-    <div>
-      <span class="text-[8.5px] text-slate-400 font-semibold block uppercase tracking-wider">Arus Kas</span>
-      <span class="font-title text-[11px] font-extrabold text-emerald-600 block truncate" id="roi-inspect-val">Rp 0 (Impas)</span>
+
+    <!-- Card 2: Cumulative Cash Flow -->
+    <div class="bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs">
+      <span class="text-[8.5px] text-slate-400 font-bold uppercase tracking-wider block">Arus Kas Bersih</span>
+      <span class="font-title text-xs font-extrabold text-amber-500 block mt-1" id="roi-inspect-val">Rp 0 (Impas)</span>
     </div>
-    <div>
-      <span class="text-[8.5px] text-slate-400 font-semibold block uppercase tracking-wider">Total Hemat</span>
-      <span class="font-code-metric text-[11px] font-bold text-slate-700 block truncate" id="roi-inspect-savings">Rp 117.6M</span>
+
+    <!-- Card 3: Total Electricity Savings -->
+    <div class="bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs">
+      <span class="text-[8.5px] text-slate-400 font-bold uppercase tracking-wider block">Total Hemat Listrik</span>
+      <span class="font-code-metric text-xs font-extrabold text-slate-800 block mt-1" id="roi-inspect-savings">Rp 117.6M</span>
     </div>
-    <div>
-      <span class="text-[8.5px] text-emerald-600 font-semibold block uppercase tracking-wider">Serapan Pohon</span>
-      <span class="font-title text-[11px] font-extrabold text-emerald-700 block truncate" id="roi-inspect-eco">3.115 Pohon</span>
+
+    <!-- Card 4: Ecological Impact (Trees & CO2) -->
+    <div class="bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs">
+      <span class="text-[8.5px] text-emerald-600 font-bold uppercase tracking-wider block">Serapan Lingkungan</span>
+      <span class="font-title text-xs font-extrabold text-emerald-700 block mt-1" id="roi-inspect-eco">3.115 Pohon</span>
     </div>
   </div>
 
   <!-- Interactive Chart Area with Live Scrubbing -->
-  <div class="relative w-full h-40 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 rounded-xl border border-slate-800 p-2 overflow-hidden select-none cursor-crosshair shadow-inner" id="roi-chart-wrapper" onmousemove="onRoiChartHover(event)" onmouseleave="onRoiChartLeave()">
+  <div class="relative w-full h-44 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 rounded-xl border border-slate-800 p-2 overflow-hidden select-none cursor-crosshair shadow-inner" id="roi-chart-wrapper" onmousemove="onRoiChartHover(event)" onmouseleave="onRoiChartLeave()">
     <svg class="w-full h-full overflow-visible" id="svg-roi-chart" viewBox="0 0 340 125">
       <defs>
         <!-- Profit Green Gradient (Above Zero Line) -->
@@ -1373,15 +1383,26 @@ Mikroinverter Modular
       <text x="320" y="119" font-size="7.5" fill="#64748b" font-family="Inter" font-weight="600" text-anchor="end">Thn 25</text>
     </svg>
 
-    <!-- Floating Interactive Glassmorphic Tooltip -->
-    <div id="roi-tooltip" class="absolute pointer-events-none hidden bg-slate-900/95 backdrop-blur-md text-white px-2.5 py-1.5 rounded-lg shadow-xl border border-slate-700/80 text-left z-20 transition-all duration-75">
-      <div class="flex items-center justify-between gap-3">
-        <span class="text-[9px] text-slate-400 font-semibold" id="roi-tip-year">Tahun 5</span>
-        <span class="text-[8px] font-bold px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800" id="roi-tip-status">Profit</span>
+    <!-- Floating Interactive Glassmorphic Tooltip (Unclipped & Non-overlapping) -->
+    <div id="roi-tooltip" class="absolute pointer-events-none hidden bg-slate-900/95 backdrop-blur-md text-white px-3 py-2 rounded-xl shadow-2xl border border-slate-700/80 text-left z-30 transition-all duration-100 max-w-[210px] w-max">
+      <div class="flex items-center justify-between gap-2.5 pb-1 border-b border-slate-800">
+        <span class="text-[9.5px] text-slate-300 font-bold" id="roi-tip-year">Tahun 2.5</span>
+        <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-amber-950 text-amber-300 border border-amber-800" id="roi-tip-status">Titik Impas (BEP)</span>
       </div>
-      <p class="text-xs font-bold font-title tracking-tight mt-0.5" id="roi-tip-val">+Rp 12.400.000</p>
-      <p class="text-[8px] text-slate-300" id="roi-tip-savings">Akumulasi Hemat: Rp 147.000.000</p>
-      <p class="text-[8px] text-emerald-300 font-semibold mt-0.5" id="roi-tip-eco">🌱 Serapan: 71.5 Ton CO2 (~3.245 Pohon)</p>
+      <div class="pt-1 space-y-0.5 text-[9px]">
+        <div class="flex items-baseline justify-between gap-3">
+          <span class="text-slate-400">Arus Kas:</span>
+          <span class="font-bold font-title text-[10.5px]" id="roi-tip-val">Rp 0 (Impas)</span>
+        </div>
+        <div class="flex items-baseline justify-between gap-3">
+          <span class="text-slate-400">Total Hemat:</span>
+          <span class="font-semibold text-slate-200" id="roi-tip-savings">Rp 57.590.156</span>
+        </div>
+        <div class="flex items-baseline justify-between gap-3">
+          <span class="text-emerald-400">Serapan:</span>
+          <span class="font-semibold text-emerald-300" id="roi-tip-eco">39.5 T (~1.798 Pohon)</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2289,7 +2310,7 @@ Mikroinverter Modular
       renderRoiInspection(currentRoiYear);
     }
 
-    function renderRoiInspection(year) {
+    function renderRoiInspection(year, showTooltip = true) {
       const capex = simState.totalCapex || 103300000;
       const yearly = simState.yearlySaving || 29400000;
       const payback = simState.payback || (yearly > 0 ? capex / yearly : 4.8);
@@ -2307,7 +2328,9 @@ Mikroinverter Modular
       const valRange = maxVal - minVal;
 
       const x = xMin + (t / 25) * (xMax - xMin);
-      const cf = getRoiCashFlowAtYear(t);
+      const rawCf = getRoiCashFlowAtYear(t);
+      const isBepYear = Math.abs(t - payback) < 0.2;
+      const cf = isBepYear ? 0 : rawCf;
       const y = yBottom - ((cf - minVal) / valRange) * (yBottom - yTop);
       const totalSavings = yearly * t;
 
@@ -2326,23 +2349,42 @@ Mikroinverter Modular
       }
 
       // B. Update Top Real-time Inspector Stat Strip
-      const isBepYear = Math.abs(t - payback) < 0.2;
+      const statusPill = document.getElementById('roi-status-pill');
+      if (statusPill) {
+        if (isBepYear) {
+          statusPill.textContent = 'Titik Impas';
+          statusPill.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200';
+        } else if (Math.abs(t - 12) < 0.4) {
+          statusPill.textContent = 'Ganti Inverter';
+          statusPill.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200';
+        } else if (t === 0) {
+          statusPill.textContent = 'Investasi Awal';
+          statusPill.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 border border-rose-200';
+        } else if (cf > 0) {
+          statusPill.textContent = 'Profit Murni';
+          statusPill.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200';
+        } else {
+          statusPill.textContent = 'Balik Modal';
+          statusPill.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 border border-rose-200';
+        }
+      }
+
       const inspectYear = document.getElementById('roi-inspect-year');
       if (inspectYear) {
-        inspectYear.textContent = isBepYear ? `Thn ${t.toFixed(1)} (BEP)` : `Tahun ${t.toFixed(1)}`;
+        inspectYear.textContent = isBepYear ? `Tahun ${t.toFixed(1)} (BEP)` : `Tahun ${t.toFixed(1)}`;
       }
 
       const inspectVal = document.getElementById('roi-inspect-val');
       if (inspectVal) {
-        if (Math.abs(cf) < 500000) {
-          inspectVal.textContent = 'Rp 0 (Impas)';
-          inspectVal.className = 'font-title text-xs font-extrabold text-amber-500 block';
+        if (isBepYear || Math.abs(cf) < 300000) {
+          inspectVal.textContent = 'Rp 0 (Titik Impas)';
+          inspectVal.className = 'font-title text-xs font-extrabold text-amber-600 block mt-1';
         } else if (cf > 0) {
           inspectVal.textContent = formatRpWithSign(cf);
-          inspectVal.className = 'font-title text-xs font-extrabold text-emerald-600 block';
+          inspectVal.className = 'font-title text-xs font-extrabold text-emerald-600 block mt-1';
         } else {
           inspectVal.textContent = formatRpWithSign(cf);
-          inspectVal.className = 'font-title text-xs font-extrabold text-rose-500 block';
+          inspectVal.className = 'font-title text-xs font-extrabold text-rose-600 block mt-1';
         }
       }
 
@@ -2356,7 +2398,7 @@ Mikroinverter Modular
 
       const inspectEco = document.getElementById('roi-inspect-eco');
       if (inspectEco) {
-        inspectEco.textContent = `${cumTrees.toLocaleString('id-ID')} Pohon`;
+        inspectEco.textContent = `${cumTrees.toLocaleString('id-ID')} Pohon (~${cumCo2}T)`;
       }
 
       // C. Update Slider & Slider Label
@@ -2373,51 +2415,72 @@ Mikroinverter Modular
       const tooltip = document.getElementById('roi-tooltip');
       const wrapper = document.getElementById('roi-chart-wrapper');
       if (tooltip && wrapper) {
+        if (!showTooltip) {
+          tooltip.classList.add('hidden');
+          return;
+        }
+
         tooltip.classList.remove('hidden');
         const tipYear = document.getElementById('roi-tip-year');
         if (tipYear) tipYear.textContent = `Tahun ${t.toFixed(1)}`;
         
         const tipStatus = document.getElementById('roi-tip-status');
         if (tipStatus) {
-          if (Math.abs(cf) < 500000) {
+          if (isBepYear || Math.abs(cf) < 300000) {
             tipStatus.textContent = 'Titik Impas (BEP)';
-            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800';
+            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-amber-950 text-amber-300 border border-amber-800';
           } else if (cf > 0) {
             tipStatus.textContent = 'Profit Bersih';
-            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800';
+            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800';
           } else {
             tipStatus.textContent = 'Pemulihan Modal';
-            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800';
+            tipStatus.className = 'text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-rose-950 text-rose-300 border border-rose-800';
           }
         }
 
         const tipVal = document.getElementById('roi-tip-val');
         if (tipVal) {
-          tipVal.textContent = formatRpWithSign(cf);
-          tipVal.className = cf >= 0 ? 'text-xs font-bold font-title text-emerald-400 tracking-tight mt-0.5' : 'text-xs font-bold font-title text-rose-400 tracking-tight mt-0.5';
+          if (isBepYear || Math.abs(cf) < 300000) {
+            tipVal.textContent = 'Rp 0 (Impas)';
+            tipVal.className = 'font-bold font-title text-[10.5px] text-amber-400';
+          } else if (cf > 0) {
+            tipVal.textContent = formatRpWithSign(cf);
+            tipVal.className = 'font-bold font-title text-[10.5px] text-emerald-400';
+          } else {
+            tipVal.textContent = formatRpWithSign(cf);
+            tipVal.className = 'font-bold font-title text-[10.5px] text-rose-400';
+          }
         }
 
         const tipSavings = document.getElementById('roi-tip-savings');
         if (tipSavings) {
-          tipSavings.textContent = `Hemat Listrik: ${formatRp(totalSavings)}`;
+          tipSavings.textContent = formatRp(totalSavings);
         }
 
         const tipEco = document.getElementById('roi-tip-eco');
         if (tipEco) {
-          tipEco.textContent = `🌱 Serapan: ${cumCo2} Ton CO2 (~${cumTrees.toLocaleString('id-ID')} Pohon)`;
+          tipEco.textContent = `${cumCo2} T (~${cumTrees.toLocaleString('id-ID')} Pohon)`;
         }
 
-        // Position tooltip smoothly avoiding container edges
+        // Position tooltip smoothly: strictly clamped on X, and dynamically placed above or below the curve on Y
         const wrapperRect = wrapper.getBoundingClientRect();
-        const pctX = (x / 340);
-        let leftPx = pctX * wrapperRect.width;
-        let topPx = (y / 125) * wrapperRect.height - 58;
+        const tipWidth = tooltip.offsetWidth || 185;
+        const tipHeight = tooltip.offsetHeight || 75;
+        const halfTipW = tipWidth / 2;
 
-        if (leftPx < 65) leftPx = 65;
-        if (leftPx > wrapperRect.width - 95) leftPx = wrapperRect.width - 95;
-        if (topPx < 8) topPx = (y / 125) * wrapperRect.height + 14;
+        const rawLeftPx = (x / 340) * wrapperRect.width;
+        const clampedLeft = Math.max(halfTipW + 8, Math.min(wrapperRect.width - halfTipW - 8, rawLeftPx));
 
-        tooltip.style.left = `${leftPx}px`;
+        let topPx;
+        if (y > 56) {
+          // Point is in lower half (e.g. BEP or early deficit) -> place tooltip cleanly in upper empty sky (top: 8px)
+          topPx = 8;
+        } else {
+          // Point is in upper half (e.g. mature profit years) -> place tooltip safely below curve
+          topPx = Math.min(wrapperRect.height - tipHeight - 12, (y / 125) * wrapperRect.height + 12);
+        }
+
+        tooltip.style.left = `${clampedLeft}px`;
         tooltip.style.top = `${topPx}px`;
         tooltip.style.transform = 'translateX(-50%)';
       }
@@ -2437,19 +2500,25 @@ Mikroinverter Modular
       const year = ((clampedX - xMin) / (xMax - xMin)) * 25;
       
       clearMilestoneSelection();
-      renderRoiInspection(year);
+      renderRoiInspection(year, true);
     }
 
     function onRoiChartLeave() {
-      // Revert cleanly to snapping to BEP point so the chart is always informative
+      // Hide floating tooltip so chart is completely unobstructed and clean
+      const tooltip = document.getElementById('roi-tooltip');
+      if (tooltip) {
+        tooltip.classList.add('hidden');
+      }
+      // Revert crosshair tracking cleanly to BEP point without forcing tooltip to pop open
       if (simState.payback) {
-        snapRoiChartToBep();
+        setMilestoneActive('roi-btn-bep');
+        renderRoiInspection(simState.payback, false);
       }
     }
 
     function onRoiSliderInput(val) {
       clearMilestoneSelection();
-      renderRoiInspection(val);
+      renderRoiInspection(val, true);
     }
 
     function clearMilestoneSelection() {
@@ -2472,13 +2541,13 @@ Mikroinverter Modular
 
     function snapRoiChartToYear(year) {
       setMilestoneActive(year === 0 ? 'roi-btn-0' : (year === 12 ? 'roi-btn-12' : (year === 25 ? 'roi-btn-25' : '')));
-      renderRoiInspection(year);
+      renderRoiInspection(year, true);
     }
 
-    function snapRoiChartToBep() {
+    function snapRoiChartToBep(showTip = true) {
       const bep = simState.payback || 4.8;
       setMilestoneActive('roi-btn-bep');
-      renderRoiInspection(bep);
+      renderRoiInspection(bep, showTip);
     }
 
     // State machine router
