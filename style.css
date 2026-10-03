@@ -1,0 +1,98 @@
+    @layer base {
+      html { scroll-behavior: smooth; }
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    @keyframes radarScan {
+      0% { transform: translateY(-100%); opacity: 0.1; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(1000%); opacity: 0.1; }
+    }
+    .animate-radar {
+      animation: radarScan 3s linear infinite;
+    }
+    @keyframes solarGlint {
+      0% { transform: translateX(-150%) skewX(-20deg); opacity: 0; }
+      20% { opacity: 0.6; }
+      40% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+      100% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+    }
+    .animate-solar-glint {
+      animation: solarGlint 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-gentle-float {
+      animation: gentleFloat 6s ease-in-out infinite;
+    }
+    /* Global input & focus reset to eliminate harsh black browser/forms outlines */
+    input, textarea, select, button {
+      outline: none !important;
+    }
+    input:focus, textarea:focus, select:focus, button:focus {
+      outline: none !important;
+    }
+    /* Seamless inputs embedded in custom cards */
+    .seamless-input {
+      border: none !important;
+      border-width: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      -webkit-appearance: none !important;
+    }
+    .seamless-input:focus {
+      border: none !important;
+      border-width: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      --tw-ring-shadow: 0 0 #0000 !important;
+      --tw-shadow: 0 0 #0000 !important;
+    }
+    /* Eco-Forest Sprouting Animation ("Poing" pop-up straight upward from root) */
+    .eco-tree-stem {
+      transform-origin: 0px 0px;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      will-change: transform, opacity;
+    }
+    .eco-tree-stem.sprouted {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .eco-tree-stem.dormant {
+      transform: scale(0);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .eco-tree-stem:hover {
+      filter: brightness(1.15) drop-shadow(0 2px 4px rgba(4,120,87,0.35));
+      cursor: pointer;
+    }
+
+    /* Atmospheric Glow Pulse for Delphi Solar Calibration */
+    @keyframes auraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.65; }
+      50% { transform: scale(1.1); opacity: 0.95; }
+    }
+    .animate-aura-pulse {
+      animation: auraPulse 6s ease-in-out infinite;
+    }
+
+    /* Subtle drift for floating cards */
+    @keyframes floatDriftA {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(0.5deg); }
+    }
+    @keyframes floatDriftB {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(8px) rotate(-0.5deg); }
+    }
+    .animate-float-a {
+      animation: floatDriftA 7s ease-in-out infinite;
+    }
+    .animate-float-b {
+      animation: floatDriftB 8s ease-in-out infinite;
+    }
